@@ -1,2 +1,2 @@
 # quiz-api
-https://quizs-api.fly.dev/api/v1/quiz/
+https://quiz-api.up.railway.app/api/v1/quiz
