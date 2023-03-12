@@ -1,37 +1,29 @@
 const mongoose = require("mongoose");
 const Quiz = require("../models/quiz");
-const asyncWrapper = require("../utils/async_wrapper");
 
-const getAllQuiz = asyncWrapper(async (req, res) => {
+const getAllQuiz = async (req, res) => {
   const quiz = await Quiz.find({}).sort({ createdAt: -1 });
   res.status(200).json(quiz);
-});
+};
 
-const getQuiz = asyncWrapper(async (req, res) => {
+const getQuiz = async (req, res) => {
   const { id } = req.params;
-
   if (!mongoose.Types.ObjectId.isValid(id)) {
-    return res.status(404).json({ error: "No such quiz" });
+    throw Error("invalid request");
   }
-
   const quiz = await Quiz.findById(id);
-
   if (!quiz) {
-    return res.status(404).json({ error: "No such quiz" });
+    throw Error("quiz not found");
   }
   res.status(200).json(quiz);
-});
+};
 
-const createQuiz = asyncWrapper(async (req, res) => {
-  const {
-    category, difficulty, question, incorrect_answers, correct_answer,
-  } = req.body;
+const createQuiz = async (req, res) => {
+  const { category, difficulty, question, incorrect_answers, correct_answer } =
+    req.body;
   if (!req.body) {
-    return res.status(400).json({
-      error: "no request body",
-    });
+    throw Error("no request body");
   }
-
   try {
     const quiz = await Quiz.create({
       category,
@@ -42,46 +34,44 @@ const createQuiz = asyncWrapper(async (req, res) => {
     });
     res.status(200).json({ message: "Question added", quiz });
   } catch (error) {
-    res.status(400).json({ error: error.message });
+    throw Error(error.name);
   }
-});
+};
 
-const deleteQuiz = asyncWrapper(async (req, res) => {
+const deleteQuiz = async (req, res) => {
   const { id } = req.params;
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
-    return res.status(400).json({ error: "No such quiz" });
+    throw Error("invalid request");
   }
 
   const quiz = await Quiz.findOneAndDelete({ _id: id });
-
   if (!quiz) {
-    return res.status(400).json({ error: "No such quiz" });
+    return res.status(400).json({ error: "quiz not found" });
   }
 
   res.status(200).json({ message: "Question deleted" });
-});
+};
 
-const updateQuiz = asyncWrapper(async (req, res) => {
+const updateQuiz = async (req, res) => {
   const { id } = req.params;
-
   if (!mongoose.Types.ObjectId.isValid(id)) {
-    return res.status(400).json({ error: "No such quiz" });
+    throw Error("invalid request");
   }
-
-  const quiz = await Quiz.findOneAndUpdate(
-    { _id: id },
-    {
-      ...req.body,
-    },
-  );
-
-  if (!quiz) {
-    return res.status(400).json({ error: "No such quiz" });
+  if (!req.body) {
+    throw Error("no request body");
   }
+  const updatedQuiz = await Quiz.findByIdAndUpdate(req.params.id, req.body, {
+    new: true,
+    runValidators: true,
+    context: "query",
+  });
 
-  res.status(200).json({ message: "Question updated", quiz });
-});
+  if (!updatedQuiz) {
+    return res.status(400).json({ error: "quiz not found" });
+  }
+  res.status(200).json({ message: "Question updated", updatedQuiz });
+};
 
 module.exports = {
   getAllQuiz,
