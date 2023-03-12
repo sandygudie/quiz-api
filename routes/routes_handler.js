@@ -1,5 +1,5 @@
-const quizRoute = require("./quiz");
+const quizRoute = require('./quiz')
 
 module.exports = function (app) {
-  app.use("/api/v1/quiz", quizRoute);
-};
+  app.use('/api/v1/quiz', quizRoute)
+}

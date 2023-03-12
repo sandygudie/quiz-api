@@ -1,35 +1,35 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose')
 
 const quizSchema = new mongoose.Schema({
   category: {
     type: String,
-    required: true,
+    required: true
   },
   difficulty: {
     type: String,
-    required: true,
+    required: true
   },
   question: {
     type: String,
-    required: true,
+    required: true
   },
   incorrect_answers: {
     type: Array,
-    required: true,
+    required: true
   },
   correct_answer: {
     type: String,
-    required: true,
+    required: true
   },
-  date: Date,
-});
+  date: Date
+})
 
-quizSchema.set("toJSON", {
+quizSchema.set('toJSON', {
   transform: (document, returnedObject) => {
-    returnedObject.id = returnedObject._id.toString();
-    delete returnedObject._id;
-    delete returnedObject.__v;
-  },
-});
+    returnedObject.id = returnedObject._id.toString()
+    delete returnedObject._id
+    delete returnedObject.__v
+  }
+})
 
-module.exports = mongoose.model("Quiz", quizSchema);
+module.exports = mongoose.model('Quiz', quizSchema)
