@@ -17,8 +17,5 @@ app.use(middleware.errorHandler)
 
 module.exports = app
 
-// review eslint rules
-// install prettier
-// install husky
 // set up api documentation
 // set up postman documentataion

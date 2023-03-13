@@ -33,7 +33,7 @@ const createQuiz = async (req, res) => {
     })
     res.status(200).json({ message: 'Question added', quiz })
   } catch (error) {
-    throw Error(error.name)
+    throw Error(error)
   }
 }
 
@@ -53,23 +53,23 @@ const deleteQuiz = async (req, res) => {
 }
 
 const updateQuiz = async (req, res) => {
+  // if (!req.body) {
+  //   throw Error('no request body')
+  // }
   const { id } = req.params
   if (!mongoose.Types.ObjectId.isValid(id)) {
     throw Error('invalid request')
   }
-  if (!req.body) {
-    throw Error('no request body')
+  try {
+    const updatedQuiz = await Quiz.findByIdAndUpdate(req.params.id, req.body, {
+      new: true,
+      runValidators: true,
+      context: 'query'
+    })
+    res.status(200).json({ message: 'Question updated', updatedQuiz })
+  } catch (error) {
+    throw Error('request failed')
   }
-  const updatedQuiz = await Quiz.findByIdAndUpdate(req.params.id, req.body, {
-    new: true,
-    runValidators: true,
-    context: 'query'
-  })
-
-  if (!updatedQuiz) {
-    return res.status(400).json({ error: 'quiz not found' })
-  }
-  res.status(200).json({ message: 'Question updated', updatedQuiz })
 }
 
 module.exports = {
