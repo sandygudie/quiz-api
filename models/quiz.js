@@ -10,6 +10,7 @@ const quizSchema = new mongoose.Schema({
     required: true
   },
   question: {
+    trim: true,
     type: String,
     required: true
   },
@@ -21,7 +22,7 @@ const quizSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  date: Date
+  createdAt: Date
 })
 
 quizSchema.set('toJSON', {
@@ -33,3 +34,6 @@ quizSchema.set('toJSON', {
 })
 
 module.exports = mongoose.model('Quiz', quizSchema)
+
+// Add joi validation
+// https://www.topcoder.com/thrive/articles/data-validation-in-nodejs-and-express-using-joi#:~:text=Even%20if%20you%20somehow%20manage,the%20documentation%20on%20Joi%20here.

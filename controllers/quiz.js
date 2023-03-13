@@ -1,11 +1,26 @@
 const mongoose = require('mongoose')
 const Quiz = require('../models/quiz')
 
+/**
+ * Get Quizzes
+ *
+ * To get all quiz data
+ * The quiz data is sorted in desc based on the created date
+ *
+ * @returns {object} quiz
+ */
 const getAllQuiz = async (req, res) => {
   const quiz = await Quiz.find({}).sort({ createdAt: -1 })
   res.status(200).json(quiz)
 }
 
+/**
+ * Get a particular quiz data
+ *
+ * @param {number} req.params.id
+ *
+ * @returns {object} quiz
+ */
 const getQuiz = async (req, res) => {
   const { id } = req.params
   if (!mongoose.Types.ObjectId.isValid(id)) {
@@ -18,6 +33,17 @@ const getQuiz = async (req, res) => {
   res.status(200).json(quiz)
 }
 
+/**
+ * To create a new quiz
+ *
+ * @param {string}  req.body.category
+ * @param {string}  req.body.difficulty
+ * @param {string}  req.body.question
+ * @param {array}  req.body.incorrect_answers
+ * @param {string}  req.body.correct_answer
+ *
+ * @return {object} quiz created
+ */
 const createQuiz = async (req, res) => {
   const { category, difficulty, question, incorrect_answers, correct_answer } = req.body
   if (!req.body) {
@@ -37,6 +63,13 @@ const createQuiz = async (req, res) => {
   }
 }
 
+/**
+ * Delete a quiz
+ *
+ * @param {number} req.params.id
+ *
+ * @returns {object} res.message
+ */
 const deleteQuiz = async (req, res) => {
   const { id } = req.params
 
@@ -52,6 +85,13 @@ const deleteQuiz = async (req, res) => {
   res.status(200).json({ message: 'Question deleted' })
 }
 
+/**
+ * Update a quiz
+ *
+ * @param {number} req.params.id
+ *
+ * @returns {object} updatedQuiz
+ */
 const updateQuiz = async (req, res) => {
   // if (!req.body) {
   //   throw Error('no request body')
