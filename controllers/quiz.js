@@ -2,11 +2,8 @@ const mongoose = require('mongoose')
 const Quiz = require('../models/quiz')
 
 /**
- * Get Quizzes
- *
  * To get all quiz data
  * The quiz data is sorted in desc based on the created date
- *
  * @returns {object} quiz
  */
 const getAllQuiz = async (req, res) => {
@@ -16,9 +13,7 @@ const getAllQuiz = async (req, res) => {
 
 /**
  * Get a particular quiz data
- *
  * @param {number} req.params.id
- *
  * @returns {object} quiz
  */
 const getQuiz = async (req, res) => {
@@ -35,13 +30,11 @@ const getQuiz = async (req, res) => {
 
 /**
  * To create a new quiz
- *
  * @param {string}  req.body.category
  * @param {string}  req.body.difficulty
  * @param {string}  req.body.question
  * @param {array}  req.body.incorrect_answers
  * @param {string}  req.body.correct_answer
- *
  * @return {object} quiz created
  */
 const createQuiz = async (req, res) => {
@@ -65,9 +58,7 @@ const createQuiz = async (req, res) => {
 
 /**
  * Delete a quiz
- *
  * @param {number} req.params.id
- *
  * @returns {object} res.message
  */
 const deleteQuiz = async (req, res) => {
@@ -87,9 +78,7 @@ const deleteQuiz = async (req, res) => {
 
 /**
  * Update a quiz
- *
  * @param {number} req.params.id
- *
  * @returns {object} updatedQuiz
  */
 const updateQuiz = async (req, res) => {
