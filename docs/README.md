@@ -4,9 +4,9 @@
 An open source RESTFUL API quiz for popular programming languages. It consists of Multiple Choice Questions(MCQs) in various areas including: HTML,CSS,JavaScript. NextJs etc.
 
 ### Deployment
-- API:  https://quiz-api.up.railway.app/api/v1/quiz
+- Documentation: https://sandygudie.github.io/quiz-api/#/
 - Postman API Documentation: https://documenter.getpostman.com/view/9434341/2s93JtRPcV
-- Demo:
+- Demo App:
 
 ### Technology/Tools
 - [**NodeJs 4.18.2**](https://nodejs.org/en/) - A cross-platform JavaScript runtime environment for developing server-side applications
@@ -21,6 +21,7 @@ An open source RESTFUL API quiz for popular programming languages. It consists o
 ```
 .husky
 node_modules/
+docs/
 controllers/
    -- quiz.js
 routes/
@@ -66,7 +67,7 @@ package.json
    yarn run dev
   ```
 
-### Formatting for the project
+ ### Formatting for the project
 - We're using `eslint` for js linting, and `prettier` for code formatting.
 - Please make it a point to install `eslint` and `prettier` plugins on vscode to aid in your coding process.
 - Run the command to fix all auto-fixable formatting errors in the whole project based on `eslint` rules
@@ -80,7 +81,7 @@ package.json
 - Also Linting has been set up for staged commits in the project.
   
   <br/>
-
-### CONTRIBUTING WORKFLOW
+  <br/>
+## CONTRIBUTING WORKFLOW
 - If you like it, leave your star in this project.
 - If you would like to complain/suggest/contribute to this project, feel free to open a issue :heart_decoration:

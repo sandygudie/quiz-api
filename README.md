@@ -4,9 +4,9 @@
 An open source RESTFUL API quiz for popular programming languages. It consists of Multiple Choice Questions(MCQs) in various areas including: HTML,CSS,JavaScript. NextJs etc.
 
 ### Deployment
-- API:  https://quiz-api.up.railway.app/api/v1/quiz
+- Documentation: https://sandygudie.github.io/quiz-api/#/
 - Postman API Documentation: https://documenter.getpostman.com/view/9434341/2s93JtRPcV
-- Demo:
+- Demo App:
 
 ### Technology/Tools
 - [**NodeJs 4.18.2**](https://nodejs.org/en/) - A cross-platform JavaScript runtime environment for developing server-side applications
