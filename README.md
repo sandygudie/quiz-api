@@ -21,6 +21,7 @@ An open source RESTFUL API quiz for popular programming languages. It consists o
 ```
 .husky
 node_modules/
+docs/
 controllers/
    -- quiz.js
 routes/
