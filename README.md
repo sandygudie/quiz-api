@@ -100,8 +100,8 @@ package.json
   <br/>
   <br/>
 
-### Deployment
-To fly
+### Deployment on Render
+- Applicaton is on auto deploy from github
 
 ## CONTRIBUTING WORKFLOW
 
