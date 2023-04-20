@@ -24,4 +24,5 @@ http://localhost:8080/api/v1/quiz?category=HTML
 ```
 
 ## API Generator
-You can quickly generate an API with the  **[API Generator](../src/pages/api-helper.js)**
+
+You can quickly generate an API with the **[API Generator](../src/pages/api-helper.js)**

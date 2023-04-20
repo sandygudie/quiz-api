@@ -12,18 +12,20 @@ sidebar_position: 1
 You can search for questions using any of the following queries:
 
 **Category**
+
 - HTML
 - CSS
 - Javascript
 
 **Difficulty**
+
 - Easy
-- Medium. 
+- Medium.
 - Hard
 
 **Limit**
-- Minimum - 5
 
+- Minimum - 5
 
 ## Example
 
@@ -33,7 +35,9 @@ fetch('https://quiz-api.up.railway.app/api/v1/quiz')
       .then(json => console.log(json))
 
 ```
+
 #### Response Data
+
 ```
 [
   {
@@ -51,4 +55,3 @@ fetch('https://quiz-api.up.railway.app/api/v1/quiz')
 
 ]
 ```
-
