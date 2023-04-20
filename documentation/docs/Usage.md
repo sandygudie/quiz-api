@@ -5,7 +5,7 @@ sidebar_position: 2
 ### BaseUrl
 
 ```
-https://quiz-api.up.railway.app/api/v1/quiz
+https://quizbase.onrender.com/api/v1/quiz
 ```
 
 ### Query parameters
@@ -19,7 +19,7 @@ https://quiz-api.up.railway.app/api/v1/quiz
 ### Example
 
 ```
-http://localhost:8080/api/v1/quiz?category=HTML
+https://quizbase.onrender.com/api/v1/quiz?category=HTML
 
 ```
 
