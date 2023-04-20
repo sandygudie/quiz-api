@@ -1,0 +1,133 @@
+/**
+ * CSS files with the .module.css suffix will be treated as CSS modules
+ * and scoped locally.
+ */
+
+.heroBanner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 4em auto;
+}
+.heroBanner .content {
+  margin-bottom: 2em;
+}
+.heroBanner h1 {
+  font-size: 45px;
+  font-weight: bold;
+  color: #42b883;
+}
+.heroBanner p {
+  font-size: 25px;
+  margin: 0.3em 0em 1em 0em;
+  font-weight: 600;
+  color: #3c3c3cb3;
+}
+.heroBanner .btn {
+  cursor: pointer;
+  font-size: 18px;
+  padding: 0.8em 0.8em;
+  color: white;
+  display: block;
+  width: 200px;
+  border-radius: 10px;
+  border: none;
+  background-color: #42b883;
+  font-weight: 600;
+}
+.heroBanner img {
+  width: 250px;
+  margin: auto;
+}
+
+@media screen and (max-width: 700px) {
+  .heroBanner {
+    padding: 0em;
+  }
+  .heroBanner img {
+    display: none;
+  }
+  .heroBanner h1 {
+    font-size: 40px;
+  }
+  .heroBanner p {
+    font-size: 20px;
+  }
+}
+
+.buttons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.features {
+  margin: 4em auto;
+  text-align: center;
+}
+
+.features img {
+  width: 500px;
+}
+
+/* API-helper */
+.api-helper {
+  width: 70%;
+  margin: 2em auto;
+}
+.api-helper h1 {
+  color: white;
+  text-align: center;
+  background-color: black;
+  padding: 0.5em;
+}
+
+.api-helper h2 {
+  font-size: 16px;
+  margin: 2em 0em 1em 0em;
+}
+.api-helper .generatedurl {
+  background-color: rgb(3, 83, 3);
+  padding: 0.8em 2em;
+  font-weight: 600;
+  font-size: 16px;
+  color: white;
+  margin: 0;
+  width: fit-content;
+  text-align: center;
+  border-radius: 4px;
+}
+
+.api-helper .form .field {
+  margin: 1.5em 0;
+  width: 100%;
+}
+.api-helper .form .field label {
+  font-weight: 600;
+  font-size: 18px;
+}
+.api-helper .form .field input,
+.api-helper .form .field select {
+  border: 1px solid gray;
+  padding: 1.2em;
+  width: 100%;
+  border-radius: 8px;
+  background-color: white;
+}
+
+.api-helper .form button {
+  cursor: pointer;
+  font-size: 16px;
+  padding: 1em 2em;
+  margin: 2em auto 0em;
+  color: white;
+  text-align: center;
+  display: block;
+  width: 200px;
+  border-radius: 5px;
+  border: none;
+  background-color: black;
+  font-weight: 700;
+}
+
+/* work on the theme */

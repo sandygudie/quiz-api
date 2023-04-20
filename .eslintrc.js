@@ -2,12 +2,14 @@ module.exports = {
   env: {
     browser: true,
     commonjs: true,
-    es2021: true
+    es2021: true,
+    node: true
   },
   extends: ['eslint:recommended', 'prettier'],
   overrides: [],
   parserOptions: {
-    ecmaVersion: 'latest'
+    ecmaVersion: 'latest',
+    sourceType: 'module'
   },
   rules: {
     'no-trailing-spaces': 'error',

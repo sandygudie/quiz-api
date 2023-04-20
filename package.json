@@ -2,10 +2,10 @@
   "name": "quiz-api",
   "version": "1.0.0",
   "description": "A Rest Api for software programming quiz questions",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
-    "start": "cross-env NODE_ENV=production node index.js",
-    "dev": "cross-env NODE_ENV=development nodemon index.js",
+    "start": "cross-env NODE_ENV=production node src/server.js",
+    "dev": "cross-env NODE_ENV=development nodemon src/server.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint --fix --ext .js,.jsx .",
     "format": "prettier --write .",
@@ -14,13 +14,20 @@
   "author": "Goodnews Sandy",
   "license": "ISC",
   "dependencies": {
+    "bcrypt": "^5.1.0",
     "cors": "^2.8.5",
     "cross-env": "^7.0.3",
     "dotenv": "^16.0.3",
+    "ejs": "^3.1.9",
+    "eslint-plugin-react": "^7.32.2",
     "express": "^4.18.2",
     "express-async-errors": "^3.1.1",
     "express-async-handler": "^1.2.0",
-    "mongoose": "^7.0.0"
+    "http-errors": "^2.0.0",
+    "jsonwebtoken": "^9.0.0",
+    "mongoose": "^7.0.0",
+    "nodemailer": "^6.9.1",
+    "uuid": "^9.0.0"
   },
   "devDependencies": {
     "eslint": "^7.32.0 || ^8.2.0",
@@ -38,5 +45,5 @@
   "lint-staged": {
     "*.{ts,tsx,js}": "yarn lint",
     "*.css": "yarn format"
-    }
+  }
 }
