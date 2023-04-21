@@ -5,7 +5,7 @@
 An open source RESTFUL API quiz questions for popular programming languages. It consists of Multiple Choice Questions(MCQs) in various areas including: HTML,CSS,JavaScript. NextJs etc.
 
 ### Resources
-- Documentation: https://sandygudie.github.io/quiz-api/#/
+- Documentation: https://quizbase-docs.netlify.app/docs/getting-started
 - Demo App: 
 
 ### Technology/Tools
