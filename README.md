@@ -1,4 +1,4 @@
-# Quiz-api
+# QuizBase
 
 ### Description
 
@@ -7,7 +7,7 @@ An open source RESTFUL API quiz questions for popular programming languages. It 
 ### Deployment
 
 - Documentation: https://sandygudie.github.io/quiz-api/#/
-- Postman API Documentation: https://documenter.getpostman.com/view/9434341/2s93JtRPcV
+- Postman API Documentation: https://documenter.getpostman.com/view/9434341/2s93Y3v1bu
 - Demo App:
 
 ### Technology/Tools
@@ -101,7 +101,7 @@ package.json
   <br/>
 
 ### Deployment on Render
-- Applicaton is on auto deploy from github
+- Applicaton is on auto deploy from Github to Render
 
 ## CONTRIBUTING WORKFLOW
 
