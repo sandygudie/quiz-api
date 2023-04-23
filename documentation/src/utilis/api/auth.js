@@ -1,6 +1,5 @@
 import makeApiCall from '.'
 
-
 export async function signUp(payload) {
   return await makeApiCall('/auth/register', 'post', payload)
 }

@@ -5,8 +5,9 @@
 An open source RESTFUL API quiz questions for popular programming languages. It consists of Multiple Choice Questions(MCQs) in various areas including: HTML,CSS,JavaScript. NextJs etc.
 
 ### Resources
+
 - Documentation: https://quizbase-docs.netlify.app/docs/getting-started
-- Demo App: 
+- Demo App:
 
 ### Technology/Tools
 
@@ -99,11 +100,12 @@ package.json
   <br/>
 
 ### Deployment on Render
+
 <<<<<<< HEAD
-- Application is on auto deploy from github
-=======
+
+- # Application is on auto deploy from github
 - Applicaton is on auto deploy from Github to Render
->>>>>>> 6cfe5d6abf28be15429cf9fff220fa57b8870fdb
+  > > > > > > > 6cfe5d6abf28be15429cf9fff220fa57b8870fdb
 
 ## CONTRIBUTING WORKFLOW
 

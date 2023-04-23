@@ -31,5 +31,3 @@ module.exports = app
 // and email and password login
 // verification
 // reset password
-
-

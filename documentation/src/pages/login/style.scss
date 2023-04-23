@@ -1,4 +1,4 @@
-@import "../../css/mixins.scss";
+@import '../../css/mixins.scss';
 
 .login-signup {
   max-width: 450px;
@@ -63,7 +63,7 @@
     }
     .field {
       position: relative;
-      margin-bottom:30px;
+      margin-bottom: 30px;
       text-align: left;
     }
     .field input {
@@ -141,7 +141,7 @@
     width: 300px;
     margin: auto;
     @include ipad {
-      width:400px
+      width: 400px;
     }
   }
   &__content {
@@ -159,17 +159,15 @@
       @include ipad {
         font-size: 17px;
       }
-      &-link{
-        
+      &-link {
         font-weight: 600;
         color: var(--ifm-color-primary);
       }
     }
-    &__checkmail{
+    &__checkmail {
       margin-top: 2em;
       font-size: 15px;
       font-weight: 600;
     }
   }
 }
-

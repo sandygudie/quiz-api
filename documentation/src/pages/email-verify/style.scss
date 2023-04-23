@@ -1,12 +1,11 @@
-@import "../../css/mixins.scss";
+@import '../../css/mixins.scss';
 
 .verifyEmail {
   @include flex(center, center);
-  height:100vh;
+  height: 100vh;
   &__content {
     text-align: center;
     &__icon {
-  
       height: 100px;
       width: 100px;
       margin: auto;
@@ -36,20 +35,20 @@
       @include button(auto, var(--green), var(--white));
     }
   }
-  &__invalid{
-    color:var(--error);
-    font-size:40px;
+  &__invalid {
+    color: var(--error);
+    font-size: 40px;
     font-weight: 700;
-    text-align:center;
+    text-align: center;
   }
-  &__subtitle{
+  &__subtitle {
     margin: 1em 0;
-    text-align:center;
+    text-align: center;
     font-weight: 700;
-    font-size:18px;
-    a{
+    font-size: 18px;
+    a {
       text-decoration: underline;
-      color:var(--green)
+      color: var(--green);
     }
   }
 }

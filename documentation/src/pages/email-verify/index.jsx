@@ -35,10 +35,7 @@ export default function EmailVerify() {
             <GiCheckMark />
           </div>
           <h1 className="verifyEmail__content__header">Email Verification Successful!</h1>
-          <button
-            onClick={() => history.push("/login")}
-            className="verifyEmail__content__btn"
-          >
+          <button onClick={() => history.push('/login')} className="verifyEmail__content__btn">
             Login
           </button>
         </div>

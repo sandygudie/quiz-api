@@ -3,7 +3,7 @@
 
 const lightCodeTheme = require('prism-react-renderer/themes/github')
 const darkCodeTheme = require('prism-react-renderer/themes/dracula')
-require('dotenv').config();
+require('dotenv').config()
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
@@ -33,7 +33,7 @@ const config = {
   },
   customFields: {
     // Put your custom environment here
-    baseUrl: process.env.REACT_APP_API_BASEURL,
+    baseUrl: process.env.REACT_APP_API_BASEURL
   },
 
   plugins: ['docusaurus-plugin-sass'],
@@ -49,8 +49,7 @@ const config = {
           editUrl: 'https://github.com/sandygudie/quiz-api'
         },
         theme: {
-          customCss: [require.resolve('./src/css/custom.scss')],
-    
+          customCss: [require.resolve('./src/css/custom.scss')]
         }
       })
     ]

@@ -4,8 +4,8 @@ const { errorResponse, successResponse } = require('../utils/responseHandler')
 const { generateToken } = require('../utils/token')
 const { sendEmail } = require('../utils/sendEmail/emailhandler')
 
-const emailVerification = async (user) => {
-  const verification_url = `http://localhost:8080/api/v1/auth/verifyemail/${user.token}`
+const emailVerification = async (hostUrl, user) => {
+  const verification_url = `${hostUrl}/api/v1/auth/verifyemail/${user.token}`
   await sendEmail({
     email: user.email,
     subject: 'Verify your email address',
@@ -46,7 +46,7 @@ const register = async (req, res) => {
   const newUser = await user.save()
 
   // Send verification link
-  await emailVerification(newUser)
+  await emailVerification(req.headers.host, newUser)
 
   return successResponse(
     res,
@@ -56,10 +56,6 @@ const register = async (req, res) => {
   )
 }
 
-/**
- * To create a new User
- * @return {object} User created
- */
 const login = async (req, res) => {
   const { email, password } = req.body
   if (!req.body) {
