@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import Layout from '@theme/Layout'
 import "./style.scss";
 
-export default function APIhelper() {
+export default function ApiHelper() {
   const [category, setCategory] = useState('')
   const [difficulty, setDifficulty] = useState('')
   const [limit, setLimit] = useState(0)

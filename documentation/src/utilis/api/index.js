@@ -1,10 +1,9 @@
-import axios  from 'axios'
+import axios from 'axios'
 import { TOKEN_KEY } from '../constants'
 import { ToastContainer, toast } from 'react-toastify'
 
 const token = localStorage.getItem(TOKEN_KEY)
-const baseURL = "https://quizbase.onrender.com/api/v1"
-
+const baseURL = 'https://quizbase.onrender.com/api/v1'
 
 if (token) {
   axios.defaults.headers.common.Authorization = `Bearer ${token}`
@@ -13,7 +12,7 @@ if (token) {
 async function makeApiCall(url, method, payload, axiosRequestConfig) {
   try {
     if (!baseURL || typeof baseURL !== 'string') {
-      throw new Error('REACT_API_BASEURL is not defined')
+      throw new Error('BASEURL is not defined')
     }
     const { data } = await axios({
       url,

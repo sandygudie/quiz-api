@@ -1,56 +1,51 @@
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 import Layout from '@theme/Layout'
-import "./style.scss";
-import useFetch from "../../hooks/useFetch";
-import { MdOutlineVisibilityOff, MdOutlineVisibility } from "react-icons/md";
-import { FcGoogle } from "react-icons/fc";
-import Spinner from "../../components/Spinner";
+import './style.scss'
+import { login } from '../../utilis/api/auth'
+import { MdOutlineVisibilityOff, MdOutlineVisibility } from 'react-icons/md'
+import { FcGoogle } from 'react-icons/fc'
+import Spinner from '../../components/Spinner'
+import { ToastContainer, toast } from 'react-toastify'
+import { setToken } from '../../utilis'
+import { useHistory } from '@docusaurus/router'
+import Link from '@docusaurus/Link'
 
-export default function login() {
+export default function Login() {
   const [toggleVisibility, setToggleVisibility] = useState(false)
   const [isError, setError] = useState(false)
   const [isLoading, setLoading] = useState(false)
-
-  // const { handleGoogle, loading } = useFetch();
-
-  // const googlelogin = useGoogleLogin({
-  //   onSuccess: (codeResponse) => handleGoogle(codeResponse.code),
-  //   flow: "auth-code",
-  // });
-
+  const history = useHistory()
   const loginHandler = async (event) => {
-    setError(false);
-    event.preventDefault();
+    event.preventDefault()
+    setError(false)
     try {
-      const formData= {
+      const formData = {
         email: event.target.email.value,
-        password: event.target.password.value,
-      };
-      setLoading(true);
-      let response = await signIn(formData);
-
+        password: event.target.password.value
+      }
+      setLoading(true)
+      let response = await login(formData)
       if (response.success) {
-        setToken(response.data.access_token);
-        navigate("/dashboard");
+        setToken(response.data.token)
+        return history.push('/board')
       }
     } catch (error) {
-      setError(true);
+      setError(true)
       toast.error(error.message, {
         position: toast.POSITION.TOP_CENTER,
         autoClose: 5000,
-        theme: "colored",
-      });
-    } finally {
-      setLoading(false);
+        theme: 'colored'
+      })
+      setLoading(false)
     }
-  };
+  }
   return (
     <>
       <Layout title={'login'} description="login">
         <section className="login-signup">
           <h1 className="login-signup__heading">QuizBase</h1>
           <div className="login-signup__google">
-            <button className="login-signup__google__login-btn" >
+            <button className="login-signup__google__login-btn">
               Sign in with Google <FcGoogle />
             </button>
           </div>
@@ -69,7 +64,7 @@ export default function login() {
               <input
                 type="email"
                 name="email"
-                placeholder='Email'
+                placeholder="Email"
                 required
                 className={`${isError && 'error-input'}`}
               />
@@ -81,7 +76,7 @@ export default function login() {
               </label>
               <input
                 type={toggleVisibility ? 'text' : 'password'}
-                placeholder='Password'
+                placeholder="Password"
                 required
                 name="password"
                 className={`${isError && 'error-input'}`}
@@ -103,18 +98,19 @@ export default function login() {
             </div>
           </form>
           <div className="login-signup__bottom">
-            <a href="/forgotpassword" className="login-signup__bottom-forgotpassword-link ">
+            <Link to="/forgotpassword" className="login-signup__bottom-forgotpassword-link ">
               {' '}
               forgot password?
-            </a>
+            </Link>
             <div className="login-signup__bottom-content">
               Don't have an account?{' '}
-              <a href="/signup" className="login-signup__bottom-content__link">
+              <Link to="/register" className="login-signup__bottom-content__link">
                 Sign Up
-              </a>
+              </Link>
             </div>
           </div>
         </section>
+        <ToastContainer />
       </Layout>
     </>
   )

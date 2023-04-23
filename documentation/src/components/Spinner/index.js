@@ -1,5 +1,5 @@
-import "./spinner.scss";
-
+import React, { useState } from 'react'
+import './spinner.scss'
 
 const index = ({ width, height, color }) => {
   return (
@@ -9,7 +9,7 @@ const index = ({ width, height, color }) => {
         className="spinner__animate"
       />
     </div>
-  );
-};
+  )
+}
 
-export default index;
+export default index
