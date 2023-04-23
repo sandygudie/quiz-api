@@ -2,7 +2,10 @@ import axios from 'axios'
 import { TOKEN_KEY } from '../constants'
 import { ToastContainer, toast } from 'react-toastify'
 
-const token = localStorage.getItem(TOKEN_KEY)
+let token
+if (typeof window !== 'undefined') {
+  token = localStorage.getItem(TOKEN_KEY)
+}
 const baseURL = 'https://quizbase.onrender.com/api/v1'
 
 if (token) {

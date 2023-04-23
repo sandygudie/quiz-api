@@ -13,40 +13,35 @@ export default function Register() {
   const [isLoading, setLoading] = useState(false)
 
   const registerHandler = async (event) => {
-    event.preventDefault()
-    setLoading(true)
-    try {
-      const formData = {
-        username: event.target.username.value,
-        email: event.target.email.value,
-        password: event.target.password.value
-      }
-      const response = await signUp(formData)
-      if (response.success) {
-        toast.success('Successfully! Check email for verification link', {
+      event.preventDefault()
+      setLoading(true)
+      try {
+        const formData = {
+          username: event.target.username.value,
+          email: event.target.email.value,
+          password: event.target.password.value
+        }
+        const response = await signUp(formData)
+        if (response.success) {
+          toast.success('Successfully! Check email for verification link', {
+            position: toast.POSITION.TOP_CENTER,
+            autoClose: false,
+            theme: 'colored'
+          })
+          setLoading(false)
+        }
+      } catch (error) {
+        toast.error(error.message, {
           position: toast.POSITION.TOP_CENTER,
-          autoClose: false,
+          autoClose: 5000,
           theme: 'colored'
         })
         setLoading(false)
       }
-    } catch (error) {
-      toast.error(error.message, {
-        position: toast.POSITION.TOP_CENTER,
-        autoClose: 5000,
-        theme: 'colored'
-      })
-      setLoading(false)
-    }
   }
 
   return (
     <Layout title={'signup'} description="Register">
-      {/* {isSendVerifyLink ? (
-        <VerificationLink emailLink={email} />
-      ) : loading ? (
-        <Spinner width="100px" height="100px" color="#009985" />
-      ) : ( */}
       <section className="login-signup">
         <h1 className="login-signup__heading">Sign Up to MOOCs</h1>
         <div className="login-signup__google">

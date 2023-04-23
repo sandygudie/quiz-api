@@ -98,7 +98,7 @@ export default function Login() {
             </div>
           </form>
           <div className="login-signup__bottom">
-            <Link to="/forgotpassword" className="login-signup__bottom-forgotpassword-link ">
+            <Link to="" className="login-signup__bottom-forgotpassword-link ">
               {' '}
               forgot password?
             </Link>

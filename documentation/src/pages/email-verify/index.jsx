@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import './style.scss'
-import { useParams, useNavigate } from 'react-router-dom'
+import { useParams} from 'react-router-dom'
 import { verifyEmail } from '../../utilis/api/auth'
 import { GiCheckMark } from 'react-icons/gi'
 import Link from '@docusaurus/Link'
