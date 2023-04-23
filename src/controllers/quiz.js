@@ -7,6 +7,7 @@ const { errorResponse, successResponse } = require('../utils/responseHandler')
  * The quiz data is sorted in desc based on the created date
  * @returns {object} quiz
  */
+
 const getAllQuizs = async (req, res) => {
   let limit = req.query.limit && req.query.limit <= 100 ? parseInt(req.query.limit) : 10
   let quizs

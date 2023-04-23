@@ -1,8 +1,9 @@
 import React from 'react'
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext'
 import Layout from '@theme/Layout'
+import 'react-toastify/dist/ReactToastify.css';
 
-import './index.css'
+import './index.scss'
 
 export default function Home() {
   const { siteConfig } = useDocusaurusContext()

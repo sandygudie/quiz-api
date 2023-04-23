@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import Layout from '@theme/Layout'
+import "./style.scss";
 
 export default function APIhelper() {
   const [category, setCategory] = useState('')

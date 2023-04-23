@@ -101,7 +101,7 @@ package.json
   <br/>
 
 ### Deployment on Render
-- Applicaton is on auto deploy from github
+- Application is on auto deploy from github
 
 ## CONTRIBUTING WORKFLOW
 

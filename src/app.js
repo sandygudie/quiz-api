@@ -26,6 +26,10 @@ app.use(middleware.defaultErrorHandler)
 module.exports = app
 
 // Todo
-// rewrite postman
-// redeploy to railway, add env variables
-// update readme
+// to contribute
+// Login with google and github
+// and email and password login
+// verification
+// reset password
+
+

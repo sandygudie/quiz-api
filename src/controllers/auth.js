@@ -18,7 +18,7 @@ const emailVerification = async (user) => {
  * @return {object} User created
  */
 const register = async (req, res) => {
-  const { email, password } = req.body
+  const { username, email, password } = req.body
   if (!req.body) {
     return errorResponse(res, 400, 'no request body')
   }
@@ -35,7 +35,8 @@ const register = async (req, res) => {
 
   // Create a new user
   const user = new User({
-    email: req.body.email,
+    username: username,
+    email: email,
     password: passwordHash
   })
   // Generate token
