@@ -1,14 +1,12 @@
-# Quiz-api
+# QuizBase
 
 ### Description
 
 An open source RESTFUL API quiz questions for popular programming languages. It consists of Multiple Choice Questions(MCQs) in various areas including: HTML,CSS,JavaScript. NextJs etc.
 
-### Deployment
-
-- Documentation: https://sandygudie.github.io/quiz-api/#/
-- Postman API Documentation: https://documenter.getpostman.com/view/9434341/2s93JtRPcV
-- Demo App:
+### Resources
+- Documentation: https://quizbase-docs.netlify.app/docs/getting-started
+- Demo App: 
 
 ### Technology/Tools
 
@@ -101,7 +99,11 @@ package.json
   <br/>
 
 ### Deployment on Render
+<<<<<<< HEAD
 - Application is on auto deploy from github
+=======
+- Applicaton is on auto deploy from Github to Render
+>>>>>>> 6cfe5d6abf28be15429cf9fff220fa57b8870fdb
 
 ## CONTRIBUTING WORKFLOW
 
