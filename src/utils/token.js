@@ -2,10 +2,14 @@ const jwt = require('jsonwebtoken')
 const { errorResponse } = require('../utils/responseHandler')
 
 const generateToken = async (user) => {
-  const access_token = jwt.sign({ id: user.id }, process.env.JWT_SECRET, {
-    expiresIn: 86400
+  const access_token = jwt.sign({ id: user.id }, process.env.ACCESS_TOKEN_JWT_SECRET, {
+    expiresIn: '1hr'
   })
-  return { access_token }
+  const refreshToken = jwt.sign({ id: user.id }, process.env.REFRESH_TOKEN_JWT_SECRET, {
+    expiresIn: '1d'
+  })
+
+  return { access_token, refreshToken }
 }
 
 const verifyToken = (req, res, next) => {
@@ -17,11 +21,15 @@ const verifyToken = (req, res, next) => {
   if (!token) return errorResponse(res, 401, 'Unauthorized')
 
   try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET)
+    const decoded = jwt.verify(token, process.env.ACCESS_TOKEN_JWT_SECRET)
     if (!decoded) return errorResponse(res, 401, 'Unauthorized')
     req.user = decoded
   } catch (error) {
-    return errorResponse(res, 401, 'Invalid Token')
+    if (error.name === 'TokenExpiredError') {
+      return errorResponse(res, 401, 'Link Expired')
+    } else {
+      return errorResponse(res, 401, 'Invalid Link')
+    }
   }
   return next()
 }

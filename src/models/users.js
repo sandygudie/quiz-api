@@ -14,6 +14,11 @@ const userSchema = new mongoose.Schema({
     minlength: 5,
     required: true
   },
+  roles: {
+    type: String,
+    enum: ['user', 'admin'],
+    default: 'user'
+  },
   isVerified: {
     type: String,
     enum: ['Pending', 'Verified'],

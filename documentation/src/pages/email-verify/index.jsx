@@ -13,7 +13,6 @@ export default function EmailVerify() {
   const history = useHistory()
   const location = useLocation()
 
-  console.log(location.search.slice(1))
   useEffect(() => {
     emailVerifyHandler()
   }, [])
