@@ -7,7 +7,6 @@ import Link from '@docusaurus/Link'
 import { useHistory, useLocation } from '@docusaurus/router'
 import Spinner from '../../components/Spinner'
 
-
 export default function EmailVerify() {
   const [isValidUrl, setValidUrl] = useState('')
   const [message, setMessage] = useState('')
@@ -32,8 +31,15 @@ export default function EmailVerify() {
 
   return (
     <div className="verifyEmail">
-      {isValidUrl === ' ' ? (
-      <Spinner width="40px" height="40px" color="#009985" />
+      {isValidUrl === false ? (
+        <div>
+          <h1 className="verifyEmail__invalid"> {message}</h1>
+          <p className="verifyEmail__subtitle">
+            {' '}
+            The verification link is expired or invalid ,go back to{' '}
+            <Link to="/register">sign up</Link> page
+          </p>
+        </div>
       ) : isValidUrl === true ? (
         <div className="verifyEmail__content">
           <div className="verifyEmail__content__icon">
@@ -46,14 +52,7 @@ export default function EmailVerify() {
           </button>
         </div>
       ) : (
-        <div>
-          <h1 className="verifyEmail__invalid"> {message}</h1>
-          <p className="verifyEmail__subtitle">
-            {' '}
-            The verification link is expired or invalid ,go back to{' '}
-            <Link to="/register">sign up</Link> page
-          </p>
-        </div>
+        <Spinner width="40px" height="40px" color="#009985" />
       )}
     </div>
   )
