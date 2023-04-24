@@ -6,7 +6,7 @@ An open source RESTFUL API quiz questions for popular programming languages. It 
 
 ### Resources
 
-- Documentation: https://quizbase-docs.netlify.app/docs/getting-started
+- Documentation: https://quizbase.netlify.app/docs/getting-started
 - Demo App:
 
 ### Technology/Tools
