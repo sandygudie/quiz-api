@@ -5,7 +5,7 @@ const { generateToken } = require('../utils/token')
 const { sendEmail } = require('../utils/sendEmail/emailhandler')
 
 const emailVerification = async ( user) => {
-  const verification_url = `https://quizbase.netlify.app/email-verify/${user.token}`
+  const verification_url = `https://quizbase.netlify.app/email-verify/:${user.token}`
   await sendEmail({
     email: user.email,
     subject: 'Verify your email address',
