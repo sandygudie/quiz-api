@@ -28,10 +28,6 @@ const register = async (req, res) => {
   }
   const existingUser = await User.findOne({ email })
   if (existingUser) {
-    if (existingUser.isVerified === 'Pending') {
-      await emailVerification(existingUser)
-      return errorResponse(res, 400, 'Verify Your Email to access your account')
-    }
     return errorResponse(res, 400, 'Account already exist')
   }
   // Encrypt password
@@ -136,4 +132,5 @@ module.exports = {
 // reset password
 // forgot password
 // work on validation error message
-// resent email verification if user is unverified
+// use joi
+
