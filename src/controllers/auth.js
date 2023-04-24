@@ -81,7 +81,7 @@ const verifyUser = async (req, res) => {
   if (user) {
     user.isVerified = 'Verified'
     await user.save()
-    return successResponse(res, 200, 'Email Verified Sucessfully!')
+    return successResponse(res, 200, 'Email Verification Sucessfully!')
   }
   return errorResponse(res, 404, 'Invalid link')
 }
