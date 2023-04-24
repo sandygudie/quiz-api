@@ -28,6 +28,10 @@ const register = async (req, res) => {
   }
   const existingUser = await User.findOne({ email })
   if (existingUser) {
+    if (existingUser.isVerified === 'Pending') {
+      await emailVerification(existingUser)
+      return errorResponse(res, 400, 'Verify Your Email to access your account')
+    }
     return errorResponse(res, 400, 'Account already exist')
   }
   // Encrypt password
@@ -66,6 +70,7 @@ const login = async (req, res) => {
 
   if (user && (await bcrypt.compare(password, user.password))) {
     if (user.isVerified === 'Pending') {
+      await emailVerification(user)
       return errorResponse(res, 400, 'Verify Your Email to access your account')
     }
 
@@ -80,9 +85,7 @@ const login = async (req, res) => {
     })
 
     user.token = access_token
-
     const newUser = await user.save()
-
     return successResponse(res, 200, 'login successfully! ', newUser)
   }
   return errorResponse(res, 400, 'Invalid Credentials')
