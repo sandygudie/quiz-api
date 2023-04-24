@@ -5,6 +5,8 @@ import { verifyEmail } from '../../utilis/api/auth'
 import { GiCheckMark } from 'react-icons/gi'
 import Link from '@docusaurus/Link'
 import { useHistory, useLocation } from '@docusaurus/router'
+import Spinner from '../../components/Spinner'
+
 
 export default function EmailVerify() {
   const [isValidUrl, setValidUrl] = useState('')
@@ -19,8 +21,9 @@ export default function EmailVerify() {
   const queryUrl = location.search.slice(1)
   const emailVerifyHandler = async () => {
     try {
-      await verifyEmail(queryUrl)
+      let response = await verifyEmail(queryUrl)
       setValidUrl(true)
+      setMessage(response.success)
     } catch (error) {
       setValidUrl(false)
       setMessage(error.message)
@@ -29,7 +32,9 @@ export default function EmailVerify() {
 
   return (
     <div className="verifyEmail">
-      {isValidUrl ? (
+      {isValidUrl === ' ' ? (
+      <Spinner width="40px" height="40px" color="#009985" />
+      ) : isValidUrl === true ? (
         <div className="verifyEmail__content">
           <div className="verifyEmail__content__icon">
             {' '}
