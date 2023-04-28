@@ -100,12 +100,9 @@ package.json
   <br/>
 
 ### Deployment on Render
-
-<<<<<<< HEAD
-
 - # Application is on auto deploy from github
 - Applicaton is on auto deploy from Github to Render
-  > > > > > > > 6cfe5d6abf28be15429cf9fff220fa57b8870fdb
+
 
 ## CONTRIBUTING WORKFLOW
 
