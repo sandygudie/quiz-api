@@ -96,9 +96,6 @@ package.json
   ```
 - Also Linting has been set up for staged commits in the project.
 
-  <br/>
-  <br/>
-
 ### Deployment on Render
 - Applicaton is on auto deploy from Github to Render
 
