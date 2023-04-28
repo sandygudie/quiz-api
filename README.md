@@ -100,7 +100,6 @@ package.json
   <br/>
 
 ### Deployment on Render
-- # Application is on auto deploy from github
 - Applicaton is on auto deploy from Github to Render
 
 
