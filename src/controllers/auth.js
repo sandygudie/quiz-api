@@ -1,23 +1,12 @@
-const User = require('../models/users')
+const Contributor = require('../models/contributor')
 const bcrypt = require('bcrypt')
 const { errorResponse, successResponse } = require('../utils/responseHandler')
-const { generateToken } = require('../utils/token')
-const { sendEmail } = require('../utils/sendEmail/emailhandler')
+const { generateToken } = require('../middlewares/token')
+const { emailVerification } = require('../utils/sendEmail/emailhandler')
 const jwt = require('jsonwebtoken')
 
-const emailVerification = async (user) => {
-  const verification_url = `https://quizbase.netlify.app/email-verify/?${user.token}`
-  await sendEmail({
-    email: user.email,
-    subject: 'Verify your email address',
-    verification_url: verification_url
-  })
-}
 
-/**
- * To create a new User
- * @return {object} User created
- */
+
 const register = async (req, res) => {
   const { username, email, password } = req.body
   if (!req.body) {
@@ -26,8 +15,8 @@ const register = async (req, res) => {
   if (password.length < 5) {
     return errorResponse(res, 400, 'Password must be at least 8 characters long')
   }
-  const existingUser = await User.findOne({ email })
-  if (existingUser) {
+  const existingContributor = await Contributor.findOne({ email })
+  if (existingContributor) {
     return errorResponse(res, 400, 'Account already exist')
   }
   // Encrypt password
@@ -35,25 +24,26 @@ const register = async (req, res) => {
   const passwordHash = await bcrypt.hash(password, saltRounds)
 
   // Create a new user
-  const user = new User({
+  const contributor = new Contributor({
     username: username,
     email: email,
-    password: passwordHash
+    password: passwordHash,
+    role: req.body.role || 'contributor'
   })
   // Generate token
-  const { access_token } = await generateToken(user)
-  user.token = access_token
+  const { access_token } = await generateToken(contributor)
+  contributor.token = access_token
 
-  const newUser = await user.save()
+  const newContributor = await contributor.save()
 
   // Send verification link
-  await emailVerification(newUser)
+  await emailVerification(newContributor)
 
   return successResponse(
     res,
     201,
     'User was registered successfully! Please check your email',
-    newUser
+    newContributor
   )
 }
 
@@ -62,15 +52,15 @@ const login = async (req, res) => {
   if (!req.body) {
     return errorResponse(res, 400, 'no request body')
   }
-  const user = await User.findOne({ email })
+  const contributor = await Contributor.findOne({ email })
 
-  if (user && (await bcrypt.compare(password, user.password))) {
-    if (user.isVerified === 'Pending') {
-      await emailVerification(user)
+  if (contributor && (await bcrypt.compare(password, contributor.password))) {
+    if (contributor.isVerified === 'pending') {
+      await emailVerification(contributor)
       return errorResponse(res, 400, 'Verify Your Email to access your account')
     }
 
-    const { access_token, refreshToken } = await generateToken(user)
+    const { access_token, refreshToken } = await generateToken(contributor)
 
     // Assigning refresh token in http-only cookie
     res.cookie('jwt', refreshToken, {
@@ -80,24 +70,26 @@ const login = async (req, res) => {
       maxAge: 24 * 60 * 60 * 1000
     })
 
-    user.token = access_token
-    const newUser = await user.save()
-    return successResponse(res, 200, 'login successfully! ', newUser)
+    contributor.token = access_token
+    const newContributor = await contributor.save()
+    return successResponse(res, 200, 'login successfully! ', newContributor)
   }
   return errorResponse(res, 400, 'Invalid Credentials')
 }
 
 const verifyUser = async (req, res) => {
-  const user = await User.findOne({
+
+  const contributor= await Contributor.findOne({
     token: req.params.confirmationCode
   })
-  if (user) {
-    user.isVerified = 'Verified'
-    await user.save()
+  if (contributor) {
+    contributor.isVerified = 'verified'
+    await contributor.save()
     return successResponse(res, 200, 'Email Verification Sucessfully!')
   }
   return errorResponse(res, 404, 'Invalid link')
 }
+
 
 // pending review
 const refreshToken = async (req, res) => {
@@ -120,17 +112,17 @@ const refreshToken = async (req, res) => {
   return res.json({ accessToken })
 }
 
+
 module.exports = {
   register,
   verifyUser,
   login,
   refreshToken
 }
+
 // Todo
-// refresh token
-// expired token
+// review refresh token
 // reset password
 // forgot password
 // work on validation error message
-// use joi
-
+// get user profile

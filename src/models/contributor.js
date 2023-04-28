@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 
-const userSchema = new mongoose.Schema({
+const contributorSchema = new mongoose.Schema({
   username: {
     type: String,
     required: true
@@ -14,20 +14,29 @@ const userSchema = new mongoose.Schema({
     minlength: 5,
     required: true
   },
-  roles: {
+  role: {
     type: String,
-    enum: ['user', 'admin'],
-    default: 'user'
+    enum: ['contributor', 'admin'],
+    default: 'contributor',
+    required: true
   },
+  quiz: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'ContributorQuiz',
+    },
+  ],
   isVerified: {
     type: String,
-    enum: ['Pending', 'Verified'],
-    default: 'Pending'
+    enum: ['pending', 'verified'],
+    default: 'pending'
   },
   token: { type: String }
+},{
+  collection: 'contributors'
 })
 
-userSchema.set('toJSON', {
+contributorSchema.set('toJSON', {
   transform: (document, returnedObject) => {
     returnedObject.id = returnedObject._id.toString()
     delete returnedObject._id
@@ -36,6 +45,6 @@ userSchema.set('toJSON', {
   }
 })
 
-const User = mongoose.model('User', userSchema)
+const Contributor = mongoose.model('Contributor', contributorSchema)
 
-module.exports = User
+module.exports = Contributor

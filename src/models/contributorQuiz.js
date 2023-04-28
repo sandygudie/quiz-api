@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 
-const quizSchema = new mongoose.Schema({
+const contributorQuizSchema = new mongoose.Schema({
   category: {
     type: String,
     enum: ['HTML', 'CSS', 'JavaScript'],
@@ -25,13 +25,11 @@ const quizSchema = new mongoose.Schema({
     required: true
   },
   createdAt: Date
-},
-{
-  collection: 'quizzes'
-}
-)
+},{
+  collection: 'contributor-quizzes'
+})
 
-quizSchema.set('toJSON', {
+contributorQuizSchema.set('toJSON', {
   transform: (document, returnedObject) => {
     returnedObject.id = returnedObject._id.toString()
     delete returnedObject._id
@@ -39,7 +37,7 @@ quizSchema.set('toJSON', {
   }
 })
 
-module.exports = mongoose.model('Quiz', quizSchema)
+module.exports = mongoose.model('ContributorQuiz', contributorQuizSchema)
 
 // Add joi validation
 // https://www.topcoder.com/thrive/articles/data-validation-in-nodejs-and-express-using-joi#:~:text=Even%20if%20you%20somehow%20manage,the%20documentation%20on%20Joi%20here.

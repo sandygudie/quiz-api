@@ -26,8 +26,5 @@ app.use(middleware.defaultErrorHandler)
 module.exports = app
 
 // Todo
-// to contribute
-// Login with google and github
-// and email and password login
-// verification
+// to contribute : Login with google and github or email password
 // reset password

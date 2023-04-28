@@ -1,6 +1,7 @@
 // handling non existing routes
-const unknownEndpoint = (request, response) => {
-  response.status(404).send({ error: 'Route not found' })
+const unknownEndpoint = (req, res,next) => {
+  res.status(404).send({ error: 'Route not found' })
+  next()
 }
 
 // This overrides the default error handler to return a json response

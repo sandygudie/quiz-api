@@ -33,4 +33,13 @@ const sendEmail = async (options) => {
   }
 }
 
-module.exports = { sendEmail }
+const emailVerification = async (user) => {
+  const verification_url = `https://quizbase.netlify.app/email-verify/?${user.token}`
+  // const verification_url = `https://quizbase.netlify.app/email-verify/?${user.token}`
+  await sendEmail({
+    email: user.email,
+    subject: 'Verify your email address',
+    verification_url: verification_url
+  })
+}
+module.exports = { sendEmail, emailVerification }
