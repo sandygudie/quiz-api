@@ -2,6 +2,7 @@
   width: 70%;
   margin: 2em auto;
 }
+
 .api-helper h1 {
   color: white;
   text-align: center;
@@ -13,6 +14,7 @@
   font-size: 16px;
   margin: 2em 0em 1em 0em;
 }
+
 .api-helper .generatedurl {
   background-color: rgb(3, 83, 3);
   padding: 0.8em 2em;
@@ -20,6 +22,7 @@
   font-size: 16px;
   color: white;
   margin: 0;
+  width: -moz-fit-content;
   width: fit-content;
   text-align: center;
   border-radius: 4px;
@@ -29,10 +32,12 @@
   margin: 1.5em 0;
   width: 100%;
 }
+
 .api-helper .form .field label {
   font-weight: 600;
   font-size: 18px;
 }
+
 .api-helper .form .field input,
 .api-helper .form .field select {
   border: 1px solid gray;
@@ -57,4 +62,4 @@
   font-weight: 700;
 }
 
-/* work on the theme */
+/* work on the theme */ /*# sourceMappingURL=style.css.map */

@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import Layout from '@theme/Layout'
-import '../login/style.scss'
+import '../login/style.css'
 import { MdOutlineVisibilityOff, MdOutlineVisibility } from 'react-icons/md'
 import { FcGoogle } from 'react-icons/fc'
 import Spinner from '../../components/Spinner'
@@ -43,7 +43,7 @@ export default function Register() {
   return (
     <Layout title={'signup'} description="Register">
       <section className="login-signup">
-        <h1 className="login-signup__heading">Sign Up to MOOCs</h1>
+        <h1 className="login-signup__heading">Sign Up</h1>
         <div className="login-signup__google">
           <button className="login-signup__google__login-btn">
             Sign in with Google <FcGoogle />

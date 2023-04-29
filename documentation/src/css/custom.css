@@ -3,8 +3,11 @@
  * bundles Infima by default. Infima is a CSS framework designed to
  * work well for content-centric websites.
  */
-
 /* You can override the default Infima variables here. */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 :root {
   --ifm-color-primary: #2e8555;
   --ifm-color-primary-dark: #29784c;
@@ -37,6 +40,7 @@
   --ifm-color-primary-lightest: #4fddbf;
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
 }
+
 body,
 html,
 * {
@@ -44,14 +48,17 @@ html,
   padding: 0;
   box-sizing: border-box;
 }
-// body {
-//   font-family: "Plus Jakarta Sans", sans-serif;
-// }
+
+body {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
 body,
 html {
   width: 100%;
   height: 100%;
 }
+
 h1,
 h2,
 h3,
@@ -66,14 +73,20 @@ a {
   text-decoration: none;
   color: var(--black);
 }
+
+a:hover {
+  text-decoration: none;
+}
+
 button,
 input {
   outline: none;
-  border-radius: 8px;
-  background-color: transparent;
+  border-radius: 5px;
   cursor: pointer;
   color: var(--black);
+  border: none;
 }
+
 .icon-button {
   border: none;
   width: auto !important;
@@ -93,6 +106,12 @@ input {
 .Toastify__toast-theme--colored.Toastify__toast--success {
   background-color: hsl(122, 39%, 58%) !important;
 }
+
 .Toastify__toast-container {
   width: auto !important;
 }
+
+.footer {
+  padding: 10px !important;
+  font-size: small !important;
+} /*# sourceMappingURL=custom.css.map */

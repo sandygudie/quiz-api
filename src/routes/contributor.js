@@ -5,12 +5,11 @@ const {
   deleteAContributor,
   updateAContributor
 } = require('../controllers/contributor')
-const { verifyUserIsAdmin,verifyUserIsContibutorOrAdmin } = require('../middlewares/userCheck')
-
+const { verifyUserIsAdmin, verifyUserIsContibutorOrAdmin } = require('../middlewares/userCheck')
 
 const contributorRouter = Router()
 contributorRouter.get('/', verifyUserIsAdmin, getAllContributors)
-contributorRouter.get('/:id', verifyUserIsAdmin, getAContributor)
+contributorRouter.get('/:id', verifyUserIsContibutorOrAdmin, getAContributor)
 contributorRouter.delete('/:id', verifyUserIsContibutorOrAdmin, deleteAContributor)
 contributorRouter.patch('/:id', verifyUserIsContibutorOrAdmin, updateAContributor)
 

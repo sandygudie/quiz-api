@@ -1,5 +1,5 @@
-import React, { useState } from 'react'
-import './spinner.scss'
+import React from 'react'
+import './spinner.css'
 
 const index = ({ width, height, color }) => {
   return (

@@ -1,6 +1,7 @@
 import axios from 'axios'
 import { TOKEN_KEY } from '../constants'
 import { ToastContainer, toast } from 'react-toastify'
+import { Redirect } from '@docusaurus/router'
 
 let token
 if (typeof window !== 'undefined') {
@@ -35,7 +36,7 @@ async function makeApiCall(url, method, payload, axiosRequestConfig) {
           theme: 'colored'
         })
         localStorage.removeItem(TOKEN_KEY)
-        window.location.assign('/login')
+        return <Redirect to="/login" />
       }
     }
 

@@ -1,0 +1,193 @@
+.login-signup {
+  max-width: 450px;
+  width: 100%;
+  margin: 0em auto 1em;
+  padding: 0px 30px;
+  border-radius: 6px;
+  text-align: center;
+}
+.login-signup__heading {
+  margin: 1em 0;
+  font-size: 25px;
+  font-weight: 700;
+}
+@media only screen and (min-width: 1024px) {
+  .login-signup__heading {
+    font-size: 25px;
+  }
+}
+.login-signup__google {
+  cursor: pointer;
+}
+.login-signup__google__login-btn {
+  padding: 1em;
+  width: 100%;
+  height: 50px;
+  border: 1px solid var(--gray-203);
+  font-size: 16px;
+  font-weight: 500;
+  color: rgba(70, 64, 64, 0.5098039216);
+  border-radius: 6px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+.login-signup__google__login-btn svg {
+  font-size: 32px;
+}
+.login-signup__google__login-btn:hover {
+  border: 1px solid var(--ifm-color-primary);
+  color: var(--ifm-color-primary);
+}
+.login-signup__text {
+  margin-bottom: 1em;
+}
+.login-signup__hr-line {
+  margin: 10px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+.login-signup__hr-line__or {
+  font-size: 14px;
+  color: rgba(70, 64, 64, 0.5098039216);
+}
+.login-signup__hr-line hr {
+  width: 100%;
+  border-bottom: 1px solid white;
+  border-top: 1px solid rgba(180, 177, 177, 0.5098039216);
+}
+.login-signup__form-namefield {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+.login-signup__form .field {
+  position: relative;
+  margin-bottom: 30px;
+  text-align: left;
+}
+.login-signup__form .field input {
+  width: 100%;
+  height: 50px;
+  outline: none;
+  padding: 0 15px;
+  border: 1px solid var(--gray-203);
+  font-size: 16px;
+  font-weight: 400;
+  border-radius: 6px;
+}
+.login-signup__form .field input:focus {
+  border-bottom-width: 2px;
+}
+.login-signup__form .button-field {
+  margin: 30px 0px 10px 0px !important;
+}
+.login-signup__form .button-field button {
+  background-color: var(--ifm-color-primary);
+  color: var(--white);
+  font-weight: 700;
+  font-size: 15px;
+  border-radius: 8px;
+  width: 100%;
+  border: none;
+  padding: 16px 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50px;
+}
+.login-signup__form .button-field button:hover {
+  opacity: 60%;
+}
+.login-signup__form .password-check,
+.login-signup__form .error-input {
+  border: 1px solid var(--error) !important;
+}
+.login-signup__form .error {
+  color: var(--error);
+  font-size: 13px;
+  align-items: center;
+  display: flex;
+  gap: 5px;
+}
+.login-signup__form .eye-icon {
+  position: absolute;
+  top: 29px;
+  right: 10px;
+  transform: translateY(-50%);
+  font-size: 20px;
+  color: var(--gray-72);
+  cursor: pointer;
+  padding: 5px;
+}
+.login-signup__bottom-forgotpassword-link {
+  width: 90%;
+  display: block;
+  margin-left: auto;
+  text-align: right;
+  margin-bottom: 10px;
+  color: var(--ifm-color-primary);
+  font-size: 14px;
+}
+.login-signup__bottom-forgotpassword-link:hover {
+  text-decoration: underline;
+}
+.login-signup__bottom-content {
+  font-size: 14px;
+  font-weight: 500;
+}
+.login-signup__bottom-content__link {
+  color: var(--ifm-color-primary) !important;
+  text-align: center;
+  margin-top: 15px;
+}
+.login-signup__bottom-content__link:hover {
+  text-decoration: underline;
+}
+
+.verificationLink {
+  text-align: center;
+}
+.verificationLink__img {
+  width: 300px;
+  margin: auto;
+}
+@media only screen and (min-width: 1024px) {
+  .verificationLink__img {
+    width: 400px;
+  }
+}
+.verificationLink__content {
+  text-align: center;
+}
+.verificationLink__content__title {
+  font-weight: bold;
+  font-size: 18px;
+}
+@media only screen and (min-width: 1024px) {
+  .verificationLink__content__title {
+    font-size: 26px;
+  }
+}
+.verificationLink__content__desc {
+  font-size: 14px;
+  margin: 10px 0;
+}
+@media only screen and (min-width: 1024px) {
+  .verificationLink__content__desc {
+    font-size: 17px;
+  }
+}
+.verificationLink__content__desc-link {
+  font-weight: 600;
+  color: var(--ifm-color-primary);
+}
+.verificationLink__content__checkmail {
+  margin-top: 2em;
+  font-size: 15px;
+  font-weight: 600;
+} /*# sourceMappingURL=style.css.map */

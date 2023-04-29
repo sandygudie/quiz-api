@@ -2,7 +2,7 @@ import React from 'react'
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext'
 import Layout from '@theme/Layout'
 import 'react-toastify/dist/ReactToastify.css'
-import './index.scss'
+import './index.css'
 
 export default function Home() {
   const { siteConfig } = useDocusaurusContext()
@@ -16,7 +16,9 @@ export default function Home() {
           <div className="content">
             <h1 className="">QUIZBASE</h1>
             <p>Quiz questions for programming languages.</p>
-            <button className="btn">Get Started</button>
+            <a href="https://quizbase.netlify.app/docs/getting-started" className="btn">
+              Get Started
+            </a>
           </div>{' '}
           <img src="img/quizbase-bulb.svg" alt="quizbase text" />
           <p className="hero__subtitle">{siteConfig.tagline}</p>
@@ -38,3 +40,5 @@ export default function Home() {
 // When a user adds an item, hold it for verification, before adding to the list,
 // thank you for contributing, we will verifeld your addition , feel free to add more!,
 // There can edit their add and edit it
+// add cpntributor list and the no of questions created
+// 'try the baseurl in the doc to handle internal routing'

@@ -1,12 +1,12 @@
 import React, { useState } from 'react'
 import Layout from '@theme/Layout'
-import './style.scss'
+import './style.css'
 import { login } from '../../utilis/api/auth'
 import { MdOutlineVisibilityOff, MdOutlineVisibility } from 'react-icons/md'
 import { FcGoogle } from 'react-icons/fc'
 import Spinner from '../../components/Spinner'
 import { ToastContainer, toast } from 'react-toastify'
-import { setToken } from '../../utilis'
+import { setToken, setProfile } from '../../utilis'
 import { useHistory } from '@docusaurus/router'
 import Link from '@docusaurus/Link'
 
@@ -26,6 +26,9 @@ export default function Login() {
       setLoading(true)
       let response = await login(formData)
       if (response.success) {
+        const profileData = { username: response.data.username, id: response.data.id, role:response.data.role }
+
+        setProfile(profileData)
         setToken(response.data.token)
         return history.push('/board')
       }
@@ -43,7 +46,7 @@ export default function Login() {
     <>
       <Layout title={'login'} description="login">
         <section className="login-signup">
-          <h1 className="login-signup__heading">QuizBase</h1>
+          <h1 className="login-signup__heading">Contribute to QuizBase Questions</h1>
           <div className="login-signup__google">
             <button className="login-signup__google__login-btn">
               Sign in with Google <FcGoogle />

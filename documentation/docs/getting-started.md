@@ -4,8 +4,7 @@ sidebar_position: 1
 
 # Getting Started
 
-**QUIZBASE** is free JSON API for requesting multiple choice trivia questions for wide variety of topics in programming. You can test your knowledge of basic programming skills. No API key is required to request questions.
--The API is built on NodeJs
+**QUIZBASE** is free JSON API for multiple choice trivia questions in programming. You get questions on wide variety of topics in programming. You can test your knowledge of different programming languages. No API key is required.
 
 ## Request Query
 

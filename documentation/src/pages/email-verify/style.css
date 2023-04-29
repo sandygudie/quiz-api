@@ -1,0 +1,68 @@
+.verifyEmail {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+.verifyEmail__content {
+  text-align: center;
+}
+.verifyEmail__content__icon {
+  height: 100px;
+  width: 100px;
+  margin: auto;
+  border-radius: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.verifyEmail__content__icon svg {
+  font-size: 60px;
+  fill: var(--green);
+  opacity: 60%;
+}
+.verifyEmail__content__header {
+  font-size: 18px;
+  font-weight: bold;
+  color: var(--black);
+  margin: 1em 0em;
+}
+.verifyEmail__content__text {
+  margin: 1em 0em 1.5em 0em;
+  font-weight: 500;
+  line-height: 28px;
+  font-size: 18px;
+}
+.verifyEmail__content__btn {
+  margin: auto;
+  background-color: var(--green);
+  color: var(--white);
+  font-weight: 700;
+  font-size: 15px;
+  border-radius: 8px;
+  width: auto;
+  border: none;
+  padding: 16px 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.verifyEmail__content__btn:hover {
+  opacity: 60%;
+}
+.verifyEmail__invalid {
+  color: var(--error);
+  font-size: 40px;
+  font-weight: 700;
+  text-align: center;
+}
+.verifyEmail__subtitle {
+  margin: 1em 0;
+  text-align: center;
+  font-weight: 700;
+  font-size: 18px;
+}
+.verifyEmail__subtitle a {
+  text-decoration: underline;
+  color: var(--green);
+} /*# sourceMappingURL=style.css.map */
