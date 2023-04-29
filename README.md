@@ -6,7 +6,7 @@ An open source RESTFUL API quiz questions for popular programming languages. It 
 
 ### Resources
 
-- Documentation: https://quizbase.netlify.app/docs/getting-started
+- Documentation: https://quizbase.netlify.app
 - Demo App:
 
 ### Technology/Tools
@@ -96,16 +96,9 @@ package.json
   ```
 - Also Linting has been set up for staged commits in the project.
 
-  <br/>
-  <br/>
-
 ### Deployment on Render
-
-<<<<<<< HEAD
-
-- # Application is on auto deploy from github
 - Applicaton is on auto deploy from Github to Render
-  > > > > > > > 6cfe5d6abf28be15429cf9fff220fa57b8870fdb
+
 
 ## CONTRIBUTING WORKFLOW
 
