@@ -1,40 +1,43 @@
 const mongoose = require('mongoose')
 
-const contributorSchema = new mongoose.Schema({
-  username: {
-    type: String,
-    required: true
-  },
-  email: {
-    type: String,
-    required: true
-  },
-  password: {
-    type: String,
-    minlength: 5,
-    required: true
-  },
-  role: {
-    type: String,
-    enum: ['contributor', 'admin'],
-    default: 'contributor',
-    required: true
-  },
-  quiz: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'ContributorQuiz',
+const contributorSchema = new mongoose.Schema(
+  {
+    username: {
+      type: String,
+      required: true
     },
-  ],
-  isVerified: {
-    type: String,
-    enum: ['pending', 'verified'],
-    default: 'pending'
+    email: {
+      type: String,
+      required: true
+    },
+    password: {
+      type: String,
+      minlength: 5,
+      required: true
+    },
+    role: {
+      type: String,
+      enum: ['contributor', 'admin'],
+      default: 'contributor',
+      required: true
+    },
+    quiz: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'ContributorQuiz'
+      }
+    ],
+    isVerified: {
+      type: String,
+      enum: ['pending', 'verified'],
+      default: 'pending'
+    },
+    token: { type: String }
   },
-  token: { type: String }
-},{
-  collection: 'contributors'
-})
+  {
+    collection: 'contributors'
+  }
+)
 
 contributorSchema.set('toJSON', {
   transform: (document, returnedObject) => {

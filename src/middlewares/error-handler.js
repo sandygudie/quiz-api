@@ -1,5 +1,5 @@
 // handling non existing routes
-const unknownEndpoint = (req, res,next) => {
+const unknownEndpoint = (req, res, next) => {
   res.status(404).send({ error: 'Route not found' })
   next()
 }

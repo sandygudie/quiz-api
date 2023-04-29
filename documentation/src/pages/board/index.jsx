@@ -18,7 +18,7 @@ export default function Board() {
   let profileID
   if (typeof window !== 'undefined') {
     const profile = localStorage.getItem(PROFILE_KEY)
-     profileID = JSON.parse(profile)
+    profileID = JSON.parse(profile)
   }
   useEffect(() => {
     contributorData()

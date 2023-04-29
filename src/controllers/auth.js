@@ -5,8 +5,6 @@ const { generateToken } = require('../middlewares/token')
 const { emailVerification } = require('../utils/sendEmail/emailhandler')
 const jwt = require('jsonwebtoken')
 
-
-
 const register = async (req, res) => {
   const { username, email, password } = req.body
   if (!req.body) {
@@ -78,8 +76,7 @@ const login = async (req, res) => {
 }
 
 const verifyUser = async (req, res) => {
-
-  const contributor= await Contributor.findOne({
+  const contributor = await Contributor.findOne({
     token: req.params.confirmationCode
   })
   if (contributor) {
@@ -89,7 +86,6 @@ const verifyUser = async (req, res) => {
   }
   return errorResponse(res, 404, 'Invalid link')
 }
-
 
 // pending review
 const refreshToken = async (req, res) => {
@@ -111,7 +107,6 @@ const refreshToken = async (req, res) => {
   )
   return res.json({ accessToken })
 }
-
 
 module.exports = {
   register,

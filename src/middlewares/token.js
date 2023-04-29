@@ -2,12 +2,20 @@ const jwt = require('jsonwebtoken')
 const { errorResponse } = require('../utils/responseHandler')
 
 const generateToken = async (user) => {
-  const access_token = jwt.sign({ id: user.id,role:user.role }, process.env.ACCESS_TOKEN_JWT_SECRET, {
-    expiresIn: '24hr'
-  })
-  const refreshToken = jwt.sign({ id: user.id,role:user.role }, process.env.REFRESH_TOKEN_JWT_SECRET, {
-    expiresIn: '1d'
-  })
+  const access_token = jwt.sign(
+    { id: user.id, role: user.role },
+    process.env.ACCESS_TOKEN_JWT_SECRET,
+    {
+      expiresIn: '24hr'
+    }
+  )
+  const refreshToken = jwt.sign(
+    { id: user.id, role: user.role },
+    process.env.REFRESH_TOKEN_JWT_SECRET,
+    {
+      expiresIn: '1d'
+    }
+  )
 
   return { access_token, refreshToken }
 }

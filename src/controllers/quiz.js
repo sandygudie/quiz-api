@@ -4,7 +4,6 @@ const AllQuiz = require('../models/quiz')
 const { errorResponse, successResponse } = require('../utils/responseHandler')
 
 const getAllQuizs = async (req, res) => {
-
   let limit = req.query.limit && req.query.limit <= 100 ? parseInt(req.query.limit) : 10
   let quizs
   if (req.query.category) {
@@ -69,7 +68,6 @@ const deleteAQuiz = async (req, res) => {
   return successResponse(res, 200, 'Quiz deleted')
 }
 
-
 const updateAQuiz = async (req, res) => {
   let Quiz = req.quiz
   const { id } = req.params
@@ -91,5 +89,3 @@ module.exports = {
   deleteAQuiz,
   updateAQuiz
 }
-
-

@@ -26,7 +26,11 @@ export default function Login() {
       setLoading(true)
       let response = await login(formData)
       if (response.success) {
-        const profileData = { username: response.data.username, id: response.data.id, role:response.data.role }
+        const profileData = {
+          username: response.data.username,
+          id: response.data.id,
+          role: response.data.role
+        }
 
         setProfile(profileData)
         setToken(response.data.token)

@@ -1,34 +1,35 @@
 const mongoose = require('mongoose')
 
-const quizSchema = new mongoose.Schema({
-  category: {
-    type: String,
-    enum: ['HTML', 'CSS', 'JavaScript'],
-    required: true
+const quizSchema = new mongoose.Schema(
+  {
+    category: {
+      type: String,
+      enum: ['HTML', 'CSS', 'JavaScript'],
+      required: true
+    },
+    difficulty: {
+      type: String,
+      enum: ['easy', 'medium', 'hard'],
+      required: true
+    },
+    question: {
+      trim: true,
+      type: String,
+      required: true
+    },
+    incorrect_answers: {
+      type: Array,
+      required: true
+    },
+    correct_answer: {
+      type: String,
+      required: true
+    },
+    createdAt: Date
   },
-  difficulty: {
-    type: String,
-    enum: ['easy', 'medium', 'hard'],
-    required: true
-  },
-  question: {
-    trim: true,
-    type: String,
-    required: true
-  },
-  incorrect_answers: {
-    type: Array,
-    required: true
-  },
-  correct_answer: {
-    type: String,
-    required: true
-  },
-  createdAt: Date
-},
-{
-  collection: 'quizzes'
-}
+  {
+    collection: 'quizzes'
+  }
 )
 
 quizSchema.set('toJSON', {

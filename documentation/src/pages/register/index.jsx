@@ -13,31 +13,31 @@ export default function Register() {
   const [isLoading, setLoading] = useState(false)
 
   const registerHandler = async (event) => {
-      event.preventDefault()
-      setLoading(true)
-      try {
-        const formData = {
-          username: event.target.username.value,
-          email: event.target.email.value,
-          password: event.target.password.value
-        }
-        const response = await signUp(formData)
-        if (response.success) {
-          toast.success('Successfully! Check email for verification link', {
-            position: toast.POSITION.TOP_CENTER,
-            autoClose: false,
-            theme: 'colored'
-          })
-          setLoading(false)
-        }
-      } catch (error) {
-        toast.error(error.message, {
+    event.preventDefault()
+    setLoading(true)
+    try {
+      const formData = {
+        username: event.target.username.value,
+        email: event.target.email.value,
+        password: event.target.password.value
+      }
+      const response = await signUp(formData)
+      if (response.success) {
+        toast.success('Successfully! Check email for verification link', {
           position: toast.POSITION.TOP_CENTER,
-          autoClose: 5000,
+          autoClose: false,
           theme: 'colored'
         })
         setLoading(false)
       }
+    } catch (error) {
+      toast.error(error.message, {
+        position: toast.POSITION.TOP_CENTER,
+        autoClose: 5000,
+        theme: 'colored'
+      })
+      setLoading(false)
+    }
   }
 
   return (
