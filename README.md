@@ -97,8 +97,8 @@ package.json
 - Also Linting has been set up for staged commits in the project.
 
 ### Deployment on Render
-- Applicaton is on auto deploy from Github to Render
 
+- Applicaton is on auto deploy from Github to Render
 
 ## CONTRIBUTING WORKFLOW
 

@@ -39,7 +39,7 @@ export default function Board() {
   const handleModalChange = () => {
     setIsModalOpen(!isModalOpen)
   }
-console.log(quiz)
+  console.log(quiz)
   return (
     <div className="h-screen bg-secondary">
       <div className="bg-white h-25 pr-32 pl-0  py-4">
@@ -48,7 +48,14 @@ console.log(quiz)
           <QuizbaseImage className="w-30 h-10" />
           <div className="flex items-center gap-8">
             {' '}
-           { profileRole.length ? <p className="font-bold text-lg"><span className='text-base'> Status:</span>{profileRole.toUpperCase()}</p>:"" }
+            {profileRole.length ? (
+              <p className="font-bold text-lg">
+                <span className="text-base"> Status:</span>
+                {profileRole.toUpperCase()}
+              </p>
+            ) : (
+              ''
+            )}
             <button
               onClick={() => setIsModalOpen(true)}
               className="hover:bg-primary/50 bg-primary font-bold text-white text-base px-4 py-2"
