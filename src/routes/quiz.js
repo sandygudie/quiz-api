@@ -25,7 +25,7 @@ quizRouter.get(
   verifyUserIsAdmin,
   getAllContributorQuizs
 )
-quizRouter.get('/:id', getAQuiz)
+quizRouter.get('/:id', verifyToken, isUserVerified, userDataIsContibutorOrAdmin, getAQuiz)
 quizRouter.post('/', verifyToken, isUserVerified, userDataIsContibutorOrAdmin, createAQuiz)
 quizRouter.delete('/:id', verifyToken, isUserVerified, userDataIsContibutorOrAdmin, deleteAQuiz)
 quizRouter.patch('/:id', verifyToken, isUserVerified, userDataIsContibutorOrAdmin, updateAQuiz)
