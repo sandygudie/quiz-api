@@ -25,6 +25,15 @@ const contributorQuizSchema = new mongoose.Schema(
       type: String,
       required: true
     },
+    status: {
+      type: String,
+      enum: ['pending', 'verified'],
+      default: 'pending'
+    },
+    contributor: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Contributor'
+    },
     createdAt: Date
   },
   {

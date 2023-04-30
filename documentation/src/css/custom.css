@@ -78,15 +78,38 @@ a:hover {
   text-decoration: none;
 }
 
+/* button {
+  outline: none;
+  color: var(--black);
+  border: none;
+}
 button,
 input {
   outline: none;
   border-radius: 5px;
-  cursor: pointer;
+  color: var(--black);
+} */
+
+input,
+button {
+  outline: none;
+  border-radius: 5px;
+}
+button {
   color: var(--black);
   border: none;
 }
-
+input,
+select {
+  border-radius: 5px;
+  border: 1px solid rgb(230, 227, 227);
+  padding: 1em;
+  color: black;
+  width: 100%;
+  font-weight: 500;
+  font-size: 16px;
+  outline: none;
+}
 .icon-button {
   border: none;
   width: auto !important;

@@ -12,7 +12,10 @@ module.exports = {
         error: 'hsla(3, 100%, 61%, 1)',
         success: 'hsla(162, 95%, 41%, 1)',
         white: '#ffffff',
-        transparent: 'transparent'
+        transparent: 'transparent',
+        gray: {
+          100: 'hsla(260,11%,85%,1)'
+        }
       }
     }
   },

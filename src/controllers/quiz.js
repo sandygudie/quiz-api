@@ -1,5 +1,7 @@
 const mongoose = require('mongoose')
 const AllQuiz = require('../models/quiz')
+const Contributor = require('../models/contributor')
+const ContributorQuiz = require('../models/contributorQuiz')
 
 const { errorResponse, successResponse } = require('../utils/responseHandler')
 
@@ -23,7 +25,12 @@ const getAllQuizs = async (req, res) => {
   if (quizs.length === 0) {
     return successResponse(res, 200, 'quiz not found', quizs)
   }
-  return successResponse(res, 200, 'Users retrieved successfully', quizs)
+  return successResponse(res, 200, 'Quizs retrieved successfully', quizs)
+}
+
+const getAllContributorQuizs = async (req, res) => {
+  const contributorQuizs = await ContributorQuiz.find({}).sort({ createdAt: -1 })
+  return successResponse(res, 200, 'Contributor Quizs retrieved successfully', contributorQuizs)
 }
 
 const getAQuiz = async (req, res) => {
@@ -41,18 +48,25 @@ const getAQuiz = async (req, res) => {
 
 const createAQuiz = async (req, res) => {
   let Quiz = req.quiz
+  let { id, role } = req.user
   const { category, difficulty, question, incorrect_answers, correct_answer } = req.body
   if (!req.body) {
     return errorResponse(res, 400, 'no request body')
   }
-  const quiz = await Quiz.create({
+  const contributor = await Contributor.findById(id)
+  const quiz = new Quiz({
     category,
     difficulty,
     question,
     incorrect_answers,
     correct_answer
   })
-  return successResponse(res, 201, 'Quiz created successfully', quiz)
+  role === 'contributor' ? (quiz.contributor = contributor._id) : ''
+  role === 'contributor' ? (quiz.status = 'pending') : ''
+  const savedQuiz = await quiz.save()
+  contributor.quiz = contributor.quiz.concat(savedQuiz._id)
+  await contributor.save()
+  return successResponse(res, 201, 'Quiz created successfully', savedQuiz)
 }
 
 const deleteAQuiz = async (req, res) => {
@@ -87,5 +101,6 @@ module.exports = {
   getAQuiz,
   createAQuiz,
   deleteAQuiz,
-  updateAQuiz
+  updateAQuiz,
+  getAllContributorQuizs
 }
