@@ -34,7 +34,11 @@ export default function Login() {
 
         setProfile(profileData)
         setToken(response.data.token)
-        return history.push('/board')
+        if (response.data.role === 'contributor') {
+          return history.push('/contributor-board')
+        } else {
+          return history.push('/admin-board')
+        }
       }
     } catch (error) {
       setError(true)

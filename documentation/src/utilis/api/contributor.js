@@ -10,10 +10,12 @@ export async function createQuiz(payload) {
   return response
 }
 
+export async function deleteQuiz(id) {
+  const response = await makeApiCall(`/quiz/${id}`, 'delete')
+  return response
+}
 
-// export async function getContributorQuiz(id) {
-//   const response = await makeApiCall(`/${id}`, 'get')
-//   return response
-// }
-
-// i am trying to get all the quiz by a particular user(contributor)
+export async function editQuiz(payload, id) {
+  const response = await makeApiCall(`/quiz/${id}`, 'patch', payload)
+  return response
+}

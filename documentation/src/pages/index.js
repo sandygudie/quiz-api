@@ -42,3 +42,4 @@ export default function Home() {
 // There can edit their add and edit it
 // add cpntributor list and the no of questions created
 // 'try the baseurl in the doc to handle internal routing'
+// no mobile view for dashboard
