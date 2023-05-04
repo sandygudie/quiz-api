@@ -2,16 +2,17 @@ import React, { useState, useEffect } from 'react'
 import { TOKEN_KEY, PROFILE_KEY } from '../../utilis/constants'
 import { Redirect } from '@docusaurus/router'
 import QuizbaseImage from '@site/static/img/logo.svg'
-import { getContributor, logout } from '../../utilis/api/contributor'
+import { getContributor} from '../../utilis/api/contributor'
 import Modal from '../../components/Modal'
 import Spinner from '../../components/Spinner'
 import Form from '../../components/Form'
 import DeleteQuiz from '../../components/DeleteQuiz'
 import { ToastContainer, toast } from 'react-toastify'
+import { logout } from '../../utilis/api/auth'
 
 export default function ContributorBoard() {
   const [quiz, setQuiz] = useState([])
-  const [profileRole, setProfileRole] = useState('')
+
   const [isModalOpen, setIsModalOpen] = useState('openForm' | 'deletequiz' | 'close')
   const [isLoading, setLoading] = useState(false)
   const [editData, setEdit] = useState(null)
@@ -45,7 +46,7 @@ export default function ContributorBoard() {
       // console.log(response)
       if (response.success) {
         setQuiz(response.data.quiz)
-        setProfileRole(response.data.role)
+     
         setLoading(false)
       }
     } catch (error) {
@@ -75,17 +76,16 @@ export default function ContributorBoard() {
   }
 
   return (
-    <div className="h-screen bg-secondary">
-      <div className="bg-white h-25 pr-20 pl-0 py-4 ">
-        {' '}
-        <div className="w-11/12 flex items-center justify-between ">
-          <QuizbaseImage className="w-30 h-10" />
+    <div className="h-screen overflow-y-auto  bg-secondary">
+      
+        <div className="bg-white h-25 px-6 py-4 flex items-center justify-between ">
+          <QuizbaseImage className="w-fit h-10" />
           <div className="flex items-center gap-8">
             {' '}
-            {profileRole.length ? (
-              <p className="font-bold text-lg">
-                <span className="text-base"> Status:</span>
-                {profileRole.toUpperCase()}
+            {profile.role.length ? (
+              <p className="font-bold text-primary text-base">
+                <span className="text-base text-gray-100"> Status: </span>
+                {profile.role.toUpperCase()}
               </p>
             ) : (
               ''
@@ -97,10 +97,10 @@ export default function ContributorBoard() {
               Log Out
             </button>
           </div>
-        </div>
+
       </div>
 
-      <section className="w-11/12 m-auto">
+      <section className="p-6 m-auto">
         <div className="font-bold text-xl my-8 flex items-center justify-between">
           {' '}
           <h3>Contributor Quiz</h3>
@@ -118,14 +118,14 @@ export default function ContributorBoard() {
         ) : quiz.length ? (
           <div>
             <div className="flex items-center justify-between p-2 ">
-              <p className=" py-2 px-4 w-20 font-bold text-lg">Index</p>
-              <p className="w-36 p-2   font-bold">Question</p>
-              <p className="w-32 p-2  font-bold">Correct</p>
+              <p className="py-2 px-4 w-20 font-bold text-lg">Index</p>
+              <p className="w-64 p-2  font-bold">Question</p>
+              <p className="w-64 p-2 font-bold">Correct</p>
               <p className="w-64 p-2  font-bold">Incorrect Options</p>
-              <p className="w-24 p-2  font-bold">Category</p>
-              <p className="w-24 p-2 font-bold">Difficulty</p>
-              <p className="w-24 p-2 font-bold">Actions</p>
-              <p className="w-24 p-2 font-bold">Status</p>
+              <p className="w-22 p-2  font-bold">Category</p>
+              <p className="w-22 p-2 font-bold">Difficulty</p>
+              <p className="w-15 p-2 font-bold">Actions</p>
+              <p className="w-15 p-2 font-bold">Status</p>
             </div>
             {quiz.map((content, index) => {
               return (
@@ -134,8 +134,8 @@ export default function ContributorBoard() {
                   className="bg-white justify-between p-2 my-4 rounded-xl flex items-center border-[1px] border-solid border-gray-100"
                 >
                   <p className="px-4 py-2 w-20 font-bold text-lg">{index + 1}</p>
-                  <p className="w-36  p-2">{content.question}</p>
-                  <p className="w-32  p-2">{content.correct_answer}</p>
+                  <p className="w-64  p-2">{content.question}</p>
+                  <p className="w-64  p-2">{content.correct_answer}</p>
 
                   <div className="w-64 p-2 m-0">
                     {content.incorrect_answers.map((ele, index) => (
@@ -145,16 +145,16 @@ export default function ContributorBoard() {
                     ))}
                   </div>
 
-                  <p className="w-24 p-2">{content.category}</p>
-                  <p className="w-24 p-2">{content.difficulty}</p>
-                  <div className="w-24 p-2 flex flex-col gap-3">
+                  <p className="w-20 p-2">{content.category}</p>
+                  <p className="w-20 p-2">{content.difficulty}</p>
+                  <div className="w-15 p-2 flex flex-col gap-3">
                     {' '}
                     <button
                       disabled={content.status === 'verified'}
                       onClick={() => editHandler(content.id)}
                       className={`${
                         content.status === 'verified' ? 'bg-secondary/50' : ' bg-gray-100'
-                      } p-2 cursor-pointer font-bold block`}
+                      } p-2 cursor-pointer w-15 font-bold block`}
                     >
                       {' '}
                       Edit
@@ -166,7 +166,7 @@ export default function ContributorBoard() {
                       }}
                       className={`${
                         content.status === 'verified' ? 'bg-secondary/50' : ' bg-gray-100'
-                      } p-2 cursor-pointer font-bold block`}
+                      } p-2 cursor-pointer w-15 font-bold block`}
                     >
                       Delete
                     </button>
@@ -174,10 +174,10 @@ export default function ContributorBoard() {
                   <p
                     className={`${
                       content.status === 'pending' ? 'text-error' : 'text-success'
-                    } font-semibold w-24 p-2`}
+                    } font-semibold w-15 p-2`}
                   >
                     {' '}
-                    {content.status}
+                    {content?.status}
                   </p>
                 </div>
               )
@@ -205,7 +205,7 @@ export default function ContributorBoard() {
           <Modal
             handleModalChange={handleModalChange}
             children={
-              <Form contributorData={contributorData} handleModalChange={handleModalChange} />
+              <Form getData={contributorData} handleModalChange={handleModalChange} />
             }
           />
         )

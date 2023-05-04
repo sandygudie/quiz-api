@@ -33,7 +33,7 @@ export default function Register() {
     } catch (error) {
       toast.error(error.message, {
         position: toast.POSITION.TOP_CENTER,
-        autoClose: 5000,
+        autoClose: false,
         theme: 'colored'
       })
       setLoading(false)

@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { ToastContainer, toast } from 'react-toastify'
+import {  toast } from 'react-toastify'
 import { createQuiz, editQuiz } from '../../utilis/api/contributor'
 import Spinner from '../Spinner'
 
