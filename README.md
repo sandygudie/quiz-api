@@ -60,9 +60,10 @@ package.json
 
 ### Environment Setup
 
-- Make sure you have **nodejs v14.17.5** installed by running the following command below. You can install **nodejs** from [here](https://nodejs.org/en/download/) if you don't have it.
+- Make sure you have **nodejs v14.17.5** installed by running the following command below. You can install **nodejs** from [here](https://nodejs.org/en/download/) if   you don't have it.
+- To check node version
   ```
- use **node -v** to check installed node version
+  node --version
   ```
 - Clone the respository to your local machine using the command
   ```
@@ -99,7 +100,7 @@ package.json
 
 ### Deployment on Render
 
-- Applicaton is on auto deploy from Github to Render.
+- Application is on auto deploy from Github to Render.
 
 ## CONTRIBUTING WORKFLOW
 - You can contribute to adding questions for the project [login](https://quizbase.netlify.app/login)
