@@ -60,7 +60,7 @@ package.json
 
 ### Environment Setup
 
-- Make sure you have **nodejs v14.17.5** installed by running the following command below. You can install **nodejs ** from [here](https://nodejs.org/en/download/) if you don't have it.
+- Make sure you have **nodejs v14.17.5** installed by running the following command below. You can install **nodejs** from [here](https://nodejs.org/en/download/) if you don't have it.
   ```
  use **node -v** to check installed node version
   ```
