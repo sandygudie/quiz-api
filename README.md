@@ -1,8 +1,9 @@
-# QuizBase
+![Yellow Black Playful Lamp Bulb Idea Company Logo-svg](https://user-images.githubusercontent.com/54219127/236227772-222d3f86-e627-417a-a299-b686c44f8487.svg)
 
-### Description
 
-An open source RESTFUL API quiz questions for popular programming languages. It consists of Multiple Choice Questions(MCQs) in various areas including: HTML,CSS,JavaScript. NextJs etc.
+## Description
+
+An open source RESTFUL API quiz questions for popular programming languages. It consists of Multiple Choice Questions(MCQs) in various areas including: HTML, CSS, JavaScript, NextJs etc.
 
 ### Resources
 
@@ -11,7 +12,7 @@ An open source RESTFUL API quiz questions for popular programming languages. It 
 
 ### Technology/Tools
 
-- [**NodeJs 4.18.2**](https://nodejs.org/en/) - A cross-platform JavaScript runtime environment for developing server-side applications
+- [**NodeJs 14.17.5**](https://nodejs.org/en/) - A cross-platform JavaScript runtime environment for developing server-side applications
 - [**Express 4.18.2**](https://expressjs.com/) - A NodeJs web application framework that helps manage servers and routes.
 - [**Mongoose ^7.0.0**](https://www.mongodb.com/) - A non-relational Database
 - [**Eslint ^7.32.0 || ^8.2.0**](https://eslint.org/) - Handles codebase Linting, (Eslint standard used)
@@ -23,7 +24,7 @@ An open source RESTFUL API quiz questions for popular programming languages. It 
 ```
 .husky
 node_modules/
-docs/
+documentation/
 src/
    --config
      --config.js
@@ -31,17 +32,20 @@ src/
    --controllers/
      --auth.js
      --quiz.js
-     --user.js
+     --contributor.js
    --routes/
      --auth.js
      --quiz.js
+     --contributor.js
      --index.js
      --user.js
    --models/
      --quiz.js
      --user.js
+     --contributor.js
    --middlewares/
      --error-handler.js
+     --token
    --db/
      --db.js
    --utils/
@@ -50,7 +54,6 @@ src/
           --index.ejs
         --emailhandler.js
      --responseHandler.js
-     --token
    app.js
    server.js
 .env-example
@@ -59,9 +62,10 @@ package.json
 
 ### Environment Setup
 
-- Make sure you have **nodejs** installed by running the following command below. You can install **nodejs ** from [here](https://nodejs.org/en/download/) if you don't have it.
+- Make sure you have **nodejs v14.17.5** installed by running the following command below. You can install **nodejs** from [here](https://nodejs.org/en/download/) if   you don't have it.
+- To check node version
   ```
-  node -v
+  node --version
   ```
 - Clone the respository to your local machine using the command
   ```
@@ -98,9 +102,10 @@ package.json
 
 ### Deployment on Render
 
-- Applicaton is on auto deploy from Github to Render
+- Application is on auto deploy from Github to Render.
 
 ## CONTRIBUTING WORKFLOW
-
-- If you like it, leave your star in this project.
+- You can contribute to adding questions for the project [login](https://quizbase.netlify.app/login)
+- If you like the project, leave your star.
 - If you would like to complain/suggest/contribute to this project, feel free to open a issue :heart_decoration:
+
