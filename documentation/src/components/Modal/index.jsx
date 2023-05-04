@@ -1,6 +1,6 @@
 import React, { useRef, useEffect } from 'react'
 
-export default function Modal({ children,handleModalChange }) {
+export default function Modal({ children, handleModalChange }) {
   const ref = useRef(null)
 
   useEffect(() => {

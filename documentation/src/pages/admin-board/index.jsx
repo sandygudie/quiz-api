@@ -334,20 +334,14 @@ export default function AdminBoard() {
         editData ? (
           <Modal
             children={
-              <Form
-                editData={editData}
-                getData={getData}
-                handleModalChange={handleModalChange}
-              />
+              <Form editData={editData} getData={getData} handleModalChange={handleModalChange} />
             }
             handleModalChange={handleModalChange}
           />
         ) : (
           <Modal
             handleModalChange={handleModalChange}
-            children={
-              <Form getData={getData} handleModalChange={handleModalChange} />
-            }
+            children={<Form getData={getData} handleModalChange={handleModalChange} />}
           />
         )
       ) : isModalOpen === 'deletequiz' ? (
