@@ -14,7 +14,7 @@ An open source RESTFUL API quiz questions for popular programming languages. It 
 
 ### Technology/Tools
 
-- [**NodeJs 14.15.6**](https://nodejs.org/en/) - A cross-platform JavaScript runtime environment for developing server-side applications
+- [**NodeJs 14.17.5**](https://nodejs.org/en/) - A cross-platform JavaScript runtime environment for developing server-side applications
 - [**Express 4.18.2**](https://expressjs.com/) - A NodeJs web application framework that helps manage servers and routes.
 - [**Mongoose ^7.0.0**](https://www.mongodb.com/) - A non-relational Database
 - [**Eslint ^7.32.0 || ^8.2.0**](https://eslint.org/) - Handles codebase Linting, (Eslint standard used)
