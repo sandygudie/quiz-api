@@ -32,15 +32,17 @@ src/
    --controllers/
      --auth.js
      --quiz.js
-     --user.js
+     --contributor.js
    --routes/
      --auth.js
      --quiz.js
+     --contributor.js
      --index.js
      --user.js
    --models/
      --quiz.js
      --user.js
+     --contributor.js
    --middlewares/
      --error-handler.js
      --token
