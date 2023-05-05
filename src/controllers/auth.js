@@ -40,7 +40,7 @@ const register = async (req, res) => {
   return successResponse(
     res,
     201,
-    'User was registered successfully! Please check your email',
+    'User registered successfully! Please check your email',
     newContributor
   )
 }
@@ -120,4 +120,4 @@ module.exports = {
 // reset password
 // forgot password
 // work on validation error message
-// get user profile
+

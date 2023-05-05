@@ -5,7 +5,7 @@ const ContributorQuiz = require('../models/contributorQuiz')
 
 const { errorResponse, successResponse } = require('../utils/responseHandler')
 
-const getAllQuizs = async (req, res) => {
+const getAllQuizzes = async (req, res) => {
   let limit = req.query.limit && req.query.limit <= 100 ? parseInt(req.query.limit) : 10
   let quizs
   if (req.query.difficulty && req.query.category) {
@@ -21,17 +21,17 @@ const getAllQuizs = async (req, res) => {
     quizs = await AllQuiz.find({}).sort({ createdAt: -1 }).limit(limit)
   }
   if (quizs.length === 0) {
-    return successResponse(res, 200, 'quiz not found', quizs)
+    return successResponse(res, 200, 'No existing quizzes', quizs)
   }
-  return successResponse(res, 200, 'Quizs retrieved successfully', quizs)
+  return successResponse(res, 200, 'Quizzes retrieved successfully', quizs)
 }
 
-const getAllContributorQuizs = async (req, res) => {
-  const contributorQuizs = await ContributorQuiz.find({}).populate('contributor')
+const getAllContributorQuizzes = async (req, res) => {
+  const contributorQuizs = await ContributorQuiz.find({}).populate('contributor', { username: 1 })
   return successResponse(res, 200, 'Contributor Quizs retrieved successfully', contributorQuizs)
 }
 
-const getAQuiz = async (req, res) => {
+const getQuiz = async (req, res) => {
   let Quiz = req.quiz
   const { id } = req.params
   if (!mongoose.Types.ObjectId.isValid(id)) {
@@ -44,7 +44,7 @@ const getAQuiz = async (req, res) => {
   return successResponse(res, 200, 'Quiz retrieved successfully', quiz)
 }
 
-const createAQuiz = async (req, res) => {
+const createQuiz = async (req, res) => {
   let Quiz = req.quiz
   let { id, role } = req.user
   const { category, difficulty, question, incorrect_answers, correct_answer } = req.body
@@ -67,7 +67,7 @@ const createAQuiz = async (req, res) => {
   return successResponse(res, 201, 'Quiz created successfully', savedQuiz)
 }
 
-const deleteAQuiz = async (req, res) => {
+const deleteQuiz = async (req, res) => {
   let Quiz = req.quiz
   const { id } = req.params
   if (!mongoose.Types.ObjectId.isValid(id)) {
@@ -80,7 +80,7 @@ const deleteAQuiz = async (req, res) => {
   return successResponse(res, 200, 'Quiz deleted')
 }
 
-const updateAQuiz = async (req, res) => {
+const updateQuiz = async (req, res) => {
   let Quiz = req.quiz
   const { id } = req.params
   if (!mongoose.Types.ObjectId.isValid(id)) {
@@ -95,10 +95,10 @@ const updateAQuiz = async (req, res) => {
 }
 
 module.exports = {
-  getAllQuizs,
-  getAQuiz,
-  createAQuiz,
-  deleteAQuiz,
-  updateAQuiz,
-  getAllContributorQuizs
+  getAllQuizzes,
+  getQuiz,
+  createQuiz,
+  deleteQuiz,
+  updateQuiz,
+  getAllContributorQuizzes
 }

@@ -4,23 +4,23 @@ const ContributorQuiz = require('../models/contributorQuiz')
 const { errorResponse, successResponse } = require('../utils/responseHandler')
 
 const getAllContributors = async (req, res) => {
-  const contributor = await Contributor.find({ role: 'contributor' }).sort({ createdAt: -1 })
+  const contributor = await Contributor.find({ role: 'contributor' }).select('username role email isVerified')
   return successResponse(res, 200, ' Contributors retrieved successfully', contributor)
 }
 
-const getAContributor = async (req, res) => {
+const getContributor = async (req, res) => {
   const { id } = req.params
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return errorResponse(res, 400, 'invalid request')
   }
-  const contributor = await Contributor.findById(id).populate('quiz').exec()
+  const contributor = await Contributor.findById(id).populate('quiz')
   if (!contributor) {
     return errorResponse(res, 400, ' Contributor not found')
   }
   return successResponse(res, 200, ' Contributor retrieved successfully', contributor)
 }
 
-const deleteAContributor = async (req, res) => {
+const deleteContributor = async (req, res) => {
   const { id } = req.params
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return errorResponse(res, 400, 'invalid request')
@@ -32,7 +32,7 @@ const deleteAContributor = async (req, res) => {
   return successResponse(res, 200, ' Contributor deleted')
 }
 
-const updateAContributor = async (req, res) => {
+const updateContributor = async (req, res) => {
   const { id } = req.params
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return errorResponse(res, 400, 'invalid request')
@@ -44,7 +44,7 @@ const updateAContributor = async (req, res) => {
   })
   return successResponse(res, 200, 'Contributor updated', updatedContributor)
 }
-const verifyAContributorQuiz = async (req, res) => {
+const verifyContributorQuiz = async (req, res) => {
   const { quizId } = req.params
 
   if (!mongoose.Types.ObjectId.isValid(quizId)) {
@@ -62,8 +62,8 @@ const verifyAContributorQuiz = async (req, res) => {
 
 module.exports = {
   getAllContributors,
-  getAContributor,
-  deleteAContributor,
-  updateAContributor,
-  verifyAContributorQuiz
+  getContributor,
+  deleteContributor,
+  updateContributor,
+  verifyContributorQuiz
 }

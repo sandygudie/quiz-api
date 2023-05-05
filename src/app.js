@@ -24,7 +24,3 @@ app.use(middleware.unknownEndpoint)
 app.use(middleware.defaultErrorHandler)
 
 module.exports = app
-
-// Todo
-// to contribute : Login with google and github or email password
-// reset password
