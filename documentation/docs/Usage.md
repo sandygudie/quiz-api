@@ -25,4 +25,4 @@ https://quizbase.onrender.com/api/v1/quiz?category=HTML
 
 ## API Generator
 
-You can quickly generate an API with the **[API Generator](https://quizbase-docs.netlify.app/api-helper)**
+You can quickly generate an API with the <a href="/api-helper">API Generator</a>

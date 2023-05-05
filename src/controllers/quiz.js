@@ -8,17 +8,15 @@ const { errorResponse, successResponse } = require('../utils/responseHandler')
 const getAllQuizs = async (req, res) => {
   let limit = req.query.limit && req.query.limit <= 100 ? parseInt(req.query.limit) : 10
   let quizs
-  if (req.query.category) {
-    const { category } = req.query
-    quizs = await AllQuiz.find({ category: category.trim() }).limit(limit)
-  }
-  if (req.query.difficulty) {
-    const { difficulty } = req.query
-    quizs = await AllQuiz.find({ difficulty: difficulty.trim() }).limit(limit)
-  }
   if (req.query.difficulty && req.query.category) {
     const { difficulty, category } = req.query
     quizs = await AllQuiz.find({ category: category, difficulty: difficulty }).limit(limit)
+  } else if (req.query.category) {
+    const { category } = req.query
+    quizs = await AllQuiz.find({ category: category.trim() }).limit(limit)
+  } else if (req.query.difficulty) {
+    const { difficulty } = req.query
+    quizs = await AllQuiz.find({ difficulty: difficulty.trim() }).limit(limit)
   } else {
     quizs = await AllQuiz.find({}).sort({ createdAt: -1 }).limit(limit)
   }
@@ -29,10 +27,7 @@ const getAllQuizs = async (req, res) => {
 }
 
 const getAllContributorQuizs = async (req, res) => {
-  const contributorQuizs = await ContributorQuiz.find({})
-    .populate('contributor')
-    .exec()
-    .sort({ createdAt: -1 })
+  const contributorQuizs = await ContributorQuiz.find({}).populate('contributor')
   return successResponse(res, 200, 'Contributor Quizs retrieved successfully', contributorQuizs)
 }
 
