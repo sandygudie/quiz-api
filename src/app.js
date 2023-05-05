@@ -21,6 +21,7 @@ app.use('/api/v1', apiRouter)
 
 // middleware
 app.use(middleware.unknownEndpoint)
+app.use(middleware.errorHandler)
 app.use(middleware.defaultErrorHandler)
 
 module.exports = app
