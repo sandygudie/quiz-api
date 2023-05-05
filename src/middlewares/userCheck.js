@@ -26,13 +26,14 @@ const verifyUserIsAdmin = catchAsyncError(async(req, res, next) => {
   }
   return next()
 })
-const verifyUserIsContibutorOrAdmin = catchAsyncError((req, res, next) => {
+const verifyUserIsContibutorOrAdmin = catchAsyncError(async(req, res, next) => {
   const { role } = req.user
   if (role === 'admin' || role === 'contributor') {
     return next()
   }
 
   return errorResponse(res, 403, 'User is not authorized to perform this action')
+
 })
 
 const isUserVerified = catchAsyncError(async(req, res, next) => {
