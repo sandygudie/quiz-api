@@ -44,7 +44,7 @@ export default function Login() {
       setError(true)
       toast.error(error.message, {
         position: toast.POSITION.TOP_CENTER,
-        autoClose: 5000,
+        autoClose: false,
         theme: 'colored'
       })
       setLoading(false)
