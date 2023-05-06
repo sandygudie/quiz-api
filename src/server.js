@@ -7,5 +7,3 @@ app.listen(PORT, () => {
   logger.info(`Server running on port ${PORT}`)
 })
 
-// Todo
-// Admin activities

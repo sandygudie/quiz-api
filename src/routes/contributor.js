@@ -1,21 +1,18 @@
 const Router = require('express')
 const {
   getAllContributors,
-  getAContributor,
-  deleteAContributor,
-  updateAContributor,
-  verifyAContributorQuiz
+  getContributor,
+  deleteContributor,
+  updateContributor,
+  verifyContributorQuiz
 } = require('../controllers/contributor')
 const { verifyUserIsAdmin, verifyUserIsContibutorOrAdmin } = require('../middlewares/userCheck')
 
 const contributorRouter = Router()
 contributorRouter.get('/', verifyUserIsAdmin, getAllContributors)
-contributorRouter.get('/:id', verifyUserIsContibutorOrAdmin, getAContributor)
-contributorRouter.delete('/:id', verifyUserIsContibutorOrAdmin, deleteAContributor)
-contributorRouter.patch('/:id', verifyUserIsContibutorOrAdmin, updateAContributor)
-contributorRouter.post('/:quizId', verifyUserIsAdmin, verifyAContributorQuiz)
+contributorRouter.get('/:id', verifyUserIsContibutorOrAdmin, getContributor)
+contributorRouter.delete('/:id', verifyUserIsContibutorOrAdmin, deleteContributor)
+contributorRouter.patch('/:id', verifyUserIsContibutorOrAdmin, updateContributor)
+contributorRouter.post('/:quizId', verifyUserIsAdmin, verifyContributorQuiz)
 
 module.exports = { contributorRouter }
-
-// the admin has the action for all this
-// you have to be verified through email to be able to make any request
