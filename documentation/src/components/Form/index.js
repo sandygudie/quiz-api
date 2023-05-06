@@ -49,7 +49,7 @@ export default function index({ handleModalChange, editData, getData }) {
           theme: 'light'
         })
         getData()
-        handleModalChange('close')
+        handleModalChange('')
       }
     } catch (error) {
       console.log(error)

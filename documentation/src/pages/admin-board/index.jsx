@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { TOKEN_KEY ,PROFILE_KEY} from '../../utilis/constants'
+import { TOKEN_KEY, PROFILE_KEY } from '../../utilis/constants'
 import { Redirect } from '@docusaurus/router'
 import QuizbaseImage from '@site/static/img/logo.svg'
 import { logout } from '../../utilis/api/auth'
@@ -11,6 +11,7 @@ import {
 } from '../../utilis/api/admin'
 import Modal from '../../components/Modal'
 import Spinner from '../../components/Spinner'
+import Layout from '../../components/Layout'
 import Form from '../../components/Form'
 import DeleteQuiz from '../../components/DeleteQuiz'
 import { ToastContainer, toast } from 'react-toastify'
@@ -114,7 +115,6 @@ export default function AdminBoard() {
         }
       }
     } catch (error) {
-      
       toast.error(error.message, {
         position: toast.POSITION.TOP_CENTER,
         autoClose: false,
@@ -123,114 +123,114 @@ export default function AdminBoard() {
     }
   }
   return (
-    <div className="h-screen overflow-auto bg-secondary">
-
-      <div className="bg-white h-25 px-6 py-4 flex items-center justify-between">
-        {' '}
-        <QuizbaseImage className="w-fit h-10" />
-        <div className="flex items-center gap-8">
+    <Layout>
+      <div className="h-screen overflow-auto bg-secondary">
+        <div className="bg-white h-25 px-6 py-4 flex items-center justify-between">
           {' '}
-          <p className="font-bold text-primary text-base">
-            <span className="text-base text-gray-100"> Status:</span>
-            {profile.role.toUpperCase()}
-          </p>
-          <button
-            onClick={() => logout()}
-            className="bg-secondary hover:bg-secondary/50 cursor-pointer p-3 font-semibold"
-          >
-            Log Out
-          </button>
-
-        </div>
-      </div>
-      <section className="p-6 m-auto h-full">
-        <div className="font-bold text-base my-8 flex items-center justify-between">
-          {' '}
-          <div className="relative flex items-center justify-between gap-6">
+          <QuizbaseImage className="w-fit h-10" />
+          <div className="flex items-center gap-8">
             {' '}
-            <span
-              onClick={() => setQuizTab('')}
-              className={`${quizTab !== 'allquiz' ? 'text-success' : 'text-gray-100'
-                } cursor-pointer`}
+            <p className="font-bold text-primary text-base">
+              <span className="text-base text-gray-100"> Status:</span>
+              {profile.role.toUpperCase()}
+            </p>
+            <button
+              onClick={() => logout()}
+              className="bg-secondary hover:bg-secondary/50 cursor-pointer p-3 font-semibold"
             >
-              All Contributors Quiz
-            </span>
-            <span
-              onClick={() => setQuizTab('allquiz')}
-              className={`${quizTab === 'allquiz' ? 'text-success' : 'text-gray-100'
+              Log Out
+            </button>
+          </div>
+        </div>
+        <section className="p-6 m-auto h-full">
+          <div className="font-bold text-base my-8 flex items-center justify-between">
+            {' '}
+            <div className="relative flex items-center justify-between gap-6">
+              {' '}
+              <span
+                onClick={() => setQuizTab('')}
+                className={`${
+                  quizTab !== 'allquiz' ? 'text-success' : 'text-gray-100'
                 } cursor-pointer`}
-            >
-              All Quiz
-            </span>
+              >
+                All Contributors Quiz
+              </span>
+              <span
+                onClick={() => setQuizTab('allquiz')}
+                className={`${
+                  quizTab === 'allquiz' ? 'text-success' : 'text-gray-100'
+                } cursor-pointer`}
+              >
+                All Quiz
+              </span>
+            </div>
+            {quizTab === 'allquiz' && (
+              <button
+                onClick={() => {
+                  setEdit(null), setIsModalOpen('openForm')
+                }}
+                className="hover:bg-primary/50 bg-primary font-bold text-white text-base px-4 py-2"
+              >
+                Create Quiz
+              </button>
+            )}
           </div>
 
-          {quizTab === 'allquiz' && (
-            <button
-              onClick={() => {
-                setEdit(null), setIsModalOpen('openForm')
-              }}
-              className="hover:bg-primary/50 bg-primary font-bold text-white text-base px-4 py-2"
-            >
-              Create Quiz
-            </button>
-          )}
-        </div>
-        
           <div className="mx-auto my-6">
             {isLoading ? (
               <Spinner width="40px" height="40px" color="#fff" />
             ) : quiz.length ? (
               quizTab === 'allquiz' ? (
-              <div>
-                <div className="flex items-center justify-between p-2 ">
-                  <p className="py-2 px-4 w-20 font-bold text-lg">Index</p>
-                  <p className="w-64 p-2 font-bold">Question</p>
-                  <p className="w-64 p-2 font-bold">Correct</p>
-                  <p className="w-64 p-2 font-bold">Incorrect Options</p>
-                  <p className="w-22 p-2 font-bold">Category</p>
-                  <p className="w-22 p-2 font-bold">Difficulty</p>
-                  <p className="w-22 p-2 font-bold">Actions</p>
-                  {/* <p className="w-22 p-2 font-bold">Status</p> */}
-                </div>
-                {quiz?.map((content, index) => {
-                  return (
-                    <div
-                      key={content.id}
-                      className="bg-white justify-between p-2 my-4 rounded-xl flex items-center border-[1px] border-solid border-gray-100"
-                    >
-                      <p className="px-4 py-2 w-20 font-bold text-lg">{index + 1}</p>
-                      <p className="w-64  p-2">{content.question}</p>
-                      <p className="w-64  p-2">{content.correct_answer}</p>
+                <div>
+                  <div className="flex items-center justify-between p-2 ">
+                    <p className="py-2 px-4 w-20 font-bold text-lg">Index</p>
+                    <p className="w-64 p-2 font-bold">Question</p>
+                    <p className="w-64 p-2 font-bold">Correct</p>
+                    <p className="w-64 p-2 font-bold">Incorrect Options</p>
+                    <p className="w-22 p-2 font-bold">Category</p>
+                    <p className="w-22 p-2 font-bold">Difficulty</p>
+                    <p className="w-22 p-2 font-bold">Actions</p>
+                    {/* <p className="w-22 p-2 font-bold">Status</p> */}
+                  </div>
+                  {quiz?.map((content, index) => {
+                    return (
+                      <div
+                        key={content.id}
+                        className="bg-white justify-between p-2 my-4 rounded-xl flex items-center border-[1px] border-solid border-gray-100"
+                      >
+                        <p className="px-4 py-2 w-20 font-bold text-lg">{index + 1}</p>
+                        <p className="w-64  p-2">{content.question}</p>
+                        <p className="w-64  p-2">{content.correct_answer}</p>
 
-                      <div className="w-64 p-2 m-0">
-                        {content.incorrect_answers.map((ele, index) => (
-                          <li className="list-disc" key={index}>
-                            {ele}
-                          </li>
-                        ))}
-                      </div>
+                        <div className="w-64 p-2 m-0">
+                          {content.incorrect_answers.map((ele, index) => (
+                            <li className="list-disc" key={index}>
+                              {ele}
+                            </li>
+                          ))}
+                        </div>
 
-                      <p className="w-22 p-2">{content.category}</p>
-                      <p className="w-22 p-2">{content.difficulty}</p>
-                      <div className="w-22 p-2 flex flex-col gap-3">
-                        {' '}
-                        <button
-                          onClick={() => editHandler(content.id)}
-                          className="p-2 cursor-pointer w-15 font-bold block"
-                        >
+                        <p className="w-22 p-2">{content.category}</p>
+                        <p className="w-22 p-2">{content.difficulty}</p>
+                        <div className="w-22 p-2 flex flex-col gap-3">
                           {' '}
-                          Edit
-                        </button>
-                        <button
-                          onClick={() => {
-                            deleteHandler(content.id)
-                          }}
-                          className="p-2 cursor-pointer w-15 font-bold block"
-                        >
-                          Delete
-                        </button>
-                      </div>
-                      {/* {content.status === 'pending' ? (
+                          <button
+                            onClick={() => editHandler(content.id)}
+                            className="p-2 cursor-pointer w-15 font-bold block"
+                          >
+                            {' '}
+                            Edit
+                          </button>
+                          <button
+                            onClick={() => {
+                              deleteHandler(content.id)
+                            }}
+                            className="p-2 cursor-pointer w-15 font-bold block"
+                          >
+                            Delete
+                          </button>
+                        </div>
+                        {/* {content.status === 'pending' ? (
                         <button
                           onClick={() => verifyQuizHandler(content.id)}
                           className={`text-error font-semibold w-22 p-2`}
@@ -241,73 +241,76 @@ export default function AdminBoard() {
                       ) : (
                         <p className="text-success font-semibold w-22 p-2">{content?.status}</p>
                       )} */}
-                    </div>
-                  )
-                })}
-              </div>):(<div className="">
-                <div className="flex items-center justify-between p-2 ">
-                  <p className=" py-2 px-4 w-20 font-bold text-lg">Index</p>
-                  <p className="w-64 p-2 font-bold">Question</p>
-                  <p className="w-64 p-2 font-bold">Correct</p>
-                  <p className="w-64 p-2 font-bold">Incorrect Options</p>
-                  <p className="w-25 p-2 font-bold">Category</p>
-                  <p className="w-22 p-2 font-bold">Difficulty</p>
-                  <p className="w-15 p-2 font-bold">Actions</p>
-                  <p className="w-15 p-2 font-bold">Status</p>
+                      </div>
+                    )
+                  })}
                 </div>
-                {quiz.map((content, index) => {
-                  return (
-                    <div
-                      key={content.id}
-                      className="bg-white justify-between p-2 my-4 rounded-xl flex items-center border-[1px] border-solid border-gray-100"
-                    >
-                      <p className="px-4 py-2 w-20 font-bold text-lg">{index + 1}</p>
-                      <p className="w-64 p-2">{content.question}</p>
-                      <p className="w-64 p-2">{content.correct_answer}</p>
+              ) : (
+                <div className="">
+                  <div className="flex items-center justify-between p-2 ">
+                    <p className=" py-2 px-4 w-20 font-bold text-lg">Index</p>
+                    <p className="w-64 p-2 font-bold">Question</p>
+                    <p className="w-64 p-2 font-bold">Correct</p>
+                    <p className="w-64 p-2 font-bold">Incorrect Options</p>
+                    <p className="w-25 p-2 font-bold">Category</p>
+                    <p className="w-22 p-2 font-bold">Difficulty</p>
+                    <p className="w-15 p-2 font-bold">Actions</p>
+                    <p className="w-15 p-2 font-bold">Status</p>
+                  </div>
+                  {quiz.map((content, index) => {
+                    return (
+                      <div
+                        key={content.id}
+                        className="bg-white justify-between p-2 my-4 rounded-xl flex items-center border-[1px] border-solid border-gray-100"
+                      >
+                        <p className="px-4 py-2 w-20 font-bold text-lg">{index + 1}</p>
+                        <p className="w-64 p-2">{content.question}</p>
+                        <p className="w-64 p-2">{content.correct_answer}</p>
 
-                      <div className="w-64 p-2 m-0">
-                        {content.incorrect_answers.map((ele, index) => (
-                          <li className="list-disc" key={index}>
-                            {ele}
-                          </li>
-                        ))}
-                      </div>
+                        <div className="w-64 p-2 m-0">
+                          {content.incorrect_answers.map((ele, index) => (
+                            <li className="list-disc" key={index}>
+                              {ele}
+                            </li>
+                          ))}
+                        </div>
 
-                      <p className="w-25 p-2">{content.category}</p>
-                      <p className="w-22 p-2">{content.difficulty}</p>
-                      <div className="w-15 p-2 flex flex-col gap-3">
-                        {' '}
-                        <button
-                          onClick={() => editHandler(content.id)}
-                          className="p-2 cursor-pointer font-bold block"
-                        >
+                        <p className="w-25 p-2">{content.category}</p>
+                        <p className="w-22 p-2">{content.difficulty}</p>
+                        <div className="w-15 p-2 flex flex-col gap-3">
                           {' '}
-                          Edit
-                        </button>
-                        <button
-                          onClick={() => {
-                            deleteHandler(content.id)
-                          }}
-                          className="p-2 cursor-pointer font-bold block"
-                        >
-                          Delete
-                        </button>
+                          <button
+                            onClick={() => editHandler(content.id)}
+                            className="p-2 cursor-pointer font-bold block"
+                          >
+                            {' '}
+                            Edit
+                          </button>
+                          <button
+                            onClick={() => {
+                              deleteHandler(content.id)
+                            }}
+                            className="p-2 cursor-pointer font-bold block"
+                          >
+                            Delete
+                          </button>
+                        </div>
+                        {content.status === 'pending' ? (
+                          <button
+                            onClick={() => verifyQuizHandler(content.id)}
+                            className={`text-error font-semibold w-15 p-2`}
+                          >
+                            {' '}
+                            {content.status}
+                          </button>
+                        ) : (
+                          <p className="text-success font-semibold w-15 p-2">{content.status}</p>
+                        )}
                       </div>
-                      {content.status === 'pending' ? (
-                        <button
-                          onClick={() => verifyQuizHandler(content.id)}
-                          className={`text-error font-semibold w-15 p-2`}
-                        >
-                          {' '}
-                          {content.status}
-                        </button>
-                      ) : (
-                        <p className="text-success font-semibold w-15 p-2">{content.status}</p>
-                      )}
-                    </div>
-                  )
-                })}
-              </div>)
+                    )
+                  })}
+                </div>
+              )
             ) : (
               <div className="absolute top-[55%] left-[50%] -translate-y-[50%] -translate-x-[50%]">
                 <p className="text-4xl font-bold p-8  text-gray-100 bg-secondary/50 ">
@@ -316,30 +319,30 @@ export default function AdminBoard() {
               </div>
             )}
           </div>
-      
-      </section>
-      {isModalOpen === 'openForm' ? (
-        editData ? (
+        </section>
+        {isModalOpen === 'openForm' ? (
+          editData ? (
+            <Modal
+              children={
+                <Form editData={editData} getData={getData} handleModalChange={handleModalChange} />
+              }
+              handleModalChange={handleModalChange}
+            />
+          ) : (
+            <Modal
+              handleModalChange={handleModalChange}
+              children={<Form getData={getData} handleModalChange={handleModalChange} />}
+            />
+          )
+        ) : isModalOpen === 'deleteQuiz' ? (
           <Modal
-            children={
-              <Form editData={editData} getData={getData} handleModalChange={handleModalChange} />
-            }
+            children={<DeleteQuiz editData={editData} handleModalChange={handleModalChange} />}
             handleModalChange={handleModalChange}
           />
-        ) : (
-          <Modal
-            handleModalChange={handleModalChange}
-            children={<Form getData={getData} handleModalChange={handleModalChange} />}
-          />
-        )
-      ) : isModalOpen === 'deleteQuiz' ? (
-        <Modal
-          children={<DeleteQuiz editData={editData} handleModalChange={handleModalChange} />}
-          handleModalChange={handleModalChange}
-        />
-      ) : null}
-      <ToastContainer />
-    </div>
+        ) : null}
+        <ToastContainer />
+      </div>
+    </Layout>
   )
 }
 

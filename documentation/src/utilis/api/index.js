@@ -28,13 +28,10 @@ async function makeApiCall(url, method, payload, axiosRequestConfig) {
 
     return data
   } catch (error) {
-    if (error.response.status) {
+    console.log(error)
+    if (error.response) {
+      
       if (error.response.status === 403 || error.response.status === 401) {
-        toast.error(error.message, {
-          position: toast.POSITION.TOP_CENTER,
-          autoClose: 5000,
-          theme: 'colored'
-        })
         localStorage.removeItem(TOKEN_KEY)
         return <Redirect to="/login" />
       }

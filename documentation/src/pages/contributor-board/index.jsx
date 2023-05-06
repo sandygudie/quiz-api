@@ -2,9 +2,10 @@ import React, { useState, useEffect } from 'react'
 import { TOKEN_KEY, PROFILE_KEY } from '../../utilis/constants'
 import { Redirect } from '@docusaurus/router'
 import QuizbaseImage from '@site/static/img/logo.svg'
-import { getContributor} from '../../utilis/api/contributor'
+import { getContributor } from '../../utilis/api/contributor'
 import Modal from '../../components/Modal'
 import Spinner from '../../components/Spinner'
+import Layout from '../../components/Layout'
 import Form from '../../components/Form'
 import DeleteQuiz from '../../components/DeleteQuiz'
 import { ToastContainer, toast } from 'react-toastify'
@@ -46,7 +47,7 @@ export default function ContributorBoard() {
       // console.log(response)
       if (response.success) {
         setQuiz(response.data.quiz)
-     
+
         setLoading(false)
       }
     } catch (error) {
@@ -76,28 +77,27 @@ export default function ContributorBoard() {
   }
 
   return (
+    // <Layout>
     <div className="h-screen overflow-y-auto  bg-secondary">
-      
-        <div className="bg-white h-25 px-6 py-4 flex items-center justify-between ">
-          <QuizbaseImage className="w-fit h-10" />
-          <div className="flex items-center gap-8">
-            {' '}
-            {profile.role.length ? (
-              <p className="font-bold text-primary text-base">
-                <span className="text-base text-gray-100"> Status: </span>
-                {profile.role.toUpperCase()}
-              </p>
-            ) : (
-              ''
-            )}
-            <button
-              onClick={() => logout()}
-              className="bg-secondary hover:bg-secondary/50 cursor-pointer p-3 font-semibold"
-            >
-              Log Out
-            </button>
-          </div>
-
+      <div className="bg-white h-25 px-6 py-4 flex items-center justify-between ">
+        <QuizbaseImage className="w-fit h-10" />
+        <div className="flex items-center gap-8">
+          {' '}
+          {profile.role.length ? (
+            <p className="font-bold text-primary text-base">
+              <span className="text-base text-gray-100"> Status: </span>
+              {profile.role.toUpperCase()}
+            </p>
+          ) : (
+            ''
+          )}
+          <button
+            onClick={() => logout()}
+            className="bg-secondary hover:bg-secondary/50 cursor-pointer p-3 font-semibold"
+          >
+            Log Out
+          </button>
+        </div>
       </div>
 
       <section className="p-6 m-auto">
@@ -195,7 +195,7 @@ export default function ContributorBoard() {
             children={
               <Form
                 editData={editData}
-                contributorData={contributorData}
+                getData={contributorData}
                 handleModalChange={handleModalChange}
               />
             }
@@ -204,9 +204,7 @@ export default function ContributorBoard() {
         ) : (
           <Modal
             handleModalChange={handleModalChange}
-            children={
-              <Form getData={contributorData} handleModalChange={handleModalChange} />
-            }
+            children={<Form getData={contributorData} handleModalChange={handleModalChange} />}
           />
         )
       ) : isModalOpen === 'deletequiz' ? (
@@ -217,6 +215,7 @@ export default function ContributorBoard() {
       ) : null}
       <ToastContainer />
     </div>
+    // </Layout>
   )
 }
 
