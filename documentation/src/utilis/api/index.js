@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { TOKEN_KEY } from '../constants'
+import { PROFILE_KEY, TOKEN_KEY } from '../constants'
 import { ToastContainer, toast } from 'react-toastify'
 import { Redirect } from '@docusaurus/router'
 
@@ -30,12 +30,14 @@ async function makeApiCall(url, method, payload, axiosRequestConfig) {
   } catch (error) {
     if (error.response.status) {
       if (error.response.status === 403 || error.response.status === 401) {
+        console.log(error.response.status)
         toast.error(error.message, {
           position: toast.POSITION.TOP_CENTER,
           autoClose: 5000,
           theme: 'colored'
         })
         localStorage.removeItem(TOKEN_KEY)
+        localStorage.removeItem(PROFILE_KEY)
         return <Redirect to="/login" />
       }
     }
