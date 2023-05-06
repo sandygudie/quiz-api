@@ -181,56 +181,56 @@ export default function AdminBoard() {
               <Spinner width="40px" height="40px" color="#fff" />
             ) : quiz.length ? (
               quizTab === 'allquiz' ? (
-                <div>
-                  <div className="flex items-center justify-between p-2 ">
-                    <p className="py-2 px-4 w-20 font-bold text-lg">Index</p>
-                    <p className="w-64 p-2 font-bold">Question</p>
-                    <p className="w-64 p-2 font-bold">Correct</p>
-                    <p className="w-64 p-2 font-bold">Incorrect Options</p>
-                    <p className="w-22 p-2 font-bold">Category</p>
-                    <p className="w-22 p-2 font-bold">Difficulty</p>
-                    <p className="w-22 p-2 font-bold">Actions</p>
-                    {/* <p className="w-22 p-2 font-bold">Status</p> */}
-                  </div>
-                  {quiz?.map((content, index) => {
-                    return (
-                      <div
-                        key={content.id}
-                        className="bg-white justify-between p-2 my-4 rounded-xl flex items-center border-[1px] border-solid border-gray-100"
-                      >
-                        <p className="px-4 py-2 w-20 font-bold text-lg">{index + 1}</p>
-                        <p className="w-64  p-2">{content.question}</p>
-                        <p className="w-64  p-2">{content.correct_answer}</p>
+              <div>
+                <div className="flex items-center justify-between p-2 ">
+                  <p className="py-2 px-4 w-[96px] font-bold text-lg">Index</p>
+                  <p className="w-[256px] p-2 font-bold">Question</p>
+                  <p className="w-[256px] p-2 font-bold">Correct</p>
+                  <p className="w-[256px] p-2 font-bold">Incorrect Options</p>
+                  <p className="w-[112px] p-2 font-bold">Category</p>
+                  <p className="w-[112px] p-2 font-bold">Difficulty</p>
+                  <p className="w-[112px] p-2 font-bold">Actions</p>
+                  {/* <p className="w-22 p-2 font-bold">Status</p> */}
+                </div>
+                {quiz?.map((content, index) => {
+                  return (
+                    <div
+                      key={content.id}
+                      className="bg-white justify-between p-2 my-4 rounded-xl flex items-center border-[1px] border-solid border-gray-100"
+                    >
+                      <p className="px-4 py-2 w-[96px] font-bold text-lg">{index + 1}</p>
+                      <p className="w-[256px]  p-2">{content.question}</p>
+                      <p className="w-[256px]  p-2">{content.correct_answer}</p>
 
-                        <div className="w-64 p-2 m-0">
-                          {content.incorrect_answers.map((ele, index) => (
-                            <li className="list-disc" key={index}>
-                              {ele}
-                            </li>
-                          ))}
-                        </div>
+                      <div className="w-[256px] p-2 m-0">
+                        {content.incorrect_answers.map((ele, index) => (
+                          <li className="list-disc" key={index}>
+                            {ele}
+                          </li>
+                        ))}
+                      </div>
 
-                        <p className="w-22 p-2">{content.category}</p>
-                        <p className="w-22 p-2">{content.difficulty}</p>
-                        <div className="w-22 p-2 flex flex-col gap-3">
+                      <p className="w-[112px] p-2">{content.category}</p>
+                      <p className="w-[112px] p-2">{content.difficulty}</p>
+                      <div className="w-[112px] p-2 flex flex-col gap-3">
+                        {' '}
+                        <button
+                          onClick={() => editHandler(content.id)}
+                          className="p-2 cursor-pointer w-[96px] font-bold block"
+                        >
                           {' '}
-                          <button
-                            onClick={() => editHandler(content.id)}
-                            className="p-2 cursor-pointer w-15 font-bold block"
-                          >
-                            {' '}
-                            Edit
-                          </button>
-                          <button
-                            onClick={() => {
-                              deleteHandler(content.id)
-                            }}
-                            className="p-2 cursor-pointer w-15 font-bold block"
-                          >
-                            Delete
-                          </button>
-                        </div>
-                        {/* {content.status === 'pending' ? (
+                          Edit
+                        </button>
+                        <button
+                          onClick={() => {
+                            deleteHandler(content.id)
+                          }}
+                          className="p-2 cursor-pointer w-[96px] font-bold block"
+                        >
+                          Delete
+                        </button>
+                      </div>
+                      {/* {content.status === 'pending' ? (
                         <button
                           onClick={() => verifyQuizHandler(content.id)}
                           className={`text-error font-semibold w-22 p-2`}
@@ -241,76 +241,74 @@ export default function AdminBoard() {
                       ) : (
                         <p className="text-success font-semibold w-22 p-2">{content?.status}</p>
                       )} */}
-                      </div>
-                    )
-                  })}
+                    </div>
+                  )
+                })}
+              </div>):(<div className="">
+                <div className="flex items-center justify-between p-2 ">
+                  <p className=" py-2 px-4 w-[96px] font-bold text-lg">Index</p>
+                  <p className="w-[256px] p-2 font-bold">Question</p>
+                  <p className="w-[256px] p-2 font-bold">Correct</p>
+                  <p className="w-[256px] p-2 font-bold">Incorrect Options</p>
+                  <p className="w-[112px] p-2 font-bold">Category</p>
+                  <p className="w-[112px] p-2 font-bold">Difficulty</p>
+                  <p className="w-[112px] p-2 font-bold">Actions</p>
+                  <p className="w-[112px] p-2 font-bold">Status</p>
                 </div>
-              ) : (
-                <div className="">
-                  <div className="flex items-center justify-between p-2 ">
-                    <p className=" py-2 px-4 w-20 font-bold text-lg">Index</p>
-                    <p className="w-64 p-2 font-bold">Question</p>
-                    <p className="w-64 p-2 font-bold">Correct</p>
-                    <p className="w-64 p-2 font-bold">Incorrect Options</p>
-                    <p className="w-25 p-2 font-bold">Category</p>
-                    <p className="w-22 p-2 font-bold">Difficulty</p>
-                    <p className="w-15 p-2 font-bold">Actions</p>
-                    <p className="w-15 p-2 font-bold">Status</p>
-                  </div>
-                  {quiz.map((content, index) => {
-                    return (
-                      <div
-                        key={content.id}
-                        className="bg-white justify-between p-2 my-4 rounded-xl flex items-center border-[1px] border-solid border-gray-100"
-                      >
-                        <p className="px-4 py-2 w-20 font-bold text-lg">{index + 1}</p>
-                        <p className="w-64 p-2">{content.question}</p>
-                        <p className="w-64 p-2">{content.correct_answer}</p>
+                {quiz.map((content, index) => {
+                  return (
+                    <div
+                      key={content.id}
+                      className="relative bg-white justify-between p-2 my-4 rounded-xl flex items-center border-[1px] border-solid border-gray-100"
+                    >
+                      <span className='absolute top-2 left-10 text-sm'>Createdby: <span className='text-sm text-primary'>{content.contributor?.username}</span></span>
+                      <p className="px-4 py-2 w-[96px] font-bold text-lg">{index+1}</p>
+                      <p className="w-[256px] p-2">{content.question}</p>
+                      <p className="w-[256px] p-2">{content.correct_answer}</p>
 
-                        <div className="w-64 p-2 m-0">
-                          {content.incorrect_answers.map((ele, index) => (
-                            <li className="list-disc" key={index}>
-                              {ele}
-                            </li>
-                          ))}
-                        </div>
+                      <div className="w-[256px] p-2 m-0">
+                        {content.incorrect_answers.map((ele, index) => (
+                          <li className="list-disc" key={index}>
+                            {ele}
+                          </li>
+                        ))}
+                      </div>
 
-                        <p className="w-25 p-2">{content.category}</p>
-                        <p className="w-22 p-2">{content.difficulty}</p>
-                        <div className="w-15 p-2 flex flex-col gap-3">
+                      <p className="w-[112px] p-2">{content.category}</p>
+                      <p className="w-[112px] p-2">{content.difficulty}</p>
+                      <div className="w-[112px] p-2 flex flex-col gap-3">
+                        {' '}
+                        <button
+                          onClick={() => editHandler(content.id)}
+                          className="p-2 w-[96px] cursor-pointer font-bold block"
+                        >
                           {' '}
-                          <button
-                            onClick={() => editHandler(content.id)}
-                            className="p-2 cursor-pointer font-bold block"
-                          >
-                            {' '}
-                            Edit
-                          </button>
-                          <button
-                            onClick={() => {
-                              deleteHandler(content.id)
-                            }}
-                            className="p-2 cursor-pointer font-bold block"
-                          >
-                            Delete
-                          </button>
-                        </div>
-                        {content.status === 'pending' ? (
-                          <button
-                            onClick={() => verifyQuizHandler(content.id)}
-                            className={`text-error font-semibold w-15 p-2`}
-                          >
-                            {' '}
-                            {content.status}
-                          </button>
-                        ) : (
-                          <p className="text-success font-semibold w-15 p-2">{content.status}</p>
-                        )}
+                          Edit
+                        </button>
+                        <button
+                          onClick={() => {
+                            deleteHandler(content.id)
+                          }}
+                          className="p-2 w-[96px] cursor-pointer font-bold block"
+                        >
+                          Delete
+                        </button>
                       </div>
-                    )
-                  })}
-                </div>
-              )
+                      {content.status === 'pending' ? (
+                        <button
+                          onClick={() => verifyQuizHandler(content.id)}
+                          className={`text-error w-[96px] font-semibold w-15 p-2`}
+                        >
+                          {' '}
+                          {content.status}
+                        </button>
+                      ) : (
+                        <p className="text-success font-semibold w-[96px] p-2">{content.status}</p>
+                      )}
+                    </div>
+                  )
+                })}
+              </div>)
             ) : (
               <div className="absolute top-[55%] left-[50%] -translate-y-[50%] -translate-x-[50%]">
                 <p className="text-4xl font-bold p-8  text-gray-100 bg-secondary/50 ">
