@@ -2,7 +2,6 @@ import makeApiCall from '.'
 
 export async function getAllContributorQuizs() {
   const response = await makeApiCall(`/quiz/contributors`, 'get')
-  console.log(response)
   return response
 }
 

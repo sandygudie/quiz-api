@@ -28,11 +28,8 @@ async function makeApiCall(url, method, payload, axiosRequestConfig) {
 
     return data
   } catch (error) {
-    console.log(error)
     if (error.response) {
-      
       if (error.response.status === 403 || error.response.status === 401) {
-        console.log(error.response.status)
         toast.error(error.message, {
           position: toast.POSITION.TOP_CENTER,
           autoClose: 5000,

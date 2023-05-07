@@ -32,7 +32,9 @@ const getAllQuizzes = async (req, res) => {
 
 const getAllContributorQuizzes = async (req, res) => {
   try {
-    const contributorQuizs = await ContributorQuiz.find({}).populate('contributor', { username: 1 })
+    const contributorQuizs = await ContributorQuiz.find({})
+      .populate('contributor', { username: 1 })
+      .sort({ createdAt: 1 })
     return successResponse(res, 200, 'Contributor Quizs retrieved successfully', contributorQuizs)
   } catch (error) {
     return errorResponse(res, 500, error.message)

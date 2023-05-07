@@ -21,10 +21,10 @@ export default function index({ editData, handleModalChange, getData }) {
     handleModalChange('')
   }
   return (
-    <div>
-      <h1 className="text-2xl text-center font-bold mb-4"> Quiz in progress</h1>
+    <div className='p-8'>
+      <h1 className="text-2xl text-center font-bold mb-4"> Delete Quiz</h1>
       <p className="text-center text-lg">
-        Are you sure you want to delete quiz? This action will not save progress.
+        Are you sure you want to delete quiz?
       </p>
       <div className="text-center flex items-center justify-around mt-8">
         <button

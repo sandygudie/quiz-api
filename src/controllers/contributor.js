@@ -5,9 +5,9 @@ const { errorResponse, successResponse } = require('../utils/responseHandler')
 
 const getAllContributors = async (req, res) => {
   try {
-    const contributor = await Contributor.find({ role: 'contributor' }).select(
-      'username role email isVerified'
-    )
+    const contributor = await Contributor.find({ role: 'contributor' })
+      .select('username role email isVerified')
+      .sort({ createdAt: 1 })
     return successResponse(res, 200, ' Contributors retrieved successfully', contributor)
   } catch (error) {
     return errorResponse(res, 500, error.message)
@@ -20,7 +20,7 @@ const getContributor = async (req, res) => {
     if (!mongoose.Types.ObjectId.isValid(id)) {
       return errorResponse(res, 400, 'invalid request')
     }
-    const contributor = await Contributor.findById(id).populate('quiz')
+    const contributor = await Contributor.findById(id).populate('quiz').sort({ createdAt: 1 })
     if (!contributor) {
       return errorResponse(res, 400, ' Contributor not found')
     }
