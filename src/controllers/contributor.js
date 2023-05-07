@@ -22,7 +22,7 @@ const getContributor = async (req, res) => {
     }
     const contributor = await Contributor.findById(id).populate({
       path: 'quiz',
-      options: { sort: { CreatedAt: -1 } }
+      options: { sort: { createdAt: -1 } }
     })
     if (!contributor) {
       return errorResponse(res, 400, ' Contributor not found')
