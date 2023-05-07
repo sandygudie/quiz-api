@@ -34,6 +34,7 @@ const contributorSchema = new mongoose.Schema(
     },
     token: { type: String }
   },
+  { timestamps: true },
   {
     collection: 'contributors'
   }

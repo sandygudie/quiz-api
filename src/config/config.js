@@ -1,5 +1,10 @@
 /* eslint-disable no-undef */
-require('dotenv').config()
+// require('dotenv').config()
+if (process.env.NODE_ENV === 'production') {
+  require('dotenv').config({ path: `.env.${process.env.NODE_ENV}` })
+} else {
+  require('dotenv').config({ path: '.env.local' })
+}
 
 const { PORT } = process.env
 

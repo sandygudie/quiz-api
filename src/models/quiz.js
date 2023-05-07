@@ -25,8 +25,9 @@ const quizSchema = new mongoose.Schema(
       type: String,
       required: true
     },
-    createdAt: Date
+
   },
+  { timestamps: true },
   {
     collection: 'quizzes'
   }

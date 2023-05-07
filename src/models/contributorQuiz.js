@@ -33,9 +33,9 @@ const contributorQuizSchema = new mongoose.Schema(
     contributor: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Contributor'
-    },
-    createdAt: Date
+    }
   },
+  { timestamps: true },
   {
     collection: 'contributor-quizzes'
   }

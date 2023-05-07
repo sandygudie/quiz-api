@@ -45,8 +45,6 @@
   "lint-staged": {
     "*.{ts,tsx,js}": "yarn lint",
     "*.css": "yarn format"
-  },
-  "engines": {
-    "node": ">=14 <15"
   }
+  
 }
