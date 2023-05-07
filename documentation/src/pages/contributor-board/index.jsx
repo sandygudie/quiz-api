@@ -44,7 +44,7 @@ export default function ContributorBoard() {
     setLoading(true)
     try {
       let response = await getContributor(profile.id)
-      // console.log(response)
+      console.log(response)
       if (response.success) {
         setQuiz(response.data.quiz)
 
