@@ -20,7 +20,7 @@ const getContributor = async (req, res) => {
     if (!mongoose.Types.ObjectId.isValid(id)) {
       return errorResponse(res, 400, 'invalid request')
     }
-    const contributor = await Contributor.findById(id).populate('quiz').sort({ createdAt: -1 })
+    const contributor = await Contributor.findById(id).populate('quiz', { sort: { createdAt: -1 } })
     if (!contributor) {
       return errorResponse(res, 400, ' Contributor not found')
     }

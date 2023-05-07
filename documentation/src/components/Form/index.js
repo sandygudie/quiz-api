@@ -65,7 +65,7 @@ export default function index({ handleModalChange, editData, getData }) {
     <>
       <div className="p-6 lg:p-10 bg-white text-gray rounded-xl">
         <h2>{editData ? 'Edit Question' : 'Add New Question'}</h2>
-        <form className="mt-4 flex flex-col h-[30em] overflow-y-auto" onSubmit={handleSubmit}>
+        <form className="mt-4 flex flex-col h-[32em] overflow-y-auto" onSubmit={handleSubmit}>
           <div className="my-3">
             <label className="pb-1 block text-base font-semibold">Question</label>
             <input

@@ -4,7 +4,7 @@ const contributorQuizSchema = new mongoose.Schema(
   {
     category: {
       type: String,
-      enum: ['HTML', 'CSS', 'JavaScript'],
+      enum: ['HTML', 'CSS', 'Javascript'],
       required: true
     },
     difficulty: {

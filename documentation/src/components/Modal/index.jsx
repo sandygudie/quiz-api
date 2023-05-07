@@ -22,7 +22,7 @@ export default function Modal({ children, handleModalChange }) {
         className={`z-40 rounded-lg  w-11/12 lg:w-6/12 fixed bg-white dark:bg-secondary 
             -translate-y-[50%] -translate-x-[50%] left-[50%] top-[50%] rounded-lg`}
       >
-        <div className="relative overflow-auto">{children}</div>
+        <div className="relative  h-[40em]">{children}</div>
       </div>
     </div>
   )
