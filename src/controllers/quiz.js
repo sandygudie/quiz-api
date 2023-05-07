@@ -11,15 +11,19 @@ const getAllQuizzes = async (req, res) => {
     let quizs
     if (req.query.difficulty && req.query.category) {
       const { difficulty, category } = req.query
-      quizs = await AllQuiz.find({ category: category, difficulty: difficulty }).limit(limit)
+      quizs = await AllQuiz.find({ category: category, difficulty: difficulty })
+        .sort({ createdAt: 1 })
+        .limit(limit)
     } else if (req.query.category) {
       const { category } = req.query
-      quizs = await AllQuiz.find({ category: category.trim() }).limit(limit)
+      quizs = await AllQuiz.find({ category: category.trim() }).sort({ createdAt: 1 }).limit(limit)
     } else if (req.query.difficulty) {
       const { difficulty } = req.query
-      quizs = await AllQuiz.find({ difficulty: difficulty.trim() }).limit(limit)
+      quizs = await AllQuiz.find({ difficulty: difficulty.trim() })
+        .sort({ createdAt: 1 })
+        .limit(limit)
     } else {
-      quizs = await AllQuiz.find({}).sort({ createdAt: -1 }).limit(limit)
+      quizs = await AllQuiz.find({}).sort({ createdAt: 1 }).limit(limit)
     }
     if (quizs.length === 0) {
       return successResponse(res, 200, 'No existing quizzes', quizs)
