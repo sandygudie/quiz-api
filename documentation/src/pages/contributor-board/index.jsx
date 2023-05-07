@@ -118,7 +118,7 @@ export default function ContributorBoard() {
         ) : quiz.length ? (
           <div>
             <div className="flex items-center justify-between p-2 ">
-              <p className="py-2 px-4 w-[96px] font-bold text-lg">Index</p>
+              <p className="py-2 px-4 w-[64px] font-bold text-lg">No.</p>
               <p className="w-[256px] p-2  font-bold">Question</p>
               <p className="w-[256px] p-2 font-bold">Correct</p>
               <p className="w-[256px] p-2  font-bold">Incorrect Options</p>
@@ -133,7 +133,7 @@ export default function ContributorBoard() {
                   key={content.id}
                   className="bg-white justify-between p-2 my-4 rounded-xl flex items-center border-[1px] border-solid border-gray-100"
                 >
-                  <p className="px-4 py-2 w-[96px] font-bold text-lg">{index + 1}</p>
+                  <p className="px-4 py-2 w-[48px] font-bold text-lg">{index + 1}</p>
                   <p className="w-[256px]  p-2">{content.question}</p>
                   <p className="w-[256px]  p-2">{content.correct_answer}</p>
 

@@ -52,7 +52,7 @@ export default function index({ handleModalChange, editData, getData }) {
         handleModalChange('')
       }
     } catch (error) {
-      console.log(error)
+
       toast.error(error.message, {
         position: toast.POSITION.TOP_CENTER,
         autoClose: 5000,

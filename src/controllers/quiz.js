@@ -12,18 +12,18 @@ const getAllQuizzes = async (req, res) => {
     if (req.query.difficulty && req.query.category) {
       const { difficulty, category } = req.query
       quizs = await AllQuiz.find({ category: category, difficulty: difficulty })
-        .sort({ createdAt: 1 })
+        .sort({ createdAt: -1 })
         .limit(limit)
     } else if (req.query.category) {
       const { category } = req.query
-      quizs = await AllQuiz.find({ category: category.trim() }).sort({ createdAt: 1 }).limit(limit)
+      quizs = await AllQuiz.find({ category: category.trim() }).sort({ createdAt: -1 }).limit(limit)
     } else if (req.query.difficulty) {
       const { difficulty } = req.query
       quizs = await AllQuiz.find({ difficulty: difficulty.trim() })
         .sort({ createdAt: 1 })
         .limit(limit)
     } else {
-      quizs = await AllQuiz.find({}).sort({ createdAt: 1 }).limit(limit)
+      quizs = await AllQuiz.find({}).sort({ createdAt: -1 }).limit(limit)
     }
     if (quizs.length === 0) {
       return successResponse(res, 200, 'No existing quizzes', quizs)
@@ -38,7 +38,7 @@ const getAllContributorQuizzes = async (req, res) => {
   try {
     const contributorQuizs = await ContributorQuiz.find({})
       .populate('contributor', { username: 1 })
-      .sort({ createdAt: 1 })
+      .sort({ createdAt: -1 })
     return successResponse(res, 200, 'Contributor Quizs retrieved successfully', contributorQuizs)
   } catch (error) {
     return errorResponse(res, 500, error.message)
