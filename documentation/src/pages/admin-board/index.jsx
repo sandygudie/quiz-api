@@ -11,7 +11,6 @@ import {
 } from '../../utilis/api/admin'
 import Modal from '../../components/Modal'
 import Spinner from '../../components/Spinner'
-import Layout from '../../components/Layout'
 import Form from '../../components/Form'
 import DeleteQuiz from '../../components/DeleteQuiz'
 import { ToastContainer, toast } from 'react-toastify'
@@ -123,7 +122,7 @@ export default function AdminBoard() {
     }
   }
   return (
-    <Layout>
+
       <div className="h-screen overflow-auto bg-secondary">
         <div className="bg-white h-25 px-6 py-4 flex items-center justify-between">
           {' '}
@@ -350,7 +349,7 @@ export default function AdminBoard() {
         ) : null}
         <ToastContainer />
       </div>
-    </Layout>
+
   )
 }
 

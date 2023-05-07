@@ -5,7 +5,7 @@ import QuizbaseImage from '@site/static/img/logo.svg'
 import { getContributor } from '../../utilis/api/contributor'
 import Modal from '../../components/Modal'
 import Spinner from '../../components/Spinner'
-import Layout from '../../components/Layout'
+
 import Form from '../../components/Form'
 import DeleteQuiz from '../../components/DeleteQuiz'
 import { ToastContainer, toast } from 'react-toastify'
@@ -26,8 +26,6 @@ export default function ContributorBoard() {
     profile = JSON.parse(parseddata)
   }
 
-  // what if token is expired or invalid or fake
-  // remove token and profile is anything goes wrong
   if (!token || !profile.id) {
     return <Redirect to="/login" />
   }
@@ -44,7 +42,7 @@ export default function ContributorBoard() {
     setLoading(true)
     try {
       let response = await getContributor(profile.id)
-      console.log(response)
+
       if (response.success) {
         setQuiz(response.data.quiz)
 
@@ -77,7 +75,7 @@ export default function ContributorBoard() {
   }
 
   return (
-    // <Layout>
+
     <div className="h-screen overflow-y-auto  bg-secondary">
       <div className="bg-white h-25 px-6 py-4 flex items-center justify-between ">
         <QuizbaseImage className="w-fit h-10" />
@@ -215,8 +213,6 @@ export default function ContributorBoard() {
       ) : null}
       <ToastContainer />
     </div>
-    // </Layout>
+
   )
 }
-
-// if there is network issue error handling use react query
