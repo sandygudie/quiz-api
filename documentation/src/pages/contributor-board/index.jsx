@@ -5,7 +5,7 @@ import QuizbaseImage from '@site/static/img/logo.svg'
 import { getContributor } from '../../utilis/api/contributor'
 import Modal from '../../components/Modal'
 import Spinner from '../../components/Spinner'
-
+import { createQuiz, editQuiz } from '../../utilis/api/quiz'
 import Form from '../../components/Form'
 import DeleteQuiz from '../../components/DeleteQuiz'
 import { ToastContainer, toast } from 'react-toastify'
@@ -13,10 +13,8 @@ import { logout } from '../../utilis/api/auth'
 
 export default function ContributorBoard() {
   const [quiz, setQuiz] = useState([])
-
   const [isModalOpen, setIsModalOpen] = useState('openForm' | 'deletequiz' | 'close')
-  const [isLoading, setLoading] = useState(false)
-  const [editData, setEdit] = useState(null)
+  const [editData, setEditData] = useState(null)
 
   let token
   let profile
@@ -39,19 +37,15 @@ export default function ContributorBoard() {
   }, [])
 
   const contributorData = async () => {
-    setLoading(true)
     try {
       let response = await getContributor(profile.id)
-
       if (response.success) {
         setQuiz(response.data.quiz)
-
-        setLoading(false)
       }
     } catch (error) {
       toast.error(error.message, {
         position: toast.POSITION.TOP_CENTER,
-        autoClose: 5000,
+        autoClose: 2000,
         theme: 'colored'
       })
     }
@@ -60,24 +54,82 @@ export default function ContributorBoard() {
     setIsModalOpen(isModalOpen)
   }
 
-  const editHandler = async (id) => {
+  const createQuizhandler = async (formdata) => {
+    try {
+      const response = await createQuiz(formdata)
+      if (response.success) {
+        toast(<p className="text-lg font-semibold text-green-700">{response.success}</p>, {
+          position: 'top-center',
+          autoClose: 2000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: false,
+          progress: undefined,
+          theme: 'light'
+        })
+        setQuiz((current) => [{ id: Math.random(), status: 'pending', ...formdata }, ...current])
+        contributorData()
+        handleModalChange('')
+      }
+    } catch (error) {
+      toast.error(error.message, {
+        position: toast.POSITION.TOP_CENTER,
+        autoClose: 2000,
+        theme: 'colored'
+      })
+    }
+  }
+  const editQuizdata = async (id) => {
     quiz.map((content) => {
-      return content.id === id ? setEdit(content) : null
+      return content.id === id ? setEditData(content) : null
     })
     setIsModalOpen('openForm')
   }
 
+  const editQuizHandler = async (id, formData) => {
+    try {
+      const response = await editQuiz(formData, id)
+      if (response.success) {
+        toast(<p className="text-lg font-semibold text-green-700">{response.success}</p>, {
+          position: 'top-center',
+          autoClose: 2000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: false,
+          progress: undefined,
+          theme: 'light'
+        })
+        const newState = quiz.map((obj) => {
+          if (obj.id === id) {
+            return { id: Math.random(), status: 'pending', ...formData }
+          }
+          return obj
+        })
+        setQuiz(newState)
+        contributorData()
+        handleModalChange('')
+      }
+    } catch (error) {
+      toast.error(error.message, {
+        position: toast.POSITION.TOP_CENTER,
+        autoClose: 2000,
+        theme: 'colored'
+      })
+    }
+  }
+
   const deleteHandler = async (id) => {
     quiz.map((content) => {
-      return content.id === id ? setEdit(id) : null
+      return content.id === id ? setEditData(id) : null
     })
     setIsModalOpen('deletequiz')
   }
 
   return (
-
-    <div className="h-screen overflow-y-auto  bg-secondary">
-      <div className="bg-white h-25 px-6 py-4 flex items-center justify-between ">
+    <div className="h-screen overflow-y-auto bg-secondary">
+      <div className="bg-white h-25 px-6 py-4 flex items-center justify-between">
         <QuizbaseImage className="w-fit h-10" />
         <div className="flex items-center gap-8">
           {' '}
@@ -104,26 +156,23 @@ export default function ContributorBoard() {
           <h3>Contributor Quiz</h3>
           <button
             onClick={() => {
-              setEdit(null), setIsModalOpen('openForm')
+              setEditData(null), setIsModalOpen('openForm')
             }}
             className="hover:bg-primary/50 bg-primary font-bold text-white text-base px-4 py-2"
           >
             Create Quiz
           </button>
         </div>
-        {isLoading ? (
-          <Spinner width="40px" height="40px" color="#fff" />
-        ) : quiz.length ? (
+        {quiz.length ? (
           <div>
             <div className="flex items-center justify-between p-2 ">
               <p className="py-2 px-4 w-[64px] font-bold text-lg">No.</p>
-              <p className="w-[256px] p-2  font-bold">Question</p>
-              <p className="w-[256px] p-2 font-bold">Correct</p>
-              <p className="w-[256px] p-2  font-bold">Incorrect Options</p>
-              <p className="w-[112px] p-2  font-bold">Category</p>
-              <p className="w-[112px] p-2 font-bold">Difficulty</p>
-              <p className="w-[112px] p-2 font-bold">Actions</p>
-              <p className="w-[112px] p-2 font-bold">Status</p>
+              <p className="w-[270px] p-2 font-bold">Question</p>
+              <p className="w-[270px] p-2 font-bold">Correct</p>
+              <p className="w-[480px] p-2 font-bold">Incorrect Options</p>
+              <p className="w-[150px] p-2 font-bold">Others</p>
+              <p className="w-[100px] p-2 font-bold">Actions</p>
+             
             </div>
             {quiz.map((content, index) => {
               return (
@@ -131,28 +180,38 @@ export default function ContributorBoard() {
                   key={content.id}
                   className="bg-white justify-between p-2 my-4 rounded-xl flex items-center border-[1px] border-solid border-gray-100"
                 >
-                  <p className="px-4 py-2 w-[48px] font-bold text-lg">{index + 1}</p>
-                  <p className="w-[256px]  p-2">{content.question}</p>
-                  <p className="w-[256px]  p-2">{content.correct_answer}</p>
+                  <p className="px-4 py-2 w-[64px] font-bold text-lg">{index + 1}</p>
+                  <p className="w-[270px] p-2">{content.question}</p>
+                  <p className="w-[270px] p-2">{content.correct_answer}</p>
 
-                  <div className="w-[256px] p-2 m-0">
+                  <div className="w-[480px] p-2 m-0">
                     {content.incorrect_answers.map((ele, index) => (
                       <li className=" list-disc" key={index}>
                         {ele}
                       </li>
                     ))}
                   </div>
-
-                  <p className="w-[112px] p-2">{content.category}</p>
-                  <p className="w-[112px] p-2">{content.difficulty}</p>
-                  <div className="w-[112px] p-2 flex flex-col gap-3">
+                 
+                  <div className=' flex flex-col justify-center gap-2 text-sm w-[150px] text-sm'>
+                    <p><span className='font-semibold pr-2'>Category:</span>{content.category}</p>
+                    <p ><span className='font-semibold pr-2'>Difficulty:</span>{content.difficulty}</p>
+                    <p
+                      className={`${
+                        content.status === 'pending' ? 'text-error' : 'text-success'
+                      } font-semibold`}
+                    >
+                      {' '}
+                   <span className='font-semibold text-black pr-2'>  Status:</span> {content?.status}
+                    </p>
+                  </div>
+                  <div className="w-[100px] p-2 flex flex-col gap-3 ">
                     {' '}
                     <button
                       disabled={content.status === 'verified'}
-                      onClick={() => editHandler(content.id)}
+                      onClick={() => editQuizdata(content.id)}
                       className={`${
-                        content.status === 'verified' ? 'bg-secondary/50' : ' bg-gray-100'
-                      } p-2 cursor-pointer w-[96px] font-bold block`}
+                        content.status === 'verified' ? 'bg-secondary/50' : 'bg-gray-100'
+                      } p-2 cursor-pointer w-[70px] font-bold block`}
                     >
                       {' '}
                       Edit
@@ -164,55 +223,52 @@ export default function ContributorBoard() {
                       }}
                       className={`${
                         content.status === 'verified' ? 'bg-secondary/50' : ' bg-gray-100'
-                      } p-2 cursor-pointer w-[96px] font-bold block`}
+                      } p-2 cursor-pointer w-[70px] font-bold block`}
                     >
                       Delete
                     </button>
                   </div>
-                  <p
-                    className={`${
-                      content.status === 'pending' ? 'text-error' : 'text-success'
-                    } font-semibold w-[96px] p-2`}
-                  >
-                    {' '}
-                    {content?.status}
-                  </p>
+                 
                 </div>
               )
             })}
           </div>
-        ) : (
+        ) : quiz.length === ' ' ? (
           <div className="absolute top-[55%] left-[50%] -translate-y-[50%] -translate-x-[50%]">
-            <p className="text-4xl font-bold p-8  text-gray-100 bg-secondary/50 ">No Quiz Added</p>
+            <p className="text-4xl font-bold p-8 text-gray-100 bg-secondary/50">
+              No Quiz Available
+            </p>
           </div>
+        ) : (
+          <Spinner width="40px" height="40px" color="#42b883" />
         )}
       </section>
       {isModalOpen === 'openForm' ? (
         editData ? (
           <Modal
-            children={
-              <Form
-                editData={editData}
-                getData={contributorData}
-                handleModalChange={handleModalChange}
-              />
-            }
+            children={<Form editData={editData} editQuizHandler={editQuizHandler} />}
             handleModalChange={handleModalChange}
           />
         ) : (
           <Modal
             handleModalChange={handleModalChange}
-            children={<Form getData={contributorData} handleModalChange={handleModalChange} />}
+            children={<Form createQuizhandler={createQuizhandler} />}
           />
         )
       ) : isModalOpen === 'deletequiz' ? (
         <Modal
-          children={<DeleteQuiz editData={editData} handleModalChange={handleModalChange} />}
+          children={
+            <DeleteQuiz
+              setQuiz={setQuiz}
+              getData={contributorData}
+              editData={editData}
+              handleModalChange={handleModalChange}
+            />
+          }
           handleModalChange={handleModalChange}
         />
       ) : null}
       <ToastContainer />
     </div>
-
   )
 }
