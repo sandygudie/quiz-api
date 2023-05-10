@@ -167,7 +167,7 @@ export default function AdminBoard() {
           </button>
         </div>
       </div>
-      <section className="p-6 m-auto h-full">
+      <section className="p-6 m-auto">
         <div className="relative font-bold text-base my-8 flex items-center justify-between">
           {' '}
           <div className="relative flex items-center justify-between gap-6">
