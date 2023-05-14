@@ -44,11 +44,7 @@ export default function Register() {
     <Layout title={'signup'} description="Register">
       <section className="login-signup">
         <h1 className="login-signup__heading">Sign Up</h1>
-        <div className="login-signup__google">
-          <button className="login-signup__google__login-btn">
-            Sign in with Google <FcGoogle />
-          </button>
-        </div>
+    
         <div className="login-signup__hr-line">
           {' '}
           <hr />
