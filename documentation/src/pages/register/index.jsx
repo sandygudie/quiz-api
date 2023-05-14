@@ -44,14 +44,6 @@ export default function Register() {
     <Layout title={'signup'} description="Register">
       <section className="login-signup">
         <h1 className="login-signup__heading">Sign Up</h1>
-    
-        <div className="login-signup__hr-line">
-          {' '}
-          <hr />
-          <h2 className="login-signup__hr-line__or">OR</h2>
-          <hr />
-        </div>
-
         <form className="login-signup__form" onSubmit={registerHandler} method="POST">
           <div className="field">
             <label className="sr-only" htmlFor="username">
