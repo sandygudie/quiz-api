@@ -74,18 +74,16 @@ package.json
   ```
 - Navigate to the project folder.
 - And open the project with your code editor (VScode recommended)
-- Then install the package dependencies by running the following command in the terminal:
-  ```
-  yarn install
-  ```
 
 ### Start the server
-
+- Install the package dependencies by running the following command in the terminal `yarn install`
 - Create a `.env` in the project folder, get variables from the `.env.example` file sample and ensure to add the values(e.g MONGODB_URI)
-- To start the server locally, run the command
-  ```
-   yarn run dev
-  ```
+- To start the server locally, run the command `yarn run dev` 
+  
+### Run Documentation
+- Navigate to the documentation folder. `cd documentation`
+- Install Packages `yarn install`
+- To start documentation locally, run the command `yarn start`
 
 ### Formatting for the project
 
