@@ -54,7 +54,8 @@ export default function Login() {
     <>
       <Layout title={'login'} description="login">
         <section className="login-signup">
-          <h1 className="login-signup__heading">Contribute to QuizBase Questions</h1>
+          <h1 className="login-signup__heading">Login</h1>
+          <h2 className="login-signup__heading">Contribute to QuizBase Questions</h2>
           <form className="login-signup__form" onSubmit={loginHandler} method="POST">
             <div className="field">
               <label className="sr-only" htmlFor="email">
