@@ -5,7 +5,6 @@ import QuizbaseImage from '@site/static/img/logo.svg'
 import { logout } from '../../utilis/api/auth'
 import { getAllContributorQuizs, getAllQuizs } from '../../utilis/api/admin'
 import { createQuiz, editQuiz } from '../../utilis/api/quiz'
-
 import Modal from '../../components/Modal'
 import Spinner from '../../components/Spinner'
 import Form from '../../components/Form'
@@ -152,7 +151,7 @@ export default function AdminBoard() {
     <div className="h-screen overflow-auto bg-secondary">
       <div className="bg-white h-25 px-6 py-4 flex items-center justify-between">
         {' '}
-        <QuizbaseImage className="w-fit h-10" />
+      <a href="/">  <QuizbaseImage className="w-fit h-10" /></a>
         <div className="flex items-center gap-8">
           {' '}
           <p className="font-bold text-primary text-base">
@@ -380,6 +379,7 @@ export default function AdminBoard() {
             <DeleteQuiz
               getData={getData}
               editData={editData}
+              setQuiz={setQuiz}
               handleModalChange={handleModalChange}
             />
           }
