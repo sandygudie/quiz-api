@@ -129,7 +129,7 @@ export default function index({ editData, createQuizhandler, editQuizHandler }) 
               onChange={handleChangeDifficulty}
             >
               <option disabled="" value="">
-                Select Purpose
+                Select Difficulty
               </option>
               <option value={'easy'}> Easy </option>
               <option value={'medium'}> Medium </option>
