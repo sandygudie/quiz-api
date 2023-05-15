@@ -78,18 +78,6 @@ a:hover {
   text-decoration: none;
 }
 
-/* button {
-  outline: none;
-  color: var(--black);
-  border: none;
-}
-button,
-input {
-  outline: none;
-  border-radius: 5px;
-  color: var(--black);
-} */
-
 input,
 button {
   outline: none;
@@ -138,4 +126,10 @@ select {
 .footer {
   padding: 10px !important;
   font-size: small !important;
-} /*# sourceMappingURL=custom.css.map */
+}
+
+@media only screen and (min-width: 1024px) {
+  .navbar {
+    padding: 0em 3rem;
+  }
+}

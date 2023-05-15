@@ -43,7 +43,7 @@ export default function Register() {
   return (
     <Layout title={'signup'} description="Register">
       <section className="login-signup">
-        <h1 className="login-signup__heading">Sign Up to contribute</h1>
+        <h1 className="login-signup__heading">Sign up to contribute</h1>
         <form className="login-signup__form" onSubmit={registerHandler} method="POST">
           <div className="field">
             <label className="sr-only" htmlFor="username">
