@@ -10,8 +10,9 @@ export default function ApiHelper() {
 
   const genetateURL = () => {
     const baseURL = 'https://quiz-api.up.railway.app/api/v1/quiz'
-    let url = `${baseURL}?limit=${limit}${difficulty && '&difficulty=Easy'}${category && '&category=CSS'
-      }`
+    let url = `${baseURL}?limit=${limit}${difficulty && '&difficulty=Easy'}${
+      category && '&category=CSS'
+    }`
     setGeneratedUrl(url)
   }
   return (

@@ -46,5 +46,4 @@
     "*.{ts,tsx,js}": "yarn lint",
     "*.css": "yarn format"
   }
-  
 }

@@ -1,6 +1,5 @@
 ![Yellow Black Playful Lamp Bulb Idea Company Logo-svg](https://user-images.githubusercontent.com/54219127/236227772-222d3f86-e627-417a-a299-b686c44f8487.svg)
 
-
 ## Description
 
 An open source RESTFUL API quiz questions for popular programming languages. It consists of Multiple Choice Questions(MCQs) in various areas including: HTML, CSS, JavaScript, NextJs etc.
@@ -63,7 +62,7 @@ package.json
 
 ### Environment Setup
 
-- Make sure you have **nodejs v14.17.5** installed by running the following command below. You can install **nodejs** from [here](https://nodejs.org/en/download/) if   you don't have it.
+- Make sure you have **nodejs v14.17.5** installed by running the following command below. You can install **nodejs** from [here](https://nodejs.org/en/download/) if you don't have it.
 - To check node version
   ```
   node --version
@@ -106,7 +105,7 @@ package.json
 - Application is on auto deploy from Github to Render.
 
 ## CONTRIBUTING WORKFLOW
+
 - You can contribute to adding questions for the project [login](https://quizbase.netlify.app/login)
 - If you like the project, leave your star.
 - If you would like to complain/suggest/contribute to this project, feel free to open a issue :heart_decoration:
-

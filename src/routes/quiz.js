@@ -31,4 +31,3 @@ quizRouter.delete('/:id', verifyToken, isUserVerified, userDataIsContibutorOrAdm
 quizRouter.patch('/:id', verifyToken, isUserVerified, userDataIsContibutorOrAdmin, updateQuiz)
 
 module.exports = { quizRouter }
-

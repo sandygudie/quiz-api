@@ -1,10 +1,17 @@
 import React, { useState } from 'react'
-import { deleteQuiz ,createQuiz } from '../../utilis/api/quiz'
+import { deleteQuiz, createQuiz } from '../../utilis/api/quiz'
 import { toast } from 'react-toastify'
 import Spinner from '../Spinner'
-import { verifyContributorQuiz} from '../../utilis/api/admin'
+import { verifyContributorQuiz } from '../../utilis/api/admin'
 
-export default function index({ setQuiz, editData, handleModalChange, handleTabChange, isVerify, getData }) {
+export default function index({
+  setQuiz,
+  editData,
+  handleModalChange,
+  handleTabChange,
+  isVerify,
+  getData
+}) {
   const [isLoading, setLoading] = useState(false)
 
   const verifyQuizHandler = async (quizitem) => {
@@ -56,12 +63,11 @@ export default function index({ setQuiz, editData, handleModalChange, handleTabC
     try {
       const response = await deleteQuiz(editData)
       if (response.success) {
-
-        setQuiz(current =>
-          current.filter(quiz => {
-            return quiz.id !== editData;
-          }),
-        );
+        setQuiz((current) =>
+          current.filter((quiz) => {
+            return quiz.id !== editData
+          })
+        )
 
         toast(<p className="text-lg font-semibold text-green-700">{response.success}</p>, {
           position: 'top-center',
@@ -73,7 +79,6 @@ export default function index({ setQuiz, editData, handleModalChange, handleTabC
           progress: undefined,
           theme: 'light'
         })
-
       }
       getData()
       handleModalChange('')

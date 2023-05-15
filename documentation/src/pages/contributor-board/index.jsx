@@ -172,7 +172,6 @@ export default function ContributorBoard() {
               <p className="w-[480px] p-2 font-bold">Incorrect Options</p>
               <p className="w-[150px] p-2 font-bold">Others</p>
               <p className="w-[100px] p-2 font-bold">Actions</p>
-             
             </div>
             {quiz.map((content, index) => {
               return (
@@ -191,17 +190,24 @@ export default function ContributorBoard() {
                       </li>
                     ))}
                   </div>
-                 
-                  <div className=' flex flex-col justify-center gap-2 text-sm w-[150px] text-sm'>
-                    <p><span className='font-semibold pr-2'>Category:</span>{content.category}</p>
-                    <p ><span className='font-semibold pr-2'>Difficulty:</span>{content.difficulty}</p>
+
+                  <div className=" flex flex-col justify-center gap-2 text-sm w-[150px] text-sm">
+                    <p>
+                      <span className="font-semibold pr-2">Category:</span>
+                      {content.category}
+                    </p>
+                    <p>
+                      <span className="font-semibold pr-2">Difficulty:</span>
+                      {content.difficulty}
+                    </p>
                     <p
                       className={`${
                         content.status === 'pending' ? 'text-error' : 'text-success'
                       } font-semibold`}
                     >
                       {' '}
-                   <span className='font-semibold text-black pr-2'>  Status:</span> {content?.status}
+                      <span className="font-semibold text-black pr-2"> Status:</span>{' '}
+                      {content?.status}
                     </p>
                   </div>
                   <div className="w-[100px] p-2 flex flex-col gap-3 ">
@@ -228,7 +234,6 @@ export default function ContributorBoard() {
                       Delete
                     </button>
                   </div>
-                 
                 </div>
               )
             })}

@@ -24,8 +24,7 @@ const quizSchema = new mongoose.Schema(
     correct_answer: {
       type: String,
       required: true
-    },
-
+    }
   },
   { timestamps: true },
   {
