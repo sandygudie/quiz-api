@@ -2,6 +2,7 @@ const mongoose = require('mongoose')
 const AllQuiz = require('../models/quiz')
 const Contributor = require('../models/contributor')
 const ContributorQuiz = require('../models/contributorQuiz')
+const { quizValidation } = require('../utils/validator')
 
 const { errorResponse, successResponse } = require('../utils/responseHandler')
 
@@ -70,6 +71,9 @@ const createQuiz = async (req, res) => {
     if (!req.body) {
       return errorResponse(res, 400, 'no request body')
     }
+    const { error } = quizValidation(req.body)
+    if (error) return errorResponse(res, 400, error.details[0].message)
+
     const contributor = await Contributor.findById(id)
     const quiz = new Quiz({
       category,
@@ -113,6 +117,9 @@ const updateQuiz = async (req, res) => {
     if (!mongoose.Types.ObjectId.isValid(id)) {
       return errorResponse(res, 400, 'invalid request')
     }
+    const { error } = quizValidation(req.body)
+    if (error) return errorResponse(res, 400, error.details[0].message)
+
     const updatedQuiz = await Quiz.findByIdAndUpdate(req.params.id, req.body, {
       new: true,
       runValidators: true,

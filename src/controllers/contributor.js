@@ -2,6 +2,7 @@ const mongoose = require('mongoose')
 const Contributor = require('../models/contributor')
 const ContributorQuiz = require('../models/contributorQuiz')
 const { errorResponse, successResponse } = require('../utils/responseHandler')
+const { userValidation } = require('../utils/validator')
 
 const getAllContributors = async (req, res) => {
   try {
@@ -55,6 +56,9 @@ const updateContributor = async (req, res) => {
     if (!mongoose.Types.ObjectId.isValid(id)) {
       return errorResponse(res, 400, 'invalid request')
     }
+    const { error } = userValidation(req.body)
+    if (error) return errorResponse(res, 400, error.details[0].message)
+
     const updatedContributor = await Contributor.findByIdAndUpdate(req.params.id, req.body, {
       new: true,
       runValidators: true,

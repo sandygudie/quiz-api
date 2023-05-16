@@ -3,6 +3,7 @@ const bcrypt = require('bcrypt')
 const { errorResponse, successResponse } = require('../utils/responseHandler')
 const { generateToken } = require('../middlewares/token')
 const { emailVerification } = require('../utils/sendEmail/emailhandler')
+const { loginValidation, userValidation } = require('../utils/validator')
 const jwt = require('jsonwebtoken')
 
 const register = async (req, res) => {
@@ -11,9 +12,13 @@ const register = async (req, res) => {
     if (!req.body) {
       return errorResponse(res, 400, 'no request body')
     }
+    const { error } = userValidation(req.body)
+    if (error) return errorResponse(res, 400, error.details[0].message)
+
     if (password.length < 5) {
       return errorResponse(res, 400, 'Password must be at least 8 characters long')
     }
+
     const existingContributor = await Contributor.findOne({ email })
     if (existingContributor) {
       return errorResponse(res, 400, 'Account already exist')
@@ -55,8 +60,10 @@ const login = async (req, res) => {
     if (!req.body) {
       return errorResponse(res, 400, 'no request body')
     }
-    const contributor = await Contributor.findOne({ email })
+    const { error } = loginValidation(req.body)
+    if (error) return errorResponse(res, 400, error.details[0].message)
 
+    const contributor = await Contributor.findOne({ email })
     if (contributor && (await bcrypt.compare(password, contributor.password))) {
       if (contributor.isVerified === 'pending') {
         await emailVerification(contributor)
