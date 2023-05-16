@@ -50,6 +50,3 @@ contributorQuizSchema.set('toJSON', {
 })
 
 module.exports = mongoose.model('ContributorQuiz', contributorQuizSchema)
-
-// Add joi validation
-// https://www.topcoder.com/thrive/articles/data-validation-in-nodejs-and-express-using-joi#:~:text=Even%20if%20you%20somehow%20manage,the%20documentation%20on%20Joi%20here.
