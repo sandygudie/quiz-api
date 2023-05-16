@@ -16,7 +16,6 @@ const generateToken = catchAsyncError(async (user) => {
       expiresIn: '1d'
     }
   )
-
   return { access_token, refreshToken }
 })
 
@@ -27,11 +26,9 @@ const verifyToken = catchAsyncError(async (req, res, next) => {
   }
   const token = bearerToken.split(' ')[1]
   if (!token) return errorResponse(res, 401, 'Unauthorized')
-
   const decoded = jwt.verify(token, process.env.ACCESS_TOKEN_JWT_SECRET)
   if (!decoded) return errorResponse(res, 401, 'Unauthorized')
   req.user = decoded
-
   return next()
 })
 

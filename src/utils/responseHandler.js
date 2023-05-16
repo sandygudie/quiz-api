@@ -4,14 +4,12 @@ const successResponse = (res, statusCode, status, data = {}) => {
     data
   })
 }
-
 const errorResponse = (res, statusCode, message) => {
   res.status(statusCode).json({
     success: false,
     message
   })
 }
-
 const catchAsyncError = (fn) => async (req, res, next) => {
   const response = await fn(req, res, next).catch(next)
   return response
