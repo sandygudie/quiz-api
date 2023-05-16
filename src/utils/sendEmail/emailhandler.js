@@ -3,7 +3,6 @@ const ejs = require('ejs')
 
 const sendEmail = async (options) => {
   try {
-    //Create the transporter
     const transporter = nodemailer.createTransport({
       host: 'smtp.gmail.com',
       port: 465,
@@ -13,7 +12,6 @@ const sendEmail = async (options) => {
         pass: process.env.EMAIL_PASS
       }
     })
-    //Send message
     let receiver = options.email
     let verification_url = options.verification_url
     const data = await ejs.renderFile(__dirname + '/templates/index.ejs', {
@@ -35,7 +33,6 @@ const sendEmail = async (options) => {
 
 const emailVerification = async (user) => {
   const verification_url = `https://quizbase.netlify.app/email-verify/?${user.token}`
-  // const verification_url = `https://quizbase.netlify.app/email-verify/?${user.token}`
   await sendEmail({
     email: user.email,
     subject: 'Verify your email address',
