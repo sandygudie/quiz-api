@@ -9,7 +9,6 @@ const apiRouter = require('./routes')
 const app = express()
 const message = 'Quiz API'
 
-//connect to database
 connectToDB()
 
 app.use(cors())
