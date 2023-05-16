@@ -3,7 +3,6 @@ import Layout from '@theme/Layout'
 import './style.css'
 import { login } from '../../utilis/api/auth'
 import { MdOutlineVisibilityOff, MdOutlineVisibility } from 'react-icons/md'
-import { FcGoogle } from 'react-icons/fc'
 import Spinner from '../../components/Spinner'
 import { ToastContainer, toast } from 'react-toastify'
 import { setToken, setProfile } from '../../utilis'
@@ -98,7 +97,7 @@ export default function Login() {
             </div>
           </form>
           <div className="login-signup__bottom">
-            <Link to="" className="login-signup__bottom-forgotpassword-link ">
+            <Link to="/forgot-password" className="login-signup__bottom-forgotpassword-link ">
               {' '}
               forgot password?
             </Link>

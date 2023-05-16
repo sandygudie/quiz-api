@@ -4,14 +4,14 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Password Reset</title>
   </head>
   <body style="background-color: #008b8b12; padding: 2em">
     <div
       style="
         background-color: white;
         margin: auto;
-        max-width: 720px;
+        max-width: 900px;
         font-family: sans-serif 'Open Sans', 'Helvetica Neue';
       "
     >
@@ -24,20 +24,21 @@
           font-weight: bolder;
         "
       >
-        Email Verification
+        Password Reset
       </h1>
-      <div style="text-align: center; font-size: 20px; padding: 20px 60px">
+      <div style="text-align: center; font-size: 20px; padding: 20px 40px">
         <p style="text-align: left; color: black; margin-bottom: 50px">
           Hey there,
 
           <span style="padding-top: 0.5em; display: block">
-            Verify your email address in order to start using your account.</span
+            We received your request to reset your password. Click on the button below to
+            continue.</span
           >
         </p>
 
         <a
           style="
-            width: 60%;
+            width: 250px;
             margin: auto;
             display: block;
             text-decoration: none;
@@ -47,9 +48,9 @@
             background-color: #008b8b;
             color: white;
           "
-          href="<%= verification_url %>"
+          href="<%= reset_url %>"
         >
-          Click Here</a
+          Reset Password</a
         >
       </div>
 

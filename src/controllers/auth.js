@@ -2,8 +2,13 @@ const Contributor = require('../models/contributor')
 const bcrypt = require('bcrypt')
 const { errorResponse, successResponse } = require('../utils/responseHandler')
 const { generateToken } = require('../middlewares/token')
-const { emailVerification } = require('../utils/sendEmail/emailhandler')
-const { loginValidation, userValidation } = require('../utils/validator')
+const { emailVerification, passwordResetLink } = require('../utils/sendEmail/emailhandler')
+const {
+  loginValidation,
+  userValidation,
+  resetpasswordValidation,
+  forgotpasswordValidation
+} = require('../utils/validator')
 const jwt = require('jsonwebtoken')
 
 const register = async (req, res) => {
@@ -41,14 +46,10 @@ const register = async (req, res) => {
     const newContributor = await contributor.save()
 
     // Send verification link
-    await emailVerification(newContributor)
-
-    return successResponse(
-      res,
-      201,
-      'User registered successfully! Please check your email',
-      newContributor
-    )
+    let response = await emailVerification(newContributor)
+    if (response) {
+      return successResponse(res, 201, 'User registered successfully! Please check your email')
+    }
   } catch (error) {
     return errorResponse(res, 500, error.message)
   }
@@ -131,14 +132,74 @@ const refreshToken = async (req, res) => {
   }
 }
 
+const forgotPassword = async (req, res) => {
+  try {
+    const { email } = req.body
+
+    const { error } = forgotpasswordValidation(req.body)
+    if (error) return errorResponse(res, 400, error.details[0].message)
+
+    const contributor = await Contributor.findOne({ email })
+    if (!contributor) {
+      return errorResponse(res, 400, 'Email not found')
+    }
+    // Send reset link
+    let response = await passwordResetLink(contributor)
+    if (response) {
+      return successResponse(res, 200, 'Reset link sent to your email', email)
+    }
+  } catch (error) {
+    return errorResponse(res, 500, error.message)
+  }
+}
+
+const verifyResetLink = async (req, res) => {
+  try {
+    const contributor = await Contributor.findOne({
+      token: req.params.resetCode
+    })
+    if (contributor) {
+      return successResponse(res, 200, 'valid link!')
+    }
+    return errorResponse(res, 404, 'Invalid link or expired')
+  } catch (error) {
+    return errorResponse(res, 500, error.message)
+  }
+}
+
+const resetPassword = async (req, res) => {
+  try {
+    const { error } = resetpasswordValidation(req.body)
+    if (error) return errorResponse(res, 400, error.details[0].message)
+    console.log(req.params.resetCode)
+    const contributor = await Contributor.findOne({
+      token: req.params.resetCode
+    })
+    if (contributor) {
+      // Encrypt password
+      const saltRounds = 10
+      const passwordHash = await bcrypt.hash(req.body.password, saltRounds)
+      contributor.password = passwordHash
+      contributor.token = null
+      await contributor.save()
+      return successResponse(res, 200, 'Password reset sucessfully!', {
+        password: req.body.password
+      })
+    }
+    return errorResponse(res, 404, 'Invalid link or expired')
+  } catch (error) {
+    return errorResponse(res, 500, error.message)
+  }
+}
 module.exports = {
   register,
   verifyUser,
   login,
-  refreshToken
+  refreshToken,
+  forgotPassword,
+  resetPassword,
+  verifyResetLink
 }
 // Todo
 // review refresh token
-// reset password
-// forgot password
 // work on validation error message

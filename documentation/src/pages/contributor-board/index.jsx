@@ -164,7 +164,7 @@ export default function ContributorBoard() {
           </button>
         </div>
         {quiz.length ? (
-          <div>
+          <div className="hidden md:block">
             <div className="flex items-center justify-between p-2 ">
               <p className="py-2 px-4 w-[64px] font-bold text-lg">No.</p>
               <p className="w-[270px] p-2 font-bold">Question</p>

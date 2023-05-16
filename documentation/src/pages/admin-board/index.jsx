@@ -151,7 +151,10 @@ export default function AdminBoard() {
     <div className="h-screen overflow-auto bg-secondary">
       <div className="bg-white h-25 px-6 py-4 flex items-center justify-between">
         {' '}
-      <a href="/">  <QuizbaseImage className="w-fit h-10" /></a>
+        <a href="/">
+          {' '}
+          <QuizbaseImage className="w-fit h-10" />
+        </a>
         <div className="flex items-center gap-8">
           {' '}
           <p className="font-bold text-primary text-base">
@@ -200,7 +203,7 @@ export default function AdminBoard() {
           )}
         </div>
 
-        <div className="mx-auto my-6">
+        <div className="hidden md:block mx-auto my-6">
           {quizTab === 'allquiz' ? (
             quiz.length ? (
               <div>

@@ -27,9 +27,31 @@ function quizValidation(data) {
   })
   return schema.validate(data)
 }
+function forgotpasswordValidation(data) {
+  const schema = Joi.object({
+    email: Joi.string().email().required().lowercase().trim()
+  })
+  return schema.validate(data)
+}
+function resetpasswordValidation(data) {
+  const schema = Joi.object({
+    password: Joi.string().min(5).max(15).required().label('Password'),
+    passwordConfirmation: Joi.string()
+      .equal(Joi.ref('password'))
+      .required()
+      .trim()
+      .label('Confirm password')
+      .messages({ 'any.only': '{{#label}} does not match' })
+  })
+  return schema.validate(data)
+}
 
 module.exports = {
   userValidation,
   loginValidation,
-  quizValidation
+  quizValidation,
+  forgotpasswordValidation,
+  resetpasswordValidation
 }
+
+// provide custom error message
