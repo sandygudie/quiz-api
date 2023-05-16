@@ -1,6 +1,6 @@
-import Joi from 'joi'
+const Joi = require('joi')
 
-export function userValidation(data) {
+function userValidation(data) {
   const schema = Joi.object({
     username: Joi.string().required().trim(),
     email: Joi.string().email().required().lowercase().trim(),
@@ -9,7 +9,7 @@ export function userValidation(data) {
   return schema.validate(data)
 }
 
-export function loginValidation(data) {
+function loginValidation(data) {
   const schema = Joi.object({
     email: Joi.string().email().required().lowercase().trim(),
     password: Joi.string().required().trim()
@@ -17,7 +17,7 @@ export function loginValidation(data) {
   return schema.validate(data)
 }
 
-export function quizValidation(data) {
+function quizValidation(data) {
   const schema = Joi.object({
     question: Joi.string().required().trim(),
     incorrect_answers: Joi.a.required().trim(),
@@ -26,4 +26,10 @@ export function quizValidation(data) {
     difficulty: Joi.string().required().trim()
   })
   return schema.validate(data)
+}
+
+module.exports = {
+  userValidation,
+  loginValidation,
+  quizValidation
 }
