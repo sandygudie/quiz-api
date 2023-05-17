@@ -6,14 +6,14 @@ const generateToken = catchAsyncError(async (user) => {
     { id: user.id, role: user.role },
     process.env.ACCESS_TOKEN_JWT_SECRET,
     {
-      expiresIn: '24hr'
+      expiresIn: process.env.ACCESS_TOKEN_JWT_EXPIRATION
     }
   )
   const refreshToken = jwt.sign(
     { id: user.id, role: user.role },
     process.env.REFRESH_TOKEN_JWT_SECRET,
     {
-      expiresIn: '1d'
+      expiresIn: process.env.ACCESS_TOKEN_JWT_REFRESH_EXPIRATION
     }
   )
   return { access_token, refreshToken }

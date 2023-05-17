@@ -39,9 +39,9 @@ const register = async (req, res) => {
       password: passwordHash,
       role: req.body.role || 'contributor'
     })
-    // Generate token
+    // Generate token for confirmation code
     const { access_token } = await generateToken(contributor)
-    contributor.token = access_token
+    contributor.confirmationCode = access_token
 
     const newContributor = await contributor.save()
 
@@ -73,16 +73,16 @@ const login = async (req, res) => {
 
       const { access_token, refreshToken } = await generateToken(contributor)
 
-      // Assigning refresh token in http-only cookie
-      res.cookie('jwt', refreshToken, {
-        httpOnly: true,
-        sameSite: 'None',
-        secure: true,
-        maxAge: 24 * 60 * 60 * 1000
-      })
+      // // Assigning refresh token in http-only cookie
+      // res.cookie('jwt', refreshToken, {
+      //   httpOnly: true,
+      //   sameSite: 'None',
+      //   secure: true,
+      //   maxAge: 24 * 60 * 60 * 1000
+      // })
 
-      contributor.token = access_token
-      const newContributor = await contributor.save()
+      // contributor.token = access_token
+      const newContributor = { user:contributor, access_token, refreshToken }
       return successResponse(res, 200, 'login successfully! ', newContributor)
     }
     return errorResponse(res, 400, 'Invalid Credentials')
@@ -94,7 +94,7 @@ const login = async (req, res) => {
 const verifyUser = async (req, res) => {
   try {
     const contributor = await Contributor.findOne({
-      token: req.params.confirmationCode
+      confirmationCode: req.params.confirmationCode
     })
     if (contributor) {
       contributor.isVerified = 'verified'
