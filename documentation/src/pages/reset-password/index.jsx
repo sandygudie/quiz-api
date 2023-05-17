@@ -40,8 +40,8 @@ const ResetPassword = () => {
         passwordConfirmation: event.target.confirmpassword.value
       }
       setLoading(true)
-      const response = await resetpassword( resetCode,formData)
-      if (response.success){
+      const response = await resetpassword(resetCode, formData)
+      if (response.success) {
         toast.success(<p> {response.success}!</p>, {
           position: toast.POSITION.TOP_CENTER,
           autoClose: 3000,
@@ -65,10 +65,10 @@ const ResetPassword = () => {
         {isValidLink === 'true' ? (
           <div>
             <h1 className="login-signup__heading">Reset Password</h1>
-           
+
             <form className="login-signup__form" onSubmit={resetPasswordHandler}>
               <div className="field">
-                <label className='sr-only' htmlFor="password">
+                <label className="sr-only" htmlFor="password">
                   New Password
                 </label>
                 <input
@@ -90,7 +90,7 @@ const ResetPassword = () => {
               </div>
 
               <div className="field">
-                <label className='sr-only' htmlFor="confirm password">
+                <label className="sr-only" htmlFor="confirm password">
                   Confirm Password
                 </label>
                 <input

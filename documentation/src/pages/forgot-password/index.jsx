@@ -38,16 +38,12 @@ export default function ForgotPassword() {
     <>
       <Layout title={'forgot password'} description="Forgot Password">
         <section className="login-signup">
-
-          <h1 className="login-signup__heading">
-         Forgot Password
-          </h1>
-          <p className="login-signup__text">
-        Enter the email associated with your account. </p>
+          <h1 className="login-signup__heading">Forgot Password</h1>
+          <p className="login-signup__text">Enter the email associated with your account. </p>
           <form className="login-signup__form" onSubmit={forgotPasswordHandler}>
             <div className="field">
               <label className="sr-only" htmlFor="email">
-               Email
+                Email
               </label>
               <input type="email" name="email" id="email" placeholder={`Email`} required />
             </div>
@@ -61,7 +57,7 @@ export default function ForgotPassword() {
             <div className="login-signup__bottom-content">
               Don't have an account?{' '}
               <Link to="/register" className="login-signup__bottom-content__link">
-               Sign Up
+                Sign Up
               </Link>
             </div>
           </div>
