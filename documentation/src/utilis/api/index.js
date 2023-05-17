@@ -7,6 +7,7 @@ let token
 if (typeof window !== 'undefined') {
   token = localStorage.getItem(TOKEN_KEY)
 }
+// const baseURL = 'http://localhost:8080/api/v1'
 const baseURL = 'https://quizbase.onrender.com/api/v1'
 
 if (token) {
@@ -46,3 +47,6 @@ async function makeApiCall(url, method, payload, axiosRequestConfig) {
 }
 
 export default makeApiCall
+
+// learn the contextmethod
+// Clear cokkies when user logout

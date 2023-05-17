@@ -45,13 +45,20 @@ function resetpasswordValidation(data) {
   })
   return schema.validate(data)
 }
+function refreshTokenValidation(data) {
+  const schema = Joi.object({
+    refreshToken: Joi.string().required().trim().label('Refresh Token')
+  })
+  return schema.validate(data)
+}
 
 module.exports = {
   userValidation,
   loginValidation,
   quizValidation,
   forgotpasswordValidation,
-  resetpasswordValidation
+  resetpasswordValidation,
+  refreshTokenValidation
 }
 
 // provide custom error message

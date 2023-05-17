@@ -24,26 +24,26 @@ export default function Login() {
       }
       setLoading(true)
       let response = await login(formData)
-      if (response.success) {
+      if (response.message) {
         const profileData = {
-          username: response.data.username,
-          id: response.data.id,
-          role: response.data.role
+          username: response.user.username,
+          id: response.user.id,
+          role: response.user.role
         }
-
         setProfile(profileData)
-        setToken(response.data.token)
-        if (response.data.role === 'contributor') {
+        setToken(response.accessToken)
+        if (response.user.role === 'contributor') {
           return history.push('/contributor-board')
         } else {
           return history.push('/admin-board')
         }
       }
     } catch (error) {
+      console.log(error)
       setError(true)
       toast.error(error.message, {
         position: toast.POSITION.TOP_CENTER,
-        autoClose: false,
+        autoClose: 2000,
         theme: 'colored'
       })
       setLoading(false)

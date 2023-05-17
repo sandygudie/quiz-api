@@ -1,4 +1,4 @@
-const { info } = require('../config/logger')
+// const { info } = require('../config/logger')
 
 // handling non existing routes
 const unknownEndpoint = (req, res, next) => {
@@ -6,6 +6,7 @@ const unknownEndpoint = (req, res, next) => {
   return next()
 }
 const errorHandler = (error, response, next) => {
+  console.log('check error', error)
   if (error.name === 'CastError') {
     return response.status(400).send({ error: 'malformatted id' })
   } else if (error.name === 'ValidationError') {
@@ -23,8 +24,8 @@ const errorHandler = (error, response, next) => {
       error: 'Invalid Request'
     })
   }
-  info(error.message)
-  return next(error)
+  // info(error.message)
+  return next()
 }
 
 // This overrides the default error handler to return a json response

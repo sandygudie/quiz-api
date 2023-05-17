@@ -7,7 +7,8 @@ const {
   loginValidation,
   userValidation,
   resetpasswordValidation,
-  forgotpasswordValidation
+  forgotpasswordValidation,
+  refreshTokenValidation
 } = require('../utils/validator')
 const jwt = require('jsonwebtoken')
 
@@ -71,19 +72,26 @@ const login = async (req, res) => {
         return errorResponse(res, 400, 'Verify Your Email to access your account')
       }
 
-      const { access_token, refreshToken } = await generateToken(contributor)
+      const { accessToken, refreshToken } = await generateToken(contributor)
 
-      // // Assigning refresh token in http-only cookie
-      // res.cookie('jwt', refreshToken, {
+      // Assigning refresh token in http-only cookie
+      // res.cookie('refresh_token', refreshToken, {
       //   httpOnly: true,
-      //   sameSite: 'None',
       //   secure: true,
-      //   maxAge: 24 * 60 * 60 * 1000
+      //   sameSite: 'Lax', // or 'Strict', it depends
+      //   maxAge: process.env.ACCESS_TOKEN_JWT_REFRESH_EXPIRATION
       // })
 
-      // contributor.token = access_token
-      const newContributor = { user:contributor, access_token, refreshToken }
-      return successResponse(res, 200, 'login successfully! ', newContributor)
+      return res
+        .cookie('refresh_token', refreshToken, {
+          httpOnly: true,
+          secure: false,
+          sameSite: 'Lax', // or 'Strict', it depends
+          maxAge: 840000
+        })
+        .status(200)
+        .json({ message: 'Logged in successfully', user: contributor, accessToken })
+      // return successResponse(res, 200, 'login successfully! ', newContributor)
     }
     return errorResponse(res, 400, 'Invalid Credentials')
   } catch (error) {
@@ -110,23 +118,21 @@ const verifyUser = async (req, res) => {
 // pending review
 const refreshToken = async (req, res) => {
   try {
-    // Destructuring refreshToken from cookie //use the cookie method
-    const { refreshToken } = req.body
+    const refreshToken = req.cookies.refresh_token
+    console.log(req.cookies)
+    console.log(refreshToken)
+    const { error } = refreshTokenValidation(refreshToken)
+    if (error) return errorResponse(res, 400, error.details[0].message)
 
-    // Verifying refresh token
+    // Verifying refresh token (if refresh token is expired or invalid)
     const decoded = jwt.verify(refreshToken, process.env.REFRESH_TOKEN_JWT_SECRET)
-    if (!decoded) return errorResponse(res, 401, 'Unauthorized')
+    if (!decoded) return errorResponse(res, 401, 'Invalid refresh token')
 
-    const accessToken = jwt.sign(
-      {
-        id: decoded.id
-      },
-      process.env.ACCESS_TOKEN_JWT_SECRET,
-      {
-        expiresIn: '1d'
-      }
-    )
-    return res.json({ accessToken })
+    const payload = { id: decoded.id, roles: decoded.role }
+    const accessToken = jwt.sign(payload, process.env.ACCESS_TOKEN_JWT_SECRET, {
+      expiresIn: process.env.ACCESS_TOKEN_JWT_EXPIRATION
+    })
+    return successResponse(res, 200, 'Updated Access token', accessToken)
   } catch (error) {
     return errorResponse(res, 500, error.message)
   }
@@ -135,10 +141,8 @@ const refreshToken = async (req, res) => {
 const forgotPassword = async (req, res) => {
   try {
     const { email } = req.body
-
     const { error } = forgotpasswordValidation(req.body)
     if (error) return errorResponse(res, 400, error.details[0].message)
-
     const contributor = await Contributor.findOne({ email })
     if (!contributor) {
       return errorResponse(res, 400, 'Email not found')

@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken')
 const { errorResponse, catchAsyncError } = require('../utils/responseHandler')
 
 const generateToken = catchAsyncError(async (user) => {
-  const access_token = jwt.sign(
+  const accessToken = jwt.sign(
     { id: user.id, role: user.role },
     process.env.ACCESS_TOKEN_JWT_SECRET,
     {
@@ -16,10 +16,10 @@ const generateToken = catchAsyncError(async (user) => {
       expiresIn: process.env.ACCESS_TOKEN_JWT_REFRESH_EXPIRATION
     }
   )
-  return { access_token, refreshToken }
+  return { accessToken, refreshToken }
 })
 
-const verifyToken = catchAsyncError(async (req, res, next) => {
+const verifyToken = async (req, res, next) => {
   const bearerToken = req.headers.authorization
   if (!bearerToken || !(bearerToken.search('Bearer ') === 0)) {
     return errorResponse(res, 401, 'Unauthorized')
@@ -29,7 +29,11 @@ const verifyToken = catchAsyncError(async (req, res, next) => {
   const decoded = jwt.verify(token, process.env.ACCESS_TOKEN_JWT_SECRET)
   if (!decoded) return errorResponse(res, 401, 'Unauthorized')
   req.user = decoded
+  // } catch (error) {
+  //   console.log(error)
+  //   return error
+  // }
   return next()
-})
+}
 
 module.exports = { generateToken, verifyToken }
