@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken')
-const { errorResponse, catchAsyncError } = require('../utils/responseHandler')
+const { errorResponse } = require('../utils/responseHandler')
 
-const generateToken = catchAsyncError(async (user) => {
+const generateToken = async (user) => {
   const accessToken = jwt.sign(
     { id: user.id, role: user.role },
     process.env.ACCESS_TOKEN_JWT_SECRET,
@@ -17,7 +17,7 @@ const generateToken = catchAsyncError(async (user) => {
     }
   )
   return { accessToken, refreshToken }
-})
+}
 
 const verifyToken = async (req, res, next) => {
   const bearerToken = req.headers.authorization
@@ -29,10 +29,6 @@ const verifyToken = async (req, res, next) => {
   const decoded = jwt.verify(token, process.env.ACCESS_TOKEN_JWT_SECRET)
   if (!decoded) return errorResponse(res, 401, 'Unauthorized')
   req.user = decoded
-  // } catch (error) {
-  //   console.log(error)
-  //   return error
-  // }
   return next()
 }
 

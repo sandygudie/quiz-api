@@ -10,7 +10,7 @@ const apiRouter = require('./routes')
 const app = express()
 app.use(cookieParser())
 
-const message = 'Quiz API'
+const message = 'Welcome to QuizBase'
 
 connectToDB()
 

@@ -70,14 +70,17 @@ export default function ContributorBoard() {
         })
         setQuiz((current) => [{ id: Math.random(), status: 'pending', ...formdata }, ...current])
         contributorData()
-        handleModalChange('')
+      
       }
     } catch (error) {
+      console.log(error)
       toast.error(error.message, {
         position: toast.POSITION.TOP_CENTER,
         autoClose: 2000,
         theme: 'colored'
       })
+    }finally{
+      handleModalChange('')
     }
   }
   const editQuizdata = async (id) => {
@@ -277,3 +280,5 @@ export default function ContributorBoard() {
     </div>
   )
 }
+
+// contributor or admin can delete their account

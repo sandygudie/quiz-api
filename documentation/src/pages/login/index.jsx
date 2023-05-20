@@ -39,7 +39,6 @@ export default function Login() {
         }
       }
     } catch (error) {
-      console.log(error)
       setError(true)
       toast.error(error.message, {
         position: toast.POSITION.TOP_CENTER,

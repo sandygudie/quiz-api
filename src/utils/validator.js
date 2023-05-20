@@ -20,8 +20,8 @@ function loginValidation(data) {
 function quizValidation(data) {
   const schema = Joi.object({
     question: Joi.string().required().trim().label('Question'),
-    incorrect_answers: Joi.a.required().trim().label('Incorrect Answers'),
-    correct_answer: Joi.array().required().trim().label('Correct Answer'),
+    incorrect_answers: Joi.array().items(Joi.string().required().trim()).required().label('Incorrect Answers'),
+    correct_answer: Joi.string().required().trim().label('Correct Answer'),
     category: Joi.string().required().trim().label('Category'),
     difficulty: Joi.string().required().trim().label('Difficulty')
   })

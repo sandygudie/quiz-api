@@ -1,31 +1,25 @@
-// const { info } = require('../config/logger')
-
-// handling non existing routes
+const logger = require('../config/logger')
+const { errorResponse } = require('../utils/responseHandler')
+// Handling non-existing routes
 const unknownEndpoint = (req, res, next) => {
   res.status(404).send({ error: 'Route not found' })
   return next()
 }
-const errorHandler = (error, response, next) => {
-  console.log('check error', error)
+
+const errorHandler = (error, request, response, next) => {
   if (error.name === 'CastError') {
-    return response.status(400).send({ error: 'malformatted id' })
+    return errorResponse(response, 400, 'malformatted id')
   } else if (error.name === 'ValidationError') {
-    return response.status(400).json({ error: error.message })
+    return errorResponse(response, 400, error.message)
   } else if (error.name === 'JsonWebTokenError') {
-    return response.status(401).json({
-      error: 'Invalid token'
-    })
+    return errorResponse(response, 401, 'Invalid token')
   } else if (error.name === 'TokenExpiredError') {
-    return response.status(401).json({
-      error: 'Token expired'
-    })
+    return errorResponse(response, 401, 'Token expired')
   } else if (error.name === 'TypeError') {
-    return response.status(400).json({
-      error: 'Invalid Request'
-    })
+    return errorResponse(response, 400, 'Invalid Request')
   }
-  // info(error.message)
-  return next()
+  logger.error(error.message)
+  return next(error)
 }
 
 // This overrides the default error handler to return a json response
