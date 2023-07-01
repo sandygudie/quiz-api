@@ -151,7 +151,10 @@ export default function AdminBoard() {
     <div className="h-screen overflow-auto bg-secondary">
       <div className="bg-white h-25 px-6 py-4 flex items-center justify-between">
         {' '}
-      <a href="/">  <QuizbaseImage className="w-fit h-10" /></a>
+        <a href="/">
+          {' '}
+          <QuizbaseImage className="w-fit h-10" />
+        </a>
         <div className="flex items-center gap-8">
           {' '}
           <p className="font-bold text-primary text-base">
@@ -262,7 +265,7 @@ export default function AdminBoard() {
                   )
                 })}
               </div>
-            ) : quiz.length === '' ? (
+            ) : !quiz.length? (
               <div className="absolute top-[55%] left-[50%] -translate-y-[50%] -translate-x-[50%]">
                 <p className="text-4xl font-bold p-8  text-gray-100 bg-secondary/50 ">
                   No Quiz Available

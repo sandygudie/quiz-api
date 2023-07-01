@@ -238,7 +238,7 @@ export default function ContributorBoard() {
               )
             })}
           </div>
-        ) : quiz.length === ' ' ? (
+        ) : !quiz.length ? (
           <div className="absolute top-[55%] left-[50%] -translate-y-[50%] -translate-x-[50%]">
             <p className="text-4xl font-bold p-8 text-gray-100 bg-secondary/50">
               No Quiz Available
