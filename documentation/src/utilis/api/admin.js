@@ -11,6 +11,6 @@ export async function verifyContributorQuiz(id) {
 }
 
 export async function getAllQuizs() {
-  const response = await makeApiCall(`/quiz`, 'get')
+  const response = await makeApiCall(`/quiz?limit=50`, 'get')
   return response
 }

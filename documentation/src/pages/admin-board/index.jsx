@@ -26,8 +26,7 @@ export default function AdminBoard() {
     const parseddata = localStorage.getItem(PROFILE_KEY)
     profile = JSON.parse(parseddata)
   }
-  // what if token is expired or invalid or fake
-  // remove token and profile if anything goes wrong
+
   if (!token || !profile.id) {
     return <Redirect to="/login" />
   }
@@ -87,6 +86,7 @@ export default function AdminBoard() {
         autoClose: 2000,
         theme: 'colored'
       })
+      handleModalChange('')
     }
   }
   const editHandler = async (id) => {
@@ -203,7 +203,7 @@ export default function AdminBoard() {
           )}
         </div>
 
-        <div className="mx-auto my-6">
+        <div className="hidden md:block mx-auto my-6">
           {quizTab === 'allquiz' ? (
             quiz.length ? (
               <div>

@@ -9,7 +9,7 @@ export default function ApiHelper() {
   const [generatedUrl, setGeneratedUrl] = useState('')
 
   const genetateURL = () => {
-    const baseURL = 'https://quiz-api.up.railway.app/api/v1/quiz'
+    const baseURL = 'https://quizbase.onrender.com/api/v1/quiz'
     let url = `${baseURL}?limit=${limit}${difficulty && '&difficulty=Easy'}${
       category && '&category=CSS'
     }`

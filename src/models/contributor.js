@@ -32,7 +32,10 @@ const contributorSchema = new mongoose.Schema(
       enum: ['pending', 'verified'],
       default: 'pending'
     },
-    token: { type: String }
+    confirmationCode: {
+      type: String,
+      unique: true
+    }
   },
   { timestamps: true },
   {

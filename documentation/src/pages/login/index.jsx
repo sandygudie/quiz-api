@@ -3,7 +3,6 @@ import Layout from '@theme/Layout'
 import './style.css'
 import { login } from '../../utilis/api/auth'
 import { MdOutlineVisibilityOff, MdOutlineVisibility } from 'react-icons/md'
-import { FcGoogle } from 'react-icons/fc'
 import Spinner from '../../components/Spinner'
 import { ToastContainer, toast } from 'react-toastify'
 import { setToken, setProfile } from '../../utilis'
@@ -25,16 +24,15 @@ export default function Login() {
       }
       setLoading(true)
       let response = await login(formData)
-      console.log(response)
+
       if (response.message) {
         const profileData = {
           username: response.user.username,
           id: response.user.id,
           role: response.user.role
         }
-
         setProfile(profileData)
-        setToken(response.user.token)
+        setToken(response.accessToken)
         if (response.user.role === 'contributor') {
           return history.push('/contributor-board')
         } else {
@@ -45,7 +43,7 @@ export default function Login() {
       setError(true)
       toast.error(error.message, {
         position: toast.POSITION.TOP_CENTER,
-        autoClose: false,
+        autoClose: 2000,
         theme: 'colored'
       })
       setLoading(false)
@@ -99,7 +97,7 @@ export default function Login() {
             </div>
           </form>
           <div className="login-signup__bottom">
-            <Link to="" className="login-signup__bottom-forgotpassword-link ">
+            <Link to="/forgot-password" className="login-signup__bottom-forgotpassword-link ">
               {' '}
               forgot password?
             </Link>

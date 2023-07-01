@@ -12,12 +12,15 @@ export async function login(payload) {
 }
 
 export async function forgotpassword(payload) {
-  const response = await makeApiCall('/auth/forgotpassword', 'post', payload)
+  const response = await makeApiCall('/auth/forgot-password', 'post', payload)
   return response
 }
-
-export async function resetpassword(payload) {
-  const response = await makeApiCall(`/auth/resetpassword`, 'patch', payload)
+export async function verifyResetLink(resetCode) {
+  const response = await makeApiCall(`/auth/verify-reset-link/${resetCode}`, 'get')
+  return response
+}
+export async function resetpassword(resetCode, payload) {
+  const response = await makeApiCall(`/auth/reset-password/${resetCode}`, 'patch', payload)
   return response
 }
 

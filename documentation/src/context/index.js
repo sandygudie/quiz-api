@@ -86,7 +86,7 @@ export const AppProvider = ({ children }) => {
           throw error.message
         }
       } catch (error) {
-        console.log('error from context', error)
+        // console.log('error from context', error)
         logout()
       }
     }

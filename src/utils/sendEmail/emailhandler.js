@@ -1,9 +1,7 @@
 const nodemailer = require('nodemailer')
 const ejs = require('ejs')
-
 const sendEmail = async (options) => {
   try {
-    //Create the transporter
     const transporter = nodemailer.createTransport({
       host: 'smtp.gmail.com',
       port: 465,
@@ -13,21 +11,29 @@ const sendEmail = async (options) => {
         pass: process.env.EMAIL_PASS
       }
     })
-    //Send message
-    let receiver = options.email
-    let verification_url = options.verification_url
-    const data = await ejs.renderFile(__dirname + '/templates/index.ejs', {
-      receiver,
-      verification_url
-    })
 
+    let data
+    if (options.verification_url) {
+      let verification_url = options.verification_url
+      data = await ejs.renderFile(__dirname + '/templates/verifyemail.ejs', {
+        verification_url
+      })
+    } else {
+      let reset_url = options.reset_url
+      data = await ejs.renderFile(__dirname + '/templates/resetlink.ejs', {
+        reset_url
+      })
+    }
     var mailOptions = {
       from: process.env.EMAIL_USER,
       to: options.email,
       subject: options.subject,
       html: data
     }
-    await transporter.sendMail(mailOptions)
+    let response = await transporter.sendMail(mailOptions)
+    if (response.response) {
+      return response.response
+    }
   } catch (error) {
     return error
   }
@@ -35,11 +41,22 @@ const sendEmail = async (options) => {
 
 const emailVerification = async (user) => {
   const verification_url = `https://quizbase.netlify.app/email-verify/?${user.token}`
-  // const verification_url = `https://quizbase.netlify.app/email-verify/?${user.token}`
-  await sendEmail({
+  let response = await sendEmail({
     email: user.email,
     subject: 'Verify your email address',
     verification_url: verification_url
   })
+  return response
 }
-module.exports = { sendEmail, emailVerification }
+
+const passwordResetLink = async (user) => {
+  const reset_url = `https://quizbase.netlify.app/reset-password/?${user.token}`
+  let response = await sendEmail({
+    email: user.email,
+    subject: 'Reset Password',
+    reset_url: reset_url
+  })
+  return response
+}
+
+module.exports = { sendEmail, emailVerification, passwordResetLink }

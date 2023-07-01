@@ -1,5 +1,6 @@
 const express = require('express')
 require('express-async-errors')
+var cookieParser = require('cookie-parser')
 
 const cors = require('cors')
 const middleware = require('./middlewares/error-handler')
@@ -7,9 +8,10 @@ const { connectToDB } = require('./db/db')
 const apiRouter = require('./routes')
 
 const app = express()
-const message = 'Quiz API'
+app.use(cookieParser())
 
-//connect to database
+const message = 'Welcome to QuizBase'
+
 connectToDB()
 
 app.use(cors())
