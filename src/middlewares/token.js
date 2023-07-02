@@ -9,6 +9,7 @@ const generateToken = async (user) => {
       expiresIn: process.env.ACCESS_TOKEN_JWT_EXPIRATION
     }
   )
+
   const refreshToken = jwt.sign(
     { id: user.id, role: user.role },
     process.env.REFRESH_TOKEN_JWT_SECRET,

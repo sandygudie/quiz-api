@@ -40,8 +40,9 @@ const register = async (req, res) => {
     role: req.body.role || 'contributor'
   })
   // Generate token for confirmation code
-  const { access_token } = await generateToken(contributor)
-  contributor.confirmationCode = access_token
+  const { accessToken } = await generateToken(contributor)
+
+  contributor.confirmationCode = accessToken
 
   const newContributor = await contributor.save()
 
@@ -97,6 +98,7 @@ const verifyUser = async (req, res) => {
   })
   if (contributor) {
     contributor.isVerified = 'verified'
+    contributor.confirmationCode = null
     await contributor.save()
     return successResponse(res, 200, 'Email Verification Sucessfully!')
   }
@@ -129,9 +131,12 @@ const forgotPassword = async (req, res) => {
   if (!contributor) {
     return errorResponse(res, 400, 'Email not found')
   }
+
+  const resetPasswordToken = await generateToken(contributor)
+  contributor.confirmationCode = resetPasswordToken.accessToken
+  await contributor.save()
   // Send reset link
-  console.log(contributor.token)
-  let response = await passwordResetLink(contributor.token)
+  let response = await passwordResetLink(contributor)
   if (response) {
     return successResponse(res, 200, 'Reset link sent to your email', email)
   }
@@ -139,7 +144,7 @@ const forgotPassword = async (req, res) => {
 
 const verifyResetLink = async (req, res) => {
   const contributor = await Contributor.findOne({
-    token: req.params.resetCode
+    confirmationCode: req.params.resetCode
   })
   if (contributor) {
     return successResponse(res, 200, 'valid link!')
@@ -150,16 +155,15 @@ const verifyResetLink = async (req, res) => {
 const resetPassword = async (req, res) => {
   const { error } = resetpasswordValidation(req.body)
   if (error) return errorResponse(res, 400, error.details[0].message)
-  console.log(req.params.resetCode)
   const contributor = await Contributor.findOne({
-    token: req.params.resetCode
+    confirmationCode: req.params.resetCode
   })
   if (contributor) {
     // Encrypt password
     const saltRounds = 10
     const passwordHash = await bcrypt.hash(req.body.password, saltRounds)
     contributor.password = passwordHash
-    contributor.token = null
+    contributor.confirmationCode = null
     await contributor.save()
     return successResponse(res, 200, 'Password reset sucessfully!', {
       password: req.body.password

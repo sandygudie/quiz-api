@@ -40,7 +40,7 @@ const sendEmail = async (options) => {
 }
 
 const emailVerification = async (user) => {
-  const verification_url = `https://quizbase.netlify.app/email-verify/?${user.token}`
+  const verification_url = `https://quizbase.netlify.app/email-verify/?${user.confirmationCode}`
   let response = await sendEmail({
     email: user.email,
     subject: 'Verify your email address',
@@ -50,7 +50,8 @@ const emailVerification = async (user) => {
 }
 
 const passwordResetLink = async (user) => {
-  const reset_url = `https://quizbase.netlify.app/reset-password/?${user.token}`
+
+  const reset_url = `https://quizbase.netlify.app/reset-password/?${user.confirmationCode}`
   let response = await sendEmail({
     email: user.email,
     subject: 'Reset Password',
