@@ -130,7 +130,8 @@ const forgotPassword = async (req, res) => {
     return errorResponse(res, 400, 'Email not found')
   }
   // Send reset link
-  let response = await passwordResetLink(contributor)
+  console.log(contributor.token)
+  let response = await passwordResetLink(contributor.token)
   if (response) {
     return successResponse(res, 200, 'Reset link sent to your email', email)
   }

@@ -1,7 +1,6 @@
 import axios from 'axios'
 import { PROFILE_KEY, TOKEN_KEY } from '../constants'
-import { ToastContainer, toast } from 'react-toastify'
-import { Redirect } from '@docusaurus/router'
+
 
 let token
 if (typeof window !== 'undefined') {
