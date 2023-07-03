@@ -6,7 +6,7 @@ let token
 if (typeof window !== 'undefined') {
   token = localStorage.getItem(TOKEN_KEY)
 }
-const baseURL = 'http://localhost:8080/api/v1'
+const baseURL = 'https://quizbase.onrender.com/api/v1'
 
 if (token) {
   axios.defaults.headers.common.Authorization = `Bearer ${token}`
