@@ -12,6 +12,13 @@ const {
 } = require('../utils/validator')
 const jwt = require('jsonwebtoken')
 
+const emailVerificationToken = async (contributor) => {
+  const { accessToken } = await generateToken(contributor)
+  contributor.confirmationCode = accessToken
+  const newContributor = await contributor.save()
+  return newContributor
+}
+
 const register = async (req, res) => {
   const { username, email, password } = req.body
   if (!req.body) {
@@ -40,11 +47,7 @@ const register = async (req, res) => {
     role: req.body.role || 'contributor'
   })
   // Generate token for confirmation code
-  const { accessToken } = await generateToken(contributor)
-
-  contributor.confirmationCode = accessToken
-
-  const newContributor = await contributor.save()
+  const newContributor = emailVerificationToken(contributor)
 
   // Send verification link
   let response = await emailVerification(newContributor)
@@ -64,7 +67,9 @@ const login = async (req, res) => {
   const contributor = await Contributor.findOne({ email })
   if (contributor && (await bcrypt.compare(password, contributor.password))) {
     if (contributor.isVerified === 'pending') {
-      await emailVerification(contributor)
+      // Generate token for confirmation code
+      const newContributor = emailVerificationToken(contributor)
+      await emailVerification(newContributor)
       return errorResponse(res, 400, 'Verify Your Email to access your account')
     }
 
