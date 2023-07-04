@@ -12,3 +12,5 @@ module.exports = {
   MONGODB_URI,
   PORT
 }
+
+// separate development DB from production DB

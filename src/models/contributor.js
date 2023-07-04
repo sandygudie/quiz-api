@@ -18,8 +18,7 @@ const contributorSchema = new mongoose.Schema(
     role: {
       type: String,
       enum: ['contributor', 'admin'],
-      default: 'contributor',
-      required: true
+      default: 'contributor'
     },
     quiz: [
       {
@@ -33,8 +32,7 @@ const contributorSchema = new mongoose.Schema(
       default: 'pending'
     },
     confirmationCode: {
-      type: String,
-      unique: true
+      type: String
     }
   },
   { timestamps: true },
