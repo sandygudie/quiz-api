@@ -47,8 +47,8 @@ const register = async (req, res) => {
     role: req.body.role || 'contributor'
   })
   // Generate token for confirmation code
-  const newContributor = emailVerificationToken(contributor)
-
+  const newContributor = await emailVerificationToken(contributor)
+  console.log(newContributor)
   // Send verification link
   let response = await emailVerification(newContributor)
   if (response) {
@@ -68,7 +68,7 @@ const login = async (req, res) => {
   if (contributor && (await bcrypt.compare(password, contributor.password))) {
     if (contributor.isVerified === 'pending') {
       // Generate token for confirmation code
-      const newContributor = emailVerificationToken(contributor)
+      const newContributor = await emailVerificationToken(contributor)
       await emailVerification(newContributor)
       return errorResponse(res, 400, 'Verify Your Email to access your account')
     }
