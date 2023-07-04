@@ -48,7 +48,7 @@ const register = async (req, res) => {
   })
   // Generate token for confirmation code
   const newContributor = await emailVerificationToken(contributor)
-  console.log(newContributor)
+
   // Send verification link
   let response = await emailVerification(newContributor)
   if (response) {

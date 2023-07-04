@@ -40,7 +40,7 @@ const sendEmail = async (options) => {
 }
 
 const emailVerification = async (user) => {
-  const verification_url = `https://quizbase.netlify.app/email-verify/?${user.confirmationCode}`
+  const verification_url = `${process.env.APP_HOSTNAME}/email-verify/?${user.confirmationCode}`
   let response = await sendEmail({
     email: user.email,
     subject: 'Verify your email address',
