@@ -85,7 +85,7 @@ export default function index({ editData, createQuizhandler, editQuizHandler }) 
               type="text"
               name="option2"
               placeholder="Example: Hyper Text Language"
-              required
+         
               value={option1}
               onChange={(e) => setOption1(e.target.value)}
             />
@@ -98,7 +98,7 @@ export default function index({ editData, createQuizhandler, editQuizHandler }) 
               type="text"
               name="option3"
               placeholder="Example: Does not Exist"
-              required
+          
               value={option2}
               onChange={(e) => setOption2(e.target.value)}
             />
