@@ -17,6 +17,7 @@ export default function AdminBoard() {
   const [editData, setEditData] = useState(null)
   const [quizTab, setQuizTab] = useState('allquiz')
   const [isVerify, setVerify] = useState(false)
+  const [isLoading, setLoading] = useState(false)
   const [allContributor, setContributors] = useState([])
 
   let token
@@ -37,20 +38,26 @@ export default function AdminBoard() {
 
   const getData = async () => {
     try {
+      setLoading(true)
       let quizResponse = await getAllQuizs()
       if (quizResponse) {
         setQuiz(quizResponse.data)
+        setLoading(false)
       }
       let contributorsResponse = await getAllContributorQuizs()
       if (contributorsResponse) {
         setContributors(contributorsResponse.data)
+        setLoading(false)
       }
     } catch (error) {
+      setLoading(false)
       toast.error(error.message, {
         position: toast.POSITION.TOP_CENTER,
         Available: 2000,
         theme: 'colored'
       })
+    } finally {
+      setLoading(false)
     }
   }
   const handleModalChange = (isModalOpen) => {
@@ -205,8 +212,10 @@ export default function AdminBoard() {
 
         <div className="hidden md:block mx-auto my-6">
           {quizTab === 'allquiz' ? (
-            quiz.length ? (
-              <div className=''>
+            isLoading ? (
+              <Spinner width="40px" height="40px" color="#42b883" />
+            ) : quiz.length ? (
+              <div className="">
                 <div className="flex items-center justify-between p-2 ">
                   <p className="py-2 px-4 w-[62px] font-bold text-lg">No.</p>
                   <p className="w-[170px] p-2 font-bold">Question</p>
@@ -264,15 +273,15 @@ export default function AdminBoard() {
                   )
                 })}
               </div>
-            ) : !quiz.length ? (
+            ) : (
               <div className="absolute top-[55%] left-[50%] -translate-y-[50%] -translate-x-[50%]">
                 <p className="text-4xl font-bold p-8  text-gray-100 bg-secondary/50 ">
                   No Quiz Available
                 </p>
               </div>
-            ) : (
-              <Spinner width="40px" height="40px" color="#42b883" />
             )
+          ) : isLoading ? (
+            <Spinner width="40px" height="40px" color="#42b883" />
           ) : allContributor.length ? (
             <div>
               <div className="flex items-center justify-between p-2 ">
@@ -354,14 +363,12 @@ export default function AdminBoard() {
                 )
               })}
             </div>
-          ) : allContributor.length === ' ' ? (
+          ) : (
             <div className="absolute top-[55%] left-[50%] -translate-y-[50%] -translate-x-[50%]">
               <p className="text-4xl font-bold p-8  text-gray-100 bg-secondary/50 ">
                 No Quiz Available
               </p>
             </div>
-          ) : (
-            <Spinner width="40px" height="40px" color="#42b883" />
           )}
         </div>
       </section>

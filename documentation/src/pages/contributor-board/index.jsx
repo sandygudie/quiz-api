@@ -15,6 +15,7 @@ export default function ContributorBoard() {
   const [quiz, setQuiz] = useState([])
   const [isModalOpen, setIsModalOpen] = useState('openForm' | 'deletequiz' | 'close')
   const [editData, setEditData] = useState(null)
+  const [isLoading, setLoading] = useState(false)
 
   let token
   let profile
@@ -38,16 +39,21 @@ export default function ContributorBoard() {
 
   const contributorData = async () => {
     try {
+      setLoading(true)
       let response = await getContributor(profile.id)
       if (response.success) {
         setQuiz(response.data.quiz)
+        setLoading(false)
       }
     } catch (error) {
+      setLoading(false)
       toast.error(error.message, {
         position: toast.POSITION.TOP_CENTER,
         autoClose: 2000,
         theme: 'colored'
       })
+    } finally {
+      setLoading(false)
     }
   }
   const handleModalChange = (isModalOpen) => {
@@ -70,7 +76,6 @@ export default function ContributorBoard() {
         })
         setQuiz((current) => [{ id: Math.random(), status: 'pending', ...formdata }, ...current])
         contributorData()
-      
       }
     } catch (error) {
       console.log(error)
@@ -79,7 +84,7 @@ export default function ContributorBoard() {
         autoClose: 2000,
         theme: 'colored'
       })
-    }finally{
+    } finally {
       handleModalChange('')
     }
   }
@@ -166,7 +171,9 @@ export default function ContributorBoard() {
             Create Quiz
           </button>
         </div>
-        {quiz.length ? (
+        {isLoading ? (
+          <Spinner width="40px" height="40px" color="#42b883" />
+        ) : quiz.length ? (
           <div className="hidden md:block">
             <div className="flex items-center justify-between p-2 ">
               <p className="py-2 px-4 w-[62px] font-bold text-lg">No.</p>
@@ -241,14 +248,12 @@ export default function ContributorBoard() {
               )
             })}
           </div>
-        ) : !quiz.length ? (
+        ) : (
           <div className="absolute top-[55%] left-[50%] -translate-y-[50%] -translate-x-[50%]">
             <p className="text-4xl font-bold p-8 text-gray-100 bg-secondary/50">
               No Quiz Available
             </p>
           </div>
-        ) : (
-          <Spinner width="40px" height="40px" color="#42b883" />
         )}
       </section>
       {isModalOpen === 'openForm' ? (
