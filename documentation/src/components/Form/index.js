@@ -18,14 +18,17 @@ export default function index({ editData, createQuizhandler, editQuizHandler }) 
     setCategory(event.target.value)
   }
   const handleSubmit = (event) => {
+    console.log(option2.length, option1.length)
     event.preventDefault()
     setLoading(true)
+    let arr = [option0]
+
     const formData = {
       category: category,
       difficulty: difficulty,
       question: question,
       correct_answer: correctAnswer,
-      incorrect_answers: [option0, option1, option2]
+      incorrect_answers: option1.length > 0 || option2.length > 0 ? arr.push(option1, option2) : arr
     }
 
     if (editData) {
@@ -57,7 +60,7 @@ export default function index({ editData, createQuizhandler, editQuizHandler }) 
             className="placeholder:text-gray-100 placeholder:text-sm"
             type="text"
             name="correct_answer"
-            placeholder="Example: Hypertext Markup language"
+            placeholder="Example: Hyper Language or True/False"
             required
             value={correctAnswer}
             onChange={(e) => setCorrectAnswer(e.target.value)}
@@ -71,7 +74,7 @@ export default function index({ editData, createQuizhandler, editQuizHandler }) 
               className="placeholder:text-gray-100 placeholder:text-sm"
               type="text"
               name="option1"
-              placeholder="Example: Hyper Language"
+              placeholder="Example: Hyper Language or True/False"
               required
               value={option0}
               onChange={(e) => setOption0(e.target.value)}
@@ -85,7 +88,6 @@ export default function index({ editData, createQuizhandler, editQuizHandler }) 
               type="text"
               name="option2"
               placeholder="Example: Hyper Text Language"
-         
               value={option1}
               onChange={(e) => setOption1(e.target.value)}
             />
@@ -98,7 +100,6 @@ export default function index({ editData, createQuizhandler, editQuizHandler }) 
               type="text"
               name="option3"
               placeholder="Example: Does not Exist"
-          
               value={option2}
               onChange={(e) => setOption2(e.target.value)}
             />

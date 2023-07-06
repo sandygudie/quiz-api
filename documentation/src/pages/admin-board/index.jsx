@@ -206,12 +206,12 @@ export default function AdminBoard() {
         <div className="hidden md:block mx-auto my-6">
           {quizTab === 'allquiz' ? (
             quiz.length ? (
-              <div>
+              <div className=''>
                 <div className="flex items-center justify-between p-2 ">
-                  <p className="py-2 px-4 w-[90px] font-bold text-lg">Index</p>
-                  <p className="w-[270px] p-2 font-bold">Question</p>
-                  <p className="w-[270px] p-2 font-bold">Correct</p>
-                  <p className="w-[480px] p-2 font-bold">Incorrect Options</p>
+                  <p className="py-2 px-4 w-[62px] font-bold text-lg">No.</p>
+                  <p className="w-[170px] p-2 font-bold">Question</p>
+                  <p className="w-[150px] p-2 font-bold">Correct</p>
+                  <p className="w-[400px] p-2 font-bold">Incorrect Options</p>
                   <p className="w-[150px] p-2 font-bold">Others</p>
                   <p className="w-[100px] p-2 font-bold">Actions</p>
                 </div>
@@ -221,11 +221,10 @@ export default function AdminBoard() {
                       key={content.id}
                       className="bg-white justify-between p-2 my-4 rounded-xl flex items-center border-[1px] border-solid border-gray-100"
                     >
-                      <p className="px-4 py-2 w-[90px] font-bold text-lg">{index + 1}</p>
-                      <p className="w-[270px] p-2">{content.question}</p>
-                      <p className="w-[270px] p-2">{content.correct_answer}</p>
-
-                      <div className="w-[480px] p-2 m-0">
+                      <p className="px-4 py-2 w-[62px] font-bold text-lg">{index + 1}</p>
+                      <p className="w-[170px]  p-2">{content.question}</p>
+                      <p className="w-[150px]  p-2">{content.correct_answer}</p>
+                      <div className="w-[400px]  p-2 m-0">
                         {content.incorrect_answers.map((ele, index) => (
                           <li className=" list-disc" key={index}>
                             {ele}
@@ -233,7 +232,7 @@ export default function AdminBoard() {
                         ))}
                       </div>
 
-                      <div className="w-[150px] flex flex-col justify-center gap-2 text-sm">
+                      <div className="w-[150px]  flex flex-col justify-center gap-2 text-sm">
                         <p>
                           <span className="font-semibold pr-2 ">Category:</span>
                           {content.category}
@@ -265,7 +264,7 @@ export default function AdminBoard() {
                   )
                 })}
               </div>
-            ) : !quiz.length? (
+            ) : !quiz.length ? (
               <div className="absolute top-[55%] left-[50%] -translate-y-[50%] -translate-x-[50%]">
                 <p className="text-4xl font-bold p-8  text-gray-100 bg-secondary/50 ">
                   No Quiz Available
@@ -288,9 +287,9 @@ export default function AdminBoard() {
                 return (
                   <div
                     key={content.id}
-                    className="relative bg-white justify-between p-2 my-4 rounded-xl flex items-center border-[1px] border-solid border-gray-100"
+                    className="relative bg-white justify-between px-4 py-8 my-4 rounded-xl flex items-center border-[1px] border-solid border-gray-100"
                   >
-                    <span className="absolute top-2 left-10 text-sm">
+                    <span className="absolute top-4 left-10 text-sm">
                       Createdby:{' '}
                       <span className="text-sm text-primary font-semibold">
                         {content.contributor?.username}

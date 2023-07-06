@@ -169,10 +169,10 @@ export default function ContributorBoard() {
         {quiz.length ? (
           <div className="hidden md:block">
             <div className="flex items-center justify-between p-2 ">
-              <p className="py-2 px-4 w-[64px] font-bold text-lg">No.</p>
-              <p className="w-[270px] p-2 font-bold">Question</p>
-              <p className="w-[270px] p-2 font-bold">Correct</p>
-              <p className="w-[480px] p-2 font-bold">Incorrect Options</p>
+              <p className="py-2 px-4 w-[62px] font-bold text-lg">No.</p>
+              <p className="w-[170px] p-2 font-bold">Question</p>
+              <p className="w-[150px] p-2 font-bold">Correct</p>
+              <p className="w-[400px] p-2 font-bold">Incorrect Options</p>
               <p className="w-[150px] p-2 font-bold">Others</p>
               <p className="w-[100px] p-2 font-bold">Actions</p>
             </div>
@@ -182,11 +182,11 @@ export default function ContributorBoard() {
                   key={content.id}
                   className="bg-white justify-between p-2 my-4 rounded-xl flex items-center border-[1px] border-solid border-gray-100"
                 >
-                  <p className="px-4 py-2 w-[64px] font-bold text-lg">{index + 1}</p>
-                  <p className="w-[270px] p-2">{content.question}</p>
-                  <p className="w-[270px] p-2">{content.correct_answer}</p>
+                  <p className="px-4 py-2 w-[62px] font-bold text-lg">{index + 1}</p>
+                  <p className="w-[170px] p-2">{content.question}</p>
+                  <p className="w-[150px] p-2">{content.correct_answer}</p>
 
-                  <div className="w-[480px] p-2 m-0">
+                  <div className="w-[400px] p-2 m-0">
                     {content.incorrect_answers.map((ele, index) => (
                       <li className=" list-disc" key={index}>
                         {ele}
