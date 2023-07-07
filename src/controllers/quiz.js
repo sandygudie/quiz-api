@@ -12,25 +12,22 @@ const getAllQuizzes = async (req, res) => {
     const { difficulty, category } = req.query
     quizs = await AllQuiz.aggregate([
       { $match: { category: category, difficulty: difficulty } },
-      { $sort: { createdAt: -1 } },
       { $sample: { size: limit } }
     ])
   } else if (req.query.category) {
     const { category } = req.query
     quizs = await AllQuiz.aggregate([
       { $match: { category: category } },
-      { $sort: { createdAt: -1 } },
       { $sample: { size: limit } }
     ])
   } else if (req.query.difficulty) {
     const { difficulty } = req.query
     quizs = await AllQuiz.aggregate([
       { $match: { difficulty: difficulty } },
-      { $sort: { createdAt: -1 } },
       { $sample: { size: limit } }
     ])
   } else {
-    quizs = await AllQuiz.aggregate([{ $sort: { createdAt: -1 } }, { $sample: { size: limit } }])
+    quizs = await AllQuiz.aggregate([{ $sample: { size: limit } }])
   }
   if (quizs.length === 0) {
     return successResponse(res, 200, 'No existing quizzes', quizs)
