@@ -169,7 +169,7 @@ export default function ContributorBoard() {
   }
 
   return (
-    <div className="bg-secondary">
+    <div className="h-screen bg-secondary">
       <div className="bg-white h-25 px-6 py-4 flex items-center justify-between">
       <QuizbaseImage className="w-20 md:w-fit h-10" />
         <div className="flex items-center gap-8">
@@ -291,13 +291,13 @@ export default function ContributorBoard() {
               <p className="w-[150px] p-2 font-bold">Others</p>
               <p className="w-[100px] p-2 font-bold">Actions</p>
             </div>
-            <PaginatedContributor paginatedQuiz={filteredQuiz}/> 
+            <PaginatedContributor editQuizdata={editQuizdata} deleteHandler={deleteHandler } paginatedQuiz={filteredQuiz}/> 
            
    
           </div>
         ) : (
           <div className="absolute top-[55%] left-[50%] -translate-y-[50%] -translate-x-[50%]">
-            <p className="text-4xl font-bold p-8 text-gray-100 bg-secondary/50">
+            <p className="text-4xl text-center font-bold p-8 text-gray-100 ">
               No Quiz Available
             </p>
           </div>

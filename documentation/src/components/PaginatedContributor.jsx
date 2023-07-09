@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import ReactPaginate from 'react-paginate'
 
-export default function PaginatedContributor({ paginatedQuiz }) {
+export default function PaginatedContributor({ paginatedQuiz,editQuizdata,deleteHandler }) {
   const itemsPerPage = 4
   const [itemOffset, setItemOffset] = useState(0)
   const endOffset = itemOffset + itemsPerPage
