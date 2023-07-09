@@ -3,7 +3,7 @@ import './spinner.css'
 
 const index = ({ width, height, color }) => {
   return (
-    <div aria-label="loading" className="spinner">
+    <div aria-label="loading" className="h-screen spinner">
       <div
         style={{ width: width, height: height, borderColor: color }}
         className="spinner__animate"

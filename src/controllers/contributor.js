@@ -16,14 +16,47 @@ const getContributor = async (req, res) => {
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return errorResponse(res, 400, 'Invalid request')
   }
-  const contributor = await Contributor.findById(id).populate({
-    path: 'quiz',
-    options: { sort: { createdAt: -1 } }
-  })
+  const contributor = await Contributor.findById(id)
   if (!contributor) {
     return errorResponse(res, 400, ' Contributor not found')
   }
   return successResponse(res, 200, ' Contributor retrieved successfully', contributor)
+}
+
+const getContributorQuizzes = async (req, res) => {
+  const { id } = req.params
+  const pageNumber = parseInt(req.query.pageNumber) || 1
+  const limit = parseInt(req.query.limit) || 5
+
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return errorResponse(res, 400, 'Invalid request')
+  }
+  const result = {}
+  let startIndex = pageNumber * limit
+  const endIndex = (pageNumber + 1) * limit
+
+  const contributor = await Contributor.findById(id)
+  if (!contributor) {
+    return errorResponse(res, 400, ' Contributor not found')
+  }
+
+  const totalQuiz = (await contributor.populate('quiz')).quiz.length
+
+  let contributorQuiz = await contributor.populate({
+    path: 'quiz',
+    options: { sort: { createdAt: -1 }, skip: startIndex, limit: limit }
+  })
+
+  result.quiz = contributorQuiz.quiz
+  result.totalQuiz = totalQuiz
+  result.limit = limit
+  result.currentPage = pageNumber
+
+  result.previousPage = startIndex > 0 ? pageNumber - 1 : null
+
+  result.nextPage = endIndex < totalQuiz ? pageNumber + 1 : null
+
+  return successResponse(res, 200, ' Contributor retrieved successfully', result)
 }
 
 const deleteContributor = async (req, res) => {
@@ -72,5 +105,6 @@ module.exports = {
   getContributor,
   deleteContributor,
   updateContributor,
-  verifyContributorQuiz
+  verifyContributorQuiz,
+  getContributorQuizzes
 }

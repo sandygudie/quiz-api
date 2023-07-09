@@ -10,6 +10,7 @@ import Spinner from '../../components/Spinner'
 import Form from '../../components/Form'
 import DeleteQuiz from '../../components/DeleteQuiz'
 import { ToastContainer, toast } from 'react-toastify'
+import PaginatedAdmin from '../../components/PaginatedAdmin'
 
 export default function AdminBoard() {
   const [quiz, setQuiz] = useState([])
@@ -98,7 +99,7 @@ export default function AdminBoard() {
   }
   const editHandler = async (id) => {
     quiz.map((content) => {
-      return content.id === id ? setEditData(content) : null
+      return content._id === id ? setEditData(content) : null
     })
     handleModalChange('editQuizForm')
   }
@@ -155,16 +156,16 @@ export default function AdminBoard() {
   }
 
   return (
-    <div className="h-screen overflow-auto bg-secondary">
+    <div className="bg-secondary">
       <div className="bg-white h-25 px-6 py-4 flex items-center justify-between">
         {' '}
         <a href="/">
           {' '}
-          <QuizbaseImage className="w-fit h-10" />
+          <QuizbaseImage className="w-20 md:w-fit h-10" />
         </a>
         <div className="flex items-center gap-8">
           {' '}
-          <p className="font-bold text-primary text-base">
+          <p className="hidden sm:block font-bold text-primary text-base">
             <span className="text-base text-gray-100"> Status:</span>
             {profile.role.toUpperCase()}
           </p>
@@ -177,7 +178,7 @@ export default function AdminBoard() {
         </div>
       </div>
       <section className="p-6 m-auto">
-        <div className="relative font-bold text-base my-8 flex items-center justify-between">
+        <div className="relative font-bold text-base my-8 block sm:flex items-center justify-between">
           {' '}
           <div className="relative flex items-center justify-between gap-6">
             {' '}
@@ -210,12 +211,12 @@ export default function AdminBoard() {
           )}
         </div>
 
-        <div className="hidden md:block mx-auto my-6">
+        <div className="overflow-x-auto md:w-full block mx-auto my-6">
           {quizTab === 'allquiz' ? (
             isLoading ? (
               <Spinner width="40px" height="40px" color="#42b883" />
             ) : quiz.length ? (
-              <div className="">
+              <div className="w-[60em] md:w-full">
                 <div className="flex items-center justify-between p-2 ">
                   <p className="py-2 px-4 w-[62px] font-bold text-lg">No.</p>
                   <p className="w-[170px] p-2 font-bold">Question</p>
@@ -224,54 +225,7 @@ export default function AdminBoard() {
                   <p className="w-[150px] p-2 font-bold">Others</p>
                   <p className="w-[100px] p-2 font-bold">Actions</p>
                 </div>
-                {quiz?.map((content, index) => {
-                  return (
-                    <div
-                      key={content.id}
-                      className="bg-white justify-between p-2 my-4 rounded-xl flex items-center border-[1px] border-solid border-gray-100"
-                    >
-                      <p className="px-4 py-2 w-[62px] font-bold text-lg">{index + 1}</p>
-                      <p className="w-[170px]  p-2">{content.question}</p>
-                      <p className="w-[150px]  p-2">{content.correct_answer}</p>
-                      <div className="w-[400px]  p-2 m-0">
-                        {content.incorrect_answers.map((ele, index) => (
-                          <li className=" list-disc" key={index}>
-                            {ele}
-                          </li>
-                        ))}
-                      </div>
-
-                      <div className="w-[150px]  flex flex-col justify-center gap-2 text-sm">
-                        <p>
-                          <span className="font-semibold pr-2 ">Category:</span>
-                          {content.category}
-                        </p>
-                        <p>
-                          <span className="font-semibold  pr-2">Difficulty:</span>
-                          {content.difficulty}
-                        </p>
-                      </div>
-                      <div className="w-[100px] p-2 flex flex-col gap-3">
-                        {' '}
-                        <button
-                          onClick={() => editHandler(content.id)}
-                          className="p-2 cursor-pointer w-[70px] font-bold block"
-                        >
-                          {' '}
-                          Edit
-                        </button>
-                        <button
-                          onClick={() => {
-                            deleteHandler(content.id)
-                          }}
-                          className="p-2 cursor-pointer w-[70px] font-bold block"
-                        >
-                          Delete
-                        </button>
-                      </div>
-                    </div>
-                  )
-                })}
+                <PaginatedAdmin editHandler={editHandler} paginatedQuiz={quiz} admin="true" />
               </div>
             ) : (
               <div className="absolute top-[55%] left-[50%] -translate-y-[50%] -translate-x-[50%]">
@@ -283,7 +237,7 @@ export default function AdminBoard() {
           ) : isLoading ? (
             <Spinner width="40px" height="40px" color="#42b883" />
           ) : allContributor.length ? (
-            <div>
+            <div className="w-[60em] md:w-full">
               <div className="flex items-center justify-between p-2 ">
                 <p className="py-2 px-4 w-[90px] font-bold text-lg">Index</p>
                 <p className="w-[270px] p-2 font-bold">Question</p>
@@ -292,76 +246,12 @@ export default function AdminBoard() {
                 <p className="w-[150px] p-2 font-bold">Others</p>
                 <p className="w-[100px] p-2 font-bold">Actions</p>
               </div>
-              {allContributor.map((content, index) => {
-                return (
-                  <div
-                    key={content.id}
-                    className="relative bg-white justify-between px-4 py-8 my-4 rounded-xl flex items-center border-[1px] border-solid border-gray-100"
-                  >
-                    <span className="absolute top-4 left-10 text-sm">
-                      Createdby:{' '}
-                      <span className="text-sm text-primary font-semibold">
-                        {content.contributor?.username}
-                      </span>
-                    </span>
-                    <p className="px-4 py-2 w-[90px] font-bold text-lg">{index + 1}</p>
-                    <p className="w-[270px] p-2">{content.question}</p>
-                    <p className="w-[270px] p-2">{content.correct_answer}</p>
-
-                    <div className="w-[480px] p-2 m-0">
-                      {content.incorrect_answers.map((ele, index) => (
-                        <li className="list-disc" key={index}>
-                          {ele}
-                        </li>
-                      ))}
-                    </div>
-
-                    <div className="w-[150px] flex flex-col justify-center gap-2 text-sm">
-                      <p>
-                        <span className="font-semibold pr-2 ">Category:</span>
-                        {content.category}
-                      </p>
-                      <p>
-                        <span className="font-semibold  pr-2">Difficulty:</span>
-                        {content.difficulty}
-                      </p>
-                      <div className="flex items-center">
-                        {' '}
-                        <span className="font-semibold  pr-2">Status:</span>
-                        {content.status === 'pending' ? (
-                          <button
-                            onClick={() => verifyHandler(content.id)}
-                            className={`text-error w-[70px] font-semibold w-15 p-2`}
-                          >
-                            {content.status}
-                          </button>
-                        ) : (
-                          <p className="text-success font-semibold">{content.status}</p>
-                        )}
-                      </div>
-                    </div>
-
-                    <div className="w-[100px] p-2 flex flex-col gap-3">
-                      {' '}
-                      <button
-                        onClick={() => editHandler(content.id)}
-                        className="p-2 w-[70px] cursor-pointer font-bold block"
-                      >
-                        {' '}
-                        Edit
-                      </button>
-                      <button
-                        onClick={() => {
-                          deleteHandler(content.id)
-                        }}
-                        className="p-2 w-[70px] cursor-pointer font-bold block"
-                      >
-                        Delete
-                      </button>
-                    </div>
-                  </div>
-                )
-              })}
+              <PaginatedAdmin
+                verifyHandler={verifyHandler}
+                deleteHandler={deleteHandler}
+                editHandler={editHandler}
+                paginatedQuiz={allContributor}
+              />
             </div>
           ) : (
             <div className="absolute top-[55%] left-[50%] -translate-y-[50%] -translate-x-[50%]">
@@ -412,6 +302,3 @@ export default function AdminBoard() {
     </div>
   )
 }
-
-// Admin can edit contributor quiz
-// reoranise the endpoint folder

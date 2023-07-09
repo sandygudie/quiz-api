@@ -14,7 +14,8 @@ module.exports = {
         white: '#ffffff',
         transparent: 'transparent',
         gray: {
-          100: 'hsla(260,11%,85%,1)'
+          100: 'hsla(260,11%,85%,1)',
+          200: 'hsl(0deg 5.01% 61.55%)',
         }
       }
     }
