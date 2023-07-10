@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { TOKEN_KEY, PROFILE_KEY } from '../../utilis/constants'
 import { Redirect } from '@docusaurus/router'
 import QuizbaseImage from '@site/static/img/logo.svg'
-import { getContributor } from '../../utilis/api/contributor'
+import { getContributor, getContributorQuiz } from '../../utilis/api/contributor'
 import Modal from '../../components/Modal'
 import Spinner from '../../components/Spinner'
 import { createQuiz, editQuiz } from '../../utilis/api/quiz'
@@ -20,8 +20,8 @@ export default function ContributorBoard() {
   const [editData, setEditData] = useState(null)
   const [isLoading, setLoading] = useState(false)
   const [status, setStatus] = useState('')
-  const [filteredCategory, setFilteredCategory] = useState('')
-  const [filteredDifficulty, setFilteredDifficulty] = useState('')
+  const [category, setCategory] = useState('')
+  const [difficulty, setDifficulty] = useState('')
 
   let token
   let profile
@@ -46,10 +46,11 @@ export default function ContributorBoard() {
   const contributorData = async () => {
     try {
       setLoading(true)
-      let response = await getContributor(profile.id)
+      // let response = await getContributor(profile.id)
+      let response = await getContributorQuiz(profile.id)
       if (response.success) {
-        setQuiz(response.data.quiz)
-        setFilteredQuiz(response.data.quiz)
+        setQuiz(response.data)
+        setFilteredQuiz(response.data)
         setLoading(false)
       }
     } catch (error) {
@@ -143,35 +144,45 @@ export default function ContributorBoard() {
 
   const changeHandlerStatus = (e) => {
     setStatus(e.target.value)
-    filteredQuizHandler(e.target.value)
+    filteredQuizHandler(e.target.value, category, difficulty)
   }
-
-  const filteredQuizHandler = (filtered) => {
-    const newQuiz =
-      filteredQuiz.length && filteredQuiz[0].status === filtered
-        ? filteredQuiz.filter((ele) => ele.status === filtered)
-        : quiz.filter((ele) => ele.status === filtered)
-    setFilteredQuiz(newQuiz)
-  }
-
-  const filteredQuizHandlerCategory = (category) => {
-    const newQuiz =
-      filteredQuiz.length && filteredQuiz[0].category === category
-        ? filteredQuiz.filter((ele) => ele.category === category)
-        : []
-
-    setFilteredQuiz(newQuiz)
-  }
-
   const changeHandlerCategory = (e) => {
-    setFilteredCategory(e.target.value)
-    filteredQuizHandlerCategory(e.target.value)
+    setCategory(e.target.value)
+    filteredQuizHandler(status, e.target.value, difficulty)
+  }
+
+  const changeHandlerDifficulty = (e) => {
+    setDifficulty(e.target.value)
+    filteredQuizHandler(status, category, e.target.value)
+  }
+  const filteredQuizHandler = async (status, category, difficulty) => {
+    console.log(status, category, difficulty)
+    try {
+      setLoading(true)
+      // let response = await getContributor(profile.id)
+      let response = await getContributorQuiz(profile.id, status, category, difficulty)
+
+      if (response.success) {
+        // setQuiz(response.data)
+        setFilteredQuiz(response.data)
+        setLoading(false)
+      }
+    } catch (error) {
+      setLoading(false)
+      toast.error(error.message, {
+        position: toast.POSITION.TOP_CENTER,
+        autoClose: 2000,
+        theme: 'colored'
+      })
+    } finally {
+      setLoading(false)
+    }
   }
 
   return (
-    <div className="h-screen bg-secondary">
+    <div className="bg-secondary">
       <div className="bg-white h-25 px-6 py-4 flex items-center justify-between">
-      <QuizbaseImage className="w-20 md:w-fit h-10" />
+        <QuizbaseImage className="w-20 md:w-fit h-10" />
         <div className="flex items-center gap-8">
           {' '}
           {profile.role.length ? (
@@ -191,7 +202,7 @@ export default function ContributorBoard() {
         </div>
       </div>
 
-      <section className="overflow-x-auto p-6 m-auto">
+      <section className="p-6 m-auto">
         <div className="font-bold text-xl my-8 md:flex items-center justify-between">
           {' '}
           <h3>Contributor Quiz</h3>
@@ -205,9 +216,9 @@ export default function ContributorBoard() {
           </button>
         </div>
         {/* add icons to filter */}
-        <div className="flex items-center gap-4 justify-start my-4">
+        <div className="flex-wrap flex items-center gap-4 justify-start my-4">
           <p>Filter</p>
-          <div className="group cursor-pointer relative border-solid border-gray-500 px-2 py-1 text-base rounded-md bg-white">
+          <div className="w-fit group cursor-pointer relative border-solid border-gray-500 px-2 py-1 text-base rounded-md bg-white">
             Status
             <div className="hidden group-hover:block absolute w-48 rounded-md p-3 bg-gray-100">
               <CheckBox
@@ -226,80 +237,85 @@ export default function ContributorBoard() {
               />
             </div>
           </div>
-          <div className="group cursor-pointer border-solid border-1 border-gray-500 px-2 py-1 text-base rounded-md bg-white">
+          <div className="w-fit group cursor-pointer border-solid border-1 border-gray-500 px-2 py-1 text-base rounded-md bg-white">
             Category
             <div className="hidden group-hover:block absolute w-48 rounded-md p-3 bg-gray-100">
               <CheckBox
                 changed={(e) => changeHandlerCategory(e)}
                 id="category-1"
-                isSelected={filteredCategory === 'HTML'}
+                isSelected={category === 'HTML'}
                 label="HTML"
                 value="HTML"
               />
               <CheckBox
                 changed={(e) => changeHandlerCategory(e)}
                 id="category-2"
-                isSelected={filteredCategory === 'CSS'}
+                isSelected={category === 'CSS'}
                 label="CSS"
                 value="CSS"
               />
               <CheckBox
                 changed={(e) => changeHandlerCategory(e)}
                 id="category-3"
-                isSelected={filteredCategory === 'Javascript'}
+                isSelected={category === 'Javascript'}
                 label="Javascript"
                 value="Javascript"
               />
             </div>
           </div>
-          <div className="group cursor-pointer  border-solid border-1 border-gray-500 px-2 py-1 text-base rounded-md bg-white">
+          <div className="w-fit group cursor-pointer border-solid border-1 border-gray-500 px-2 py-1 text-base rounded-md bg-white">
             Difficulty
             <div className="hidden group-hover:block absolute w-48 rounded-md p-3 bg-gray-100">
               <CheckBox
-                changed={(e) => radioChangeHandler(e)}
+                changed={(e) => changeHandlerDifficulty(e)}
                 id="difficulty-1"
-                isSelected={status === 'easy'}
+                isSelected={difficulty === 'easy'}
                 label="easy"
                 value="easy"
               />
               <CheckBox
-                changed={(e) => radioChangeHandler(e)}
+                changed={(e) => changeHandlerDifficulty(e)}
                 id="difficulty-2"
-                isSelected={status === 'medium'}
+                isSelected={difficulty === 'medium'}
                 label="medium"
                 value="medium"
               />
               <CheckBox
-                changed={(e) => radioChangeHandler(e)}
+                changed={(e) => changeHandlerDifficulty(e)}
                 id="difficulty-3"
-                isSelected={status === 'hard'}
+                isSelected={difficulty === 'hard'}
                 label="hard"
                 value="hard"
               />
             </div>
           </div>
+          <button className="" onClick={() => contributorData()}>
+            Clear filter
+          </button>
         </div>
         {isLoading ? (
           <Spinner width="40px" height="40px" color="#42b883" />
         ) : filteredQuiz.length ? (
-          <div className="w-[60em]  md:w-full">
-            <div className="flex items-center justify-between p-2 ">
-              <p className="py-2 px-4 w-[62px] font-bold text-lg">No.</p>
-              <p className="w-[170px] p-2 font-bold">Question</p>
-              <p className="w-[150px] p-2 font-bold">Correct</p>
-              <p className="w-[400px] p-2 font-bold">Incorrect Options</p>
-              <p className="w-[150px] p-2 font-bold">Others</p>
-              <p className="w-[100px] p-2 font-bold">Actions</p>
+          <div className="overflow-x-auto w-[15em] m-auto md:w-full">
+            <div className="w-[60em]  md:w-full">
+              <div className="flex items-center justify-between p-2 ">
+                <p className="py-2 px-4 w-[62px] font-bold text-lg">No.</p>
+                <p className="w-[170px] p-2 font-bold">Question</p>
+                <p className="w-[150px] p-2 font-bold">Correct</p>
+                <p className="w-[400px] p-2 font-bold">Incorrect Options</p>
+                <p className="w-[150px] p-2 font-bold">Others</p>
+                <p className="w-[100px] p-2 font-bold">Actions</p>
+              </div>
+              <PaginatedContributor
+                editQuizdata={editQuizdata}
+                deleteHandler={deleteHandler}
+                paginatedQuiz={filteredQuiz}
+              />
             </div>
-            <PaginatedContributor editQuizdata={editQuizdata} deleteHandler={deleteHandler } paginatedQuiz={filteredQuiz}/> 
-           
-   
           </div>
         ) : (
           <div className="absolute top-[55%] left-[50%] -translate-y-[50%] -translate-x-[50%]">
-            <p className="text-4xl text-center font-bold p-8 text-gray-100 ">
-              No Quiz Available
-            </p>
+            <p className="text-4xl text-center font-bold p-8 text-gray-100 ">No Quiz Available</p>
           </div>
         )}
       </section>
