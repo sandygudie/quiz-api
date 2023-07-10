@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { TOKEN_KEY, PROFILE_KEY } from '../../utilis/constants'
 import { Redirect } from '@docusaurus/router'
 import QuizbaseImage from '@site/static/img/logo.svg'
-import { getContributor, getContributorQuiz } from '../../utilis/api/contributor'
+import { getContributorQuiz } from '../../utilis/api/contributor'
 import Modal from '../../components/Modal'
 import Spinner from '../../components/Spinner'
 import { createQuiz, editQuiz } from '../../utilis/api/quiz'
@@ -15,7 +15,6 @@ import PaginatedContributor from '../../components/PaginatedContributor'
 
 export default function ContributorBoard() {
   const [quiz, setQuiz] = useState([])
-  const [filteredQuiz, setFilteredQuiz] = useState([])
   const [isModalOpen, setIsModalOpen] = useState('openForm' | 'deletequiz' | 'close')
   const [editData, setEditData] = useState(null)
   const [isLoading, setLoading] = useState(false)
@@ -46,11 +45,9 @@ export default function ContributorBoard() {
   const contributorData = async () => {
     try {
       setLoading(true)
-      // let response = await getContributor(profile.id)
       let response = await getContributorQuiz(profile.id)
       if (response.success) {
         setQuiz(response.data)
-        setFilteredQuiz(response.data)
         setLoading(false)
       }
     } catch (error) {
@@ -105,6 +102,7 @@ export default function ContributorBoard() {
   const editQuizHandler = async (id, formData) => {
     try {
       const response = await editQuiz(formData, id)
+      console.log(response)
       if (response.success) {
         toast(<p className="text-lg font-semibold text-green-700">{response.success}</p>, {
           position: 'top-center',
@@ -163,8 +161,7 @@ export default function ContributorBoard() {
       let response = await getContributorQuiz(profile.id, status, category, difficulty)
 
       if (response.success) {
-        // setQuiz(response.data)
-        setFilteredQuiz(response.data)
+        setQuiz(response.data)
         setLoading(false)
       }
     } catch (error) {
@@ -295,7 +292,7 @@ export default function ContributorBoard() {
         </div>
         {isLoading ? (
           <Spinner width="40px" height="40px" color="#42b883" />
-        ) : filteredQuiz.length ? (
+        ) : quiz.length ? (
           <div className="overflow-x-auto w-[15em] m-auto md:w-full">
             <div className="w-[60em]  md:w-full">
               <div className="flex items-center justify-between p-2 ">
@@ -309,7 +306,7 @@ export default function ContributorBoard() {
               <PaginatedContributor
                 editQuizdata={editQuizdata}
                 deleteHandler={deleteHandler}
-                paginatedQuiz={filteredQuiz}
+                paginatedQuiz={quiz}
               />
             </div>
           </div>

@@ -33,5 +33,4 @@ export default function Home() {
 }
 
 // todo
-// - add questions to the quiz
 // fixed refresh token

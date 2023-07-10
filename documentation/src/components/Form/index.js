@@ -18,17 +18,27 @@ export default function index({ editData, createQuizhandler, editQuizHandler }) 
     setCategory(event.target.value)
   }
   const handleSubmit = (event) => {
-    console.log(option2.length, option1.length)
+    // console.log(option0, option2, option1)
     event.preventDefault()
     setLoading(true)
     let arr = [option0]
 
-    const formData = {
+    const formData = editData? {
       category: category,
       difficulty: difficulty,
       question: question,
       correct_answer: correctAnswer,
-      incorrect_answers: option1.length > 0 || option2.length > 0 ? arr.push(option1, option2) : arr
+      incorrect_answers:
+        option1 == undefined || option2 == undefined
+          ? arr.concat(option1, option2)
+          : [option0, option1, option2]
+    }:{
+      category: category,
+      difficulty: difficulty,
+      question: question,
+      correct_answer: correctAnswer,
+      incorrect_answers:
+        option1.length > 0 || option2.length > 0 ? arr.concat(option1, option2) : arr
     }
 
     if (editData) {
@@ -41,7 +51,10 @@ export default function index({ editData, createQuizhandler, editQuizHandler }) 
   return (
     <div className="h-[40em] p-6 lg:p-10 bg-white text-gray rounded-xl">
       <h2>{editData ? 'Edit Question' : 'Add New Question'}</h2>
-      <form className="mt-4 flex flex-col h-[32em] overflow-y-auto" onSubmit={handleSubmit}>
+      <form
+        className="mt-4 flex flex-col h-[32em] overflow-y-auto"
+        onSubmit={(e) => handleSubmit(e)}
+      >
         <div className="my-3">
           <label className="pb-1 block text-base font-semibold">Question</label>
           <input
@@ -73,7 +86,7 @@ export default function index({ editData, createQuizhandler, editQuizHandler }) 
             <input
               className="placeholder:text-gray-100 placeholder:text-sm"
               type="text"
-              name="option1"
+              name="option0"
               placeholder="Example: Hyper Language or True/False"
               required
               value={option0}
@@ -86,9 +99,9 @@ export default function index({ editData, createQuizhandler, editQuizHandler }) 
             <input
               className="placeholder:text-gray-100 placeholder:text-sm"
               type="text"
-              name="option2"
+              name="option1"
               placeholder="Example: Hyper Text Language"
-              value={option1}
+              value={option1 || ''}
               onChange={(e) => setOption1(e.target.value)}
             />
           </div>
@@ -98,9 +111,9 @@ export default function index({ editData, createQuizhandler, editQuizHandler }) 
             <input
               className="placeholder:text-gray-100 placeholder:text-sm"
               type="text"
-              name="option3"
+              name="option2"
               placeholder="Example: Does not Exist"
-              value={option2}
+              value={option2 || ' '}
               onChange={(e) => setOption2(e.target.value)}
             />
           </div>
