@@ -10,7 +10,7 @@ import Form from '../../components/Form'
 import DeleteQuiz from '../../components/DeleteQuiz'
 import { ToastContainer, toast } from 'react-toastify'
 import { logout } from '../../utilis/api/auth'
-import CheckBox from '../../components/Checkbox'
+import CheckBox from '../../components/CheckBox'
 import PaginatedContributor from '../../components/PaginatedContributor'
 
 export default function ContributorBoard() {
