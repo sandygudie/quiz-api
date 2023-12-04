@@ -5,7 +5,7 @@ sidebar_position: 2
 ### BaseUrl
 
 ```
-https://quizbase.onrender.com/api/v1/quiz
+https://quizbase-api.cyclic.app/api/v1/quiz
 ```
 
 ### Query parameters
@@ -19,7 +19,7 @@ https://quizbase.onrender.com/api/v1/quiz
 ### Example
 
 ```
-https://quizbase.onrender.com/api/v1/quiz?category=HTML
+https://quizbase-api.cyclic.app/api/v1/quiz?category=HTML
 
 ```
 

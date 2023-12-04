@@ -29,7 +29,7 @@ You can search for questions using any of the following queries:
 ## Example
 
 ```
-fetch('https://quizbase.onrender.com/api/v1/quiz')
+fetch('https://quizbase-api.cyclic.app/api/v1/quiz')
       .then(response => response.json())
       .then(json => console.log(json))
 
