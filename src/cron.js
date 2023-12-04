@@ -1,7 +1,7 @@
 const cron = require('node-cron')
 const https = require('https')
 
-const backendUrl = 'https://quizbase.onrender.com/api/v1'
+const backendUrl = 'https://quizbase.onrender.com'
 const job = cron.schedule('*/14 * * * *', function () {
   https
     .get(backendUrl, (res) => {
