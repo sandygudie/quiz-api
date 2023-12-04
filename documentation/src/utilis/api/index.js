@@ -1,7 +1,6 @@
 import axios from 'axios'
 import { PROFILE_KEY, TOKEN_KEY } from '../constants'
 
-
 let token
 if (typeof window !== 'undefined') {
   token = localStorage.getItem(TOKEN_KEY)
@@ -25,7 +24,7 @@ async function makeApiCall(url, method, payload, axiosRequestConfig) {
       ...axiosRequestConfig
     })
 
-    return data
+return data
   } catch (error) {
     if (error.response) {
       if (error.response.status === 403 || error.response.status === 401) {
